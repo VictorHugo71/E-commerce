@@ -1,0 +1,59 @@
+<!-- HEADER -->
+<mat-toolbar color="primary" class="toolbar">
+    <span class="logo" routerLink="/">Loja Virtual</span>
+  
+    <!-- Barra de pesquisa -->
+    <span class="spacer"></span>
+    <mat-form-field appearance="outline" class="search-bar">
+      <input matInput placeholder="Buscar produtos...">
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </mat-toolbar>
+  
+  <nav class="sub-nav">
+    <button mat-button [matMenuTriggerFor]="menuCategorias">Categorias</button>
+    <mat-menu #menuCategorias="matMenu">
+      <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria }}</button>
+    </mat-menu>
+  
+    <a href="#">Ofertas</a>
+    <a href="#">Cupons</a>
+    <a href="#">Compras</a>
+    <a href="#">Lista de Desejos</a>
+    <a href="#">Criar Conta</a>
+    <a href="#">Entrar</a>
+  </nav>
+  
+  
+  <!-- MAIN -->
+  <main class="content-layout">
+  
+    <!-- ASIDE -->
+    <aside class="aside-menu">
+      <h3>Filtros ou Menus Interativos</h3>
+      <p>Ex: por categoria, faixa de preço, avaliação...</p>
+    </aside>
+  
+    <!-- CATEGORIAS OU PRODUTOS -->
+    <section class="product-display">
+      <h2>Categorias em destaque</h2>
+      <!-- Aqui você pode exibir categorias ou produtos -->
+      <div class="grid">
+        <div class="product-card" *ngFor="let produto of produtos">
+          <img [src]="produto.imagem" alt="Produto" />
+          <h3>{{ produto.nome }}</h3>
+          <p class="preco">R$ {{ produto.preco }}</p>
+          <button mat-raised-button color="accent">Ver mais</button>
+        </div>
+      </div>
+    </section>
+  
+  </main>
+  
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2025 Loja Virtual. Todos os direitos reservados.</p>
+  </footer>
+  

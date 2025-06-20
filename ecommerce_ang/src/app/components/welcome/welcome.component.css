@@ -1,0 +1,71 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .logo {
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .spacer {
+    flex: 1;
+  }
+  
+  .search-bar {
+    width: 300px;
+    margin-left: auto;
+  }
+  
+  .sub-nav {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    font-size: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .sub-nav a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .content-layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .aside-menu {
+    width: 20%;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .product-display {
+    width: 80%;
+  }
+  
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .product-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+  }
+  
+  .footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #eee;
+    margin-top: 40px;
+  }
+  
