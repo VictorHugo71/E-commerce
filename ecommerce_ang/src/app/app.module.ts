@@ -12,13 +12,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card'; // útil para produto
-import {MatMenuModule} from '@angular/material/menu'
+import {MatMenuModule} from '@angular/material/menu';
+import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    DetalheProdutoComponent
   ],
   imports: [
     BrowserModule,

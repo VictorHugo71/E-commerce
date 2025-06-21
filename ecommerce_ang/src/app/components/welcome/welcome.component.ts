@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { URL } from 'node:url';
 
 @Component({
   selector: 'app-welcome',
@@ -11,7 +12,7 @@ export class WelcomeComponent {
     {
       nome: 'Fone Bluetooth',
       preco: 99.90,
-      imagem: '/assets/fone.jpg'
+      imagem: 'fone.jpg'
     },
     {
       nome: 'Smartwatch',

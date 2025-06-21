@@ -18,12 +18,12 @@
       <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria }}</button>
     </mat-menu>
   
-    <a href="#">Ofertas</a>
-    <a href="#">Cupons</a>
-    <a href="#">Compras</a>
-    <a href="#">Lista de Desejos</a>
-    <a href="#">Criar Conta</a>
-    <a href="#">Entrar</a>
+    <button mat-button routerLink="/ofertas">Ofertas</button>
+    <!--<button mat-button routerLink="/cupons">Cupons</button>-->
+    <button mat-button routerLink="/compras">Compras</button> 
+    <button mat-button routerLink="/listaDesejo">Lista de Desejos</button>
+    <button mat-button routerLink="/signup">Criar Conta</button>
+    <button mat-button routerLink="/login">Entrar</button>
   </nav>
   
   
@@ -45,7 +45,9 @@
           <img [src]="produto.imagem" alt="Produto" />
           <h3>{{ produto.nome }}</h3>
           <p class="preco">R$ {{ produto.preco }}</p>
-          <button mat-raised-button color="accent">Ver mais</button>
+          <button mat-raised-button color="accent" routerLink="[/produto, produto.id]">
+            Ver mais
+          </button>
         </div>
       </div>
     </section>
