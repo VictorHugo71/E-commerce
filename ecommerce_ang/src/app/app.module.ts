@@ -13,14 +13,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card'; // útil para produto
 import {MatMenuModule} from '@angular/material/menu';
-import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component'
+import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     WelcomeComponent,
-    DetalheProdutoComponent
+    DetalheProdutoComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
