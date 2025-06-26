@@ -1,1 +1,21 @@
-<p>login works!</p>
+<form class="login-form"  #form="ngForm">
+  <h2>Entrar</h2>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" name="email" [(ngModel)]="usuario.email" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Senha</mat-label>
+    <input matInput type="password" name="senha" [(ngModel)]="usuario.senha" required />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    Entrar
+  </button>
+
+  <p class="register-link">
+    Não tem uma conta? <a routerLink="/signup">Criar conta</a>
+  </p>
+</form>

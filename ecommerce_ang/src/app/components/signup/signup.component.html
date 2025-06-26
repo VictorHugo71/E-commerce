@@ -1,1 +1,32 @@
-<p>signup works!</p>
+<form class="cadastro-form" (ngSubmit)="cadastrar()" #form="ngForm">
+    <h2>Criar Conta</h2>
+  
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nome completo</mat-label>
+      <input matInput name="nome" [(ngModel)]="usuario.nome" required />
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" name="email" [(ngModel)]="usuario.email" required />
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" name="senha" [(ngModel)]="usuario.senha" required />
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Confirmar senha</mat-label>
+      <input matInput type="password" name="confirmarSenha" [(ngModel)]="usuario.confirmarSenha" required />
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">
+      Criar Conta
+    </button>
+  
+    <p class="login-link">
+      Já tem uma conta? <a routerLink="/login">Entrar</a>
+    </p>
+  </form>
+  

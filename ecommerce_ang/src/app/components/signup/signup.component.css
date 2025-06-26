@@ -1,0 +1,18 @@
+.cadastro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .login-link {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  

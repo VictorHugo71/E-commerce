@@ -1,0 +1,25 @@
+.auth-container {
+  display: flex;
+height: 100vh;
+}
+
+.auth-left {
+  flex: 1;
+  background-color: #1976d2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-right {
+  flex: 1;
+  background-color: #1976d2;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+  
