@@ -11,13 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card'; // útil para produto
 import { MatMenuModule} from '@angular/material/menu';
 
+
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HomeComponent } from './components/home/home.component';
 import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component'
+import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component'
     DetalheProdutoComponent,
     LoginComponent,
     SignupComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
   ],
   imports: [
     BrowserModule,

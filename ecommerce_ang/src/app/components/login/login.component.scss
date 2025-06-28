@@ -1,0 +1,46 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 350px;
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.register-link {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.custom-button {
+  background-color: #D4A017 !important;
+  color: #ffffff !important;
+  font-weight: bold;
+  width: 100%;
+  max-width: 300px;
+}
+
+.custom-input .mat-form-field-flex {
+  background-color: #F3EED9; // fundo claro da paleta
+  border-radius: 6px;
+}
+
+.custom-input .mat-form-field-outline,
+.custom-input .mat-form-field-outline-thick {
+  stroke: #D4A017; // dourado
+}
+
+.custom-input .mat-form-field-label {
+  color: #013A63;
+}
+
+.custom-input.mat-focused .mat-form-field-outline-thick {
+  stroke: #F2A71B; // destaque ao focar
+}
+
+.custom-input.mat-focused .mat-form-field-label {
+  color: #F2A71B;
+}
