@@ -23,24 +23,39 @@
   max-width: 300px;
 }
 
-.custom-input .mat-form-field-flex {
-  background-color: #F3EED9; // fundo claro da paleta
+// src/app/components/login/login.component.scss
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 48px !important;
+  background-color: #F3EED9 !important;
   border-radius: 6px;
 }
 
-.custom-input .mat-form-field-outline,
-.custom-input .mat-form-field-outline-thick {
-  stroke: #D4A017; // dourado
+::ng-deep .mdc-text-field__input {
+  color: #013A63 !important; // cor do texto digitado
+  font-weight: 500;
+  caret-color: #D4A017 !important;
 }
 
-.custom-input .mat-form-field-label {
-  color: #013A63;
+::ng-deep .mdc-floating-label {
+  color: #A5A692 !important; // cor do label
 }
 
-.custom-input.mat-focused .mat-form-field-outline-thick {
-  stroke: #F2A71B; // destaque ao focar
+::ng-deep .mdc-text-field--focused .mdc-floating-label {
+  color: #F2A71B !important;
+  font-weight: bold;
 }
 
-.custom-input.mat-focused .mat-form-field-label {
-  color: #F2A71B;
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing {
+  border-color: #D4A017 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #F2A71B !important;
+  border-width: 3px !important;
 }

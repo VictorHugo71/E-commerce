@@ -22,3 +22,40 @@
   width: 100%;
   max-width: 300px;
 }
+
+// src/app/components/login/login.component.scss
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 48px !important;
+  background-color: #F3EED9 !important;
+  border-radius: 6px;
+}
+
+::ng-deep .mdc-text-field__input {
+  color: #013A63 !important; // cor do texto digitado
+  font-weight: 500;
+  caret-color: #D4A017 !important;
+}
+
+::ng-deep .mdc-floating-label {
+  color: #A5A692 !important; // cor do label
+}
+
+::ng-deep .mdc-text-field--focused .mdc-floating-label {
+  color: #F2A71B !important;
+  font-weight: bold;
+}
+
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing {
+  border-color: #D4A017 !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__notch,
+::ng-deep .mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #F2A71B !important;
+  border-width: 3px !important;
+}
