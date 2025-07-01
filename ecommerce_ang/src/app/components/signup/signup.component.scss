@@ -5,25 +5,15 @@
   width: 350px;
   text-align: center;
 }
-  
+
 .full-width {
   width: 100%;
 }
 
-.login-link {
+.register-link {
   margin-top: 10px;
   font-size: 14px;
 }
-
-.custom-button {
-  background-color: #D4A017 !important;
-  color: #ffffff !important;
-  font-weight: bold;
-  width: 100%;
-  max-width: 300px;
-}
-
-// src/app/components/login/login.component.scss
 
 ::ng-deep .mat-mdc-text-field-wrapper {
   height: 48px !important;
@@ -32,30 +22,23 @@
 }
 
 ::ng-deep .mdc-text-field__input {
-  color: #013A63 !important; // cor do texto digitado
+  color: #01223a !important; // cor do texto digitado
   font-weight: 500;
-  caret-color: #D4A017 !important;
 }
 
 ::ng-deep .mdc-floating-label {
-  color: #A5A692 !important; // cor do label
+  color: #3d3d35 !important; // cor do label
 }
 
 ::ng-deep .mdc-text-field--focused .mdc-floating-label {
-  color: #F2A71B !important;
+  color: #9b6500 !important;
   font-weight: bold;
 }
 
-::ng-deep .mdc-notched-outline__leading,
-::ng-deep .mdc-notched-outline__notch,
-::ng-deep .mdc-notched-outline__trailing {
-  border-color: #D4A017 !important;
-  border-width: 2px !important;
+::ng-deep .mat-mdc-form-field-error {
+  color: #FF6F61; // tom coral elegante (ou vermelho suave)
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 2px;
 }
 
-::ng-deep .mdc-text-field--focused .mdc-notched-outline__leading,
-::ng-deep .mdc-text-field--focused .mdc-notched-outline__notch,
-::ng-deep .mdc-text-field--focused .mdc-notched-outline__trailing {
-  border-color: #F2A71B !important;
-  border-width: 3px !important;
-}

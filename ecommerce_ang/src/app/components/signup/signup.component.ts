@@ -32,4 +32,6 @@ constructor(private router: Router) {}
     alert('Cadastro realizado com sucesso!');
     this.router.navigate(['/login']);
   }
+
+  confirmarSenha = '';
 }

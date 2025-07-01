@@ -3,3 +3,28 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+// Botão desabilitado (inativo)
+button.submit-button:disabled {
+    background-color: #ccc !important;
+    color: #666 !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+  }
+  
+  // Botão ativo (validação passou)
+  button.submit-button {
+    background-color: #D4A017 !important;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+  }
+  
+  // Hover quando estiver ativo
+  button.submit-button:hover:not(:disabled) {
+    background-color: #c29412 !important;
+  }
+  
+  

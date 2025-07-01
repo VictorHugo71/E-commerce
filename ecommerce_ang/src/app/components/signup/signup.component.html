@@ -1,32 +1,43 @@
-<form class="cadastro-form" (ngSubmit)="cadastrar()" #form="ngForm">
-    <h2>Criar Conta</h2>
-  
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Nome completo</mat-label>
-      <input matInput name="nome" [(ngModel)]="usuario.nome" required />
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" name="email" [(ngModel)]="usuario.email" required />
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Senha</mat-label>
-      <input matInput type="password" name="senha" [(ngModel)]="usuario.senha" required />
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Confirmar senha</mat-label>
-      <input matInput type="password" name="confirmarSenha" [(ngModel)]="usuario.confirmarSenha" required />
-    </mat-form-field>
-  
-    <button mat-raised-button class="custom-button" type="submit">
-      Criar Conta
-    </button>
-  
-    <p class="login-link">
-      Já tem uma conta? <a routerLink="/login">Entrar</a>
-    </p>
-  </form>
-  
+<form #form="ngForm" class="cadastro-form">
+  <h2>Criar Conta</h2>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nome completo</mat-label>
+    <input matInput name="nome" required [(ngModel)]="usuario.nome" #nomeModel="ngModel" />
+    <mat-error *ngIf="nomeModel.invalid && nomeModel.touched">
+      O nome é obrigatório.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" name="email" required email [(ngModel)]="usuario.email" #emailModel="ngModel" />
+    <mat-error *ngIf="emailModel.invalid && emailModel.touched">
+      <span *ngIf="emailModel.errors?.['required']">O email é obrigatório.</span>
+      <span *ngIf="emailModel.errors?.['email']">Formato de email inválido.</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Senha</mat-label>
+    <input matInput type="password" name="senha" required minlength="6" [(ngModel)]="usuario.senha" #senhaModel="ngModel" />
+    <mat-error *ngIf="senhaModel.invalid && senhaModel.touched">
+      <span *ngIf="senhaModel.errors?.['required']">A senha é obrigatória.</span>
+      <span *ngIf="senhaModel.errors?.['minlength']">Mínimo de 6 caracteres.</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Confirmar senha</mat-label>
+    <input matInput type="password" name="confirmarSenha" required [(ngModel)]="confirmarSenha" #confirmarSenhaModel="ngModel" />
+    <mat-error *ngIf="confirmarSenhaModel.touched && usuario.senha !== confirmarSenha">
+      As senhas não coincidem.
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || usuario.senha !== confirmarSenha">
+    Criar Conta
+  </button>
+
+  <p class="login-link">Já tem uma conta? <a routerLink="/login">Entrar</a></p>
+</form>
