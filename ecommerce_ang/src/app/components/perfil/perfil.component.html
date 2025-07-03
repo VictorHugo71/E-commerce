@@ -1,0 +1,39 @@
+<div class="perfil-container">
+    <h2>Perfil do Cliente</h2>
+  
+    <mat-card class="perfil-card">
+      <mat-card-content>
+        <div class="info">
+          <p><strong>Nome:</strong> <!--{{ usuario.nome }}--></p>
+          <p><strong>Email:</strong> <!--{{ usuario.email }}--></p>
+          <p><strong>Telefone:</strong> <!--{{ usuario.telefone || 'Não informado' }}--></p>
+          <p><strong>CPF:</strong> <!--{{ usuario.cpf || 'Não informado' }}--></p>
+        </div>
+
+        <!--Área do Avatar-->
+        <mat-form-field class="full-width">
+            <mat-label>Avatar selecionado</mat-label>
+            <input matInput [value]="nomeAvatar" disabled />
+        </mat-form-field>
+          
+
+        <button mat-raised-button color="primary" (click)="abrirDialogAvatar()">
+            Escolher Avatar
+        </button>
+        
+        <div *ngIf="usuario.avatar" class="avatar-display" [attr.data-key]="avatarKey">
+            <img
+              [src]="'/avatars/' + usuario.avatar"
+              class="avatar-preview"
+            />
+            <p class="avatar-text">Avatar selecionado</p>
+          </div>
+        <!--Fim da Área do Avatar-->  
+          
+        <div class="acoes">
+          <button mat-raised-button color="primary">Editar Dados</button>
+          <button mat-button color="warn">Sair</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>

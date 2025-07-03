@@ -1,0 +1,9 @@
+<h2>Escolha seu Avatar</h2>
+<div class="avatar-grid">
+  <div *ngFor="let img of avatares" class="avatar-option" (click)="selecionarAvatar(img)">
+    <img [src]="'/avatars/' + img"
+         [class.selecionado]="data.avatar === img" />
+    <p class="avatar-nome">{{ avatarMap[img] }}</p>
+  </div>
+</div>
+

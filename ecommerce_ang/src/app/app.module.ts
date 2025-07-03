@@ -19,6 +19,8 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
 import { InputComponent } from './components/input/input.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { AvatarDialogComponent } from './components/avatar-dialog/avatar-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { InputComponent } from './components/input/input.component';
     SignupComponent,
     AuthLayoutComponent,
     InputComponent,
+    PerfilComponent,
+    AvatarDialogComponent,
   ],
   imports: [
     BrowserModule,
