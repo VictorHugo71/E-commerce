@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AvatarService } from '../../services/avatar.service';
 import { AvatarDialogComponent } from '../avatar-dialog/avatar-dialog.component';
 
 @Component({
@@ -16,19 +17,14 @@ export class PerfilComponent {
     avatar : "",
   }
   
-  avatarMap: { [key: string]: string } = {
-    'avatar01.png': 'Guerreiro Azul',
-    'avatar02.png': 'Flor Imperial',
-    'avatar03.png': 'Estrela do Norte',
-    // adicione mais conforme necessário
-  };
+  constructor(
+    private dialog: MatDialog,
+    public avatarService: AvatarService
+  ) {}
 
   get nomeAvatar(): string {
-    return this.avatarMap[this.usuario.avatar] || this.usuario.avatar;
+    return this.avatarService.getNomeLegal(this.usuario.avatar);
   }
-
-  constructor(private dialog: MatDialog) {}
-  avatarKey = 0;
 
   abrirDialogAvatar(): void {
     const dialogRef = this.dialog.open(AvatarDialogComponent, {
@@ -39,7 +35,6 @@ export class PerfilComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.usuario.avatar = result;
-        this.avatarKey++;
       }
     });
   }

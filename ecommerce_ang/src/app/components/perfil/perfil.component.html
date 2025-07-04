@@ -21,7 +21,7 @@
             Escolher Avatar
         </button>
         
-        <div *ngIf="usuario.avatar" class="avatar-display" [attr.data-key]="avatarKey">
+        <div *ngIf="usuario.avatar" class="avatar-display">
             <img
               [src]="'/avatars/' + usuario.avatar"
               class="avatar-preview"
