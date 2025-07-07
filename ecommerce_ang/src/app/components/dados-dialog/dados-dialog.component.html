@@ -1,41 +1,30 @@
-<h1>Mat-Form-Field Customize</h1>
-
-
-<br><br>
-
-<p>Mat-Form-Field Input Customize (Outline)</p>
-<mat-form-field appearance="outline" class="example-full-width">
-    <mat-label>Input</mat-label>
-    <input matInput placeholder="Nome">
-  </mat-form-field>
-
 <h2 mat-dialog-title>Editar Perfil</h2>
 
 <mat-dialog-content>
   <form>
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Nome</mat-label>
-      <input matInput required>
+      <input matInput [(ngModel)]="dadosEditados.nome" name="nome" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Email</mat-label>
-      <input matInput required>
+      <input matInput [(ngModel)]="dadosEditados.email" name="email" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Telefone</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="dadosEditados.telefone" name="telefone">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>CPF</mat-label>
-      <input matInput >
+      <input matInput [(ngModel)]="dadosEditados.cpf" name="cpf">
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button >Cancelar</button>
-  <button mat-raised-button color="primary">Salvar</button>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="salvar()">Salvar</button>
 </mat-dialog-actions>

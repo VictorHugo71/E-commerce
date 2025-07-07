@@ -8,7 +8,7 @@ import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component'
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
-import { InputComponent } from './components/input/input.component';
+import { InputComponent} from './components/input/input.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,9 +19,8 @@ const routes: Routes = [
     {path: 'signup', component: SignupComponent}
   ]
   },
-  {path: 'perfilUsu', component: PerfilComponent},
+  {path: 'perfil', component: PerfilComponent},
   {path: 'input', component: InputComponent}, //tem que fazer esta parte ainda, depois que fizer o back
-  
 ];
 
 @NgModule({

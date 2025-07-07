@@ -1,13 +1,17 @@
 <div class="perfil-container">
     <h2>Perfil do Cliente</h2>
-  
+    <div class="perfil-container">
+      <button mat-stroked-button color="accent" routerLink="/home" class="voltar-fixo">
+        ← Voltar para a Home
+      </button>
+    
     <mat-card class="perfil-card">
       <mat-card-content>
         <div class="info">
-          <p><strong>Nome:</strong> <!--{{ usuario.nome }}--></p>
-          <p><strong>Email:</strong> <!--{{ usuario.email }}--></p>
-          <p><strong>Telefone:</strong> <!--{{ usuario.telefone || 'Não informado' }}--></p>
-          <p><strong>CPF:</strong> <!--{{ usuario.cpf || 'Não informado' }}--></p>
+          <p><strong>Nome:</strong> {{ usuario.nome }}</p>
+          <p><strong>Email:</strong> {{ usuario.email }}</p>
+          <p><strong>Telefone:</strong> {{ usuario.telefone || 'Não informado' }}</p>
+          <p><strong>CPF:</strong> {{ usuario.cpf || 'Não informado' }}</p>
         </div>
 
         <!--Área do Avatar-->
@@ -16,24 +20,49 @@
             <input matInput [value]="nomeAvatar" disabled />
         </mat-form-field>
           
-
         <button mat-raised-button color="primary" (click)="abrirDialogAvatar()">
             Escolher Avatar
         </button>
         
         <div *ngIf="usuario.avatar" class="avatar-display">
-            <img
-              [src]="'/avatars/' + usuario.avatar"
-              class="avatar-preview"
-            />
+            <img [src]="'/avatars/' + usuario.avatar" class="avatar-preview"/>
             <p class="avatar-text">Avatar selecionado</p>
-          </div>
+        </div>
         <!--Fim da Área do Avatar-->  
           
         <div class="acoes">
-          <button mat-raised-button color="primary">Editar Dados</button>
+          <button mat-raised-button color="primary" (click)="abrirDialogDados()">
+            Editar Dados
+          </button>
           <button mat-button color="warn">Sair</button>
         </div>
       </mat-card-content>
     </mat-card>
+
+    <br>
+
+    
+    <div class="enderecos-wrapper">
+      <h3>Endereços Cadastrados</h3>
+      <mat-card *ngFor="let endereco of enderecos" class="endereco-card">
+        <p>{{ endereco.logradouro }}, {{ endereco.numero }}</p>
+        <p>{{ endereco.bairro }} - {{ endereco.cidade }} ({{ endereco.estado }})</p>
+        <p>CEP: {{ endereco.cep }}</p>
+
+        <button mat-stroked-button color="primary" *ngIf="!endereco.principal" (click)="definirComoPrincipal(endereco.id)">
+            Definir como principal
+        </button>
+
+        <span *ngIf="endereco.principal" class="tag-principal">Endereço Principal</span>
+
+        <div class="acoes">
+          <button mat-button (click)="editarEndereco(endereco)">Editar</button>
+          <button mat-button color="warn" (click)="removerEndereco(endereco.id)">Remover</button>
+        </div>
+      </mat-card>
+
+      <button mat-raised-button color="accent" (click)="abrirDialogNovoEndereco()">
+        Adicionar novo endereço
+      </button>
+    </div>
 </div>

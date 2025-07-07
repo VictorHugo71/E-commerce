@@ -10,8 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card'; // útil para produto
 import { MatMenuModule} from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HomeComponent } from './components/home/home.component';
 import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component';
@@ -21,6 +22,8 @@ import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component'
 import { InputComponent } from './components/input/input.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { AvatarDialogComponent } from './components/avatar-dialog/avatar-dialog.component';
+import { DadosDialogComponent } from './components/dados-dialog/dados-dialog.component';
+import { EnderecoDialogComponent } from './components/endereco-dialog/endereco-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { AvatarDialogComponent } from './components/avatar-dialog/avatar-dialog.
     InputComponent,
     PerfilComponent,
     AvatarDialogComponent,
+    DadosDialogComponent,
+    EnderecoDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +50,8 @@ import { AvatarDialogComponent } from './components/avatar-dialog/avatar-dialog.
     MatButtonModule,
     MatCardModule,
     MatMenuModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [
     provideClientHydration(),
