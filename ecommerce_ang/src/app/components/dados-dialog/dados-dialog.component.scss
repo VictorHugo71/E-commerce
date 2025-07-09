@@ -1,5 +1,60 @@
+:host {
+  display: block;
+  background-color: #2C3240;
+}
+
+
 .full-width {
   width: 100%;
   margin-bottom: 15px;
 }
 
+::ng-deep .mat-mdc-form-field {
+  --mdc-outlined-text-field-fill-color: #D4A017;
+  --mdc-outlined-text-field-hover-fill-color: #F2C94C;
+  --mdc-outlined-text-field-disabled-fill-color: #555;
+
+  .mdc-floating-label {
+    color: #D4A017 !important;
+    font-weight: bold !important;
+    top: 18px !important;
+    font-size: 14px !important;
+  }
+
+  .mdc-text-field__input {
+    color: #f2f2f2 !important;
+    background-color: #1A1F2B;
+  }
+
+  .mdc-text-field {
+    background-color: #1A1F2B !important;
+    border-radius: 8px !important;
+  }
+
+  .mat-dialog-title {
+    color: #f2f2f2;
+  }
+}
+
+::ng-deep .mat-mdc-dialog-actions {
+
+  button[mat-raised-button] {
+    background-color: #D4A017 !important;
+    color: #1A1F2B !important;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  button[mat-button] {
+    background-color: transparent !important;
+    color: #D4A017 !important;
+    border: 1px solid #D4A017 !important;
+  }
+}
+
+h2[mat-dialog-title] {
+  font-size: 22px;
+  font-weight: bold;
+  color: #D4A017;
+  margin-bottom: 16px;
+}

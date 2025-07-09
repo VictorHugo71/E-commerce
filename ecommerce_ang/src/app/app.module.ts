@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card'; // útil para produto
 import { MatMenuModule} from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatOption } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -51,7 +52,8 @@ import { EnderecoDialogComponent } from './components/endereco-dialog/endereco-d
     MatCardModule,
     MatMenuModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatOption
   ],
   providers: [
     provideClientHydration(),
