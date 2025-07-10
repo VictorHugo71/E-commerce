@@ -29,8 +29,13 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Estado</mat-label>
-      <input matInput [(ngModel)]="endereco.estado" name="estado" required>
+      <mat-select [(ngModel)]="endereco.estado" name="estado" required>
+        <mat-option *ngFor="let estado of estados" [value]="estado.sigla">
+          {{ estado.nome }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+    
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>CEP</mat-label>

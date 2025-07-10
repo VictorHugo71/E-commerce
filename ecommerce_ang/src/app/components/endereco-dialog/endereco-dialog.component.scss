@@ -17,7 +17,7 @@
   .mdc-floating-label {
     color: #D4A017 !important;
     font-weight: bold !important;
-    top: 18px !important;
+    top: 20px !important;
     font-size: 14px !important;
   }
 
@@ -27,6 +27,15 @@
   }
 
   .mdc-text-field {
+    background-color: #1A1F2B !important;
+    border-radius: 8px !important;
+  }
+
+  .mat-mdc-select-value {
+    color: #f2f2f2 !important;
+  }
+
+  .mat-mdc-text-field__select {
     background-color: #1A1F2B !important;
     border-radius: 8px !important;
   }

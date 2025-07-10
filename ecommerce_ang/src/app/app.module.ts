@@ -3,16 +3,18 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card'; // útil para produto
 import { MatMenuModule} from '@angular/material/menu';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatOption } from '@angular/material/core';
-import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select'
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HomeComponent } from './components/home/home.component';
@@ -53,7 +55,8 @@ import { EnderecoDialogComponent } from './components/endereco-dialog/endereco-d
     MatMenuModule,
     FormsModule,
     MatDialogModule,
-    MatOption
+    MatOption,
+    MatSelectModule
   ],
   providers: [
     provideClientHydration(),
