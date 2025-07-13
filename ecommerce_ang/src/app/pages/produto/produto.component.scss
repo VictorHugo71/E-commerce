@@ -1,0 +1,79 @@
+$primary-color: #1A1F2B;
+$secondary-color: #2C3240;
+$accent-color: #D4A017;
+$text-light: #F2F2F2;
+
+.produto-detalhes-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: $primary-color;
+  min-height: 100vh;
+}
+
+.produto-detalhes-card {
+  display: flex;
+  gap: 40px;
+  max-width: 1000px;
+  background-color: $secondary-color;
+  padding: 30px;
+  border-radius: 16px;
+  color: $text-light;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+
+  .imagem-produto {
+    flex: 1;
+    min-width: 280px;
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .info-produto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: $accent-color;
+    }
+
+    .descricao {
+      font-size: 16px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .preco {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    .acoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      button {
+        font-weight: bold;
+      }
+
+      ::ng-deep .sucesso-snackbar {
+        background-color: #D4A017;
+        color: #1A1F2B;
+        font-weight: bold;
+      }
+      
+    }
+  }
+}

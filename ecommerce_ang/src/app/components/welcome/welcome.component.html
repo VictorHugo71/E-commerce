@@ -21,7 +21,7 @@
   
     <button mat-button routerLink="/ofertas">Ofertas</button>
     <button mat-button routerLink="/compras">Compras</button> 
-    <button mat-button routerLink="/listaDesejo">Lista de Desejos</button>
+    <button mat-button routerLink="/listadesejo">Lista de Desejos</button>
     <button mat-button routerLink="/perfil">Perfil</button>
     <button mat-button routerLink="/signup">Criar Conta</button>
     <button mat-button routerLink="/login">Entrar</button>
@@ -45,10 +45,10 @@
         <div class="product-card" *ngFor="let produto of produtos">
           <img [src]="produto.imagem" alt="Produto" />
           <h3>{{ produto.nome }}</h3>
-          <p class="preco">R$ {{ produto.preco }}</p>
-          <button mat-raised-button color="accent" routerLink="[/produto, produto.id]">
+          <h3 class="preco">{{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}</h3>
+          <button mat-raised-button color="accent" [routerLink]="['/produto', produto.id]">
             Ver mais
-          </button>
+          </button>          
         </div>
       </div>
     </section>
@@ -57,6 +57,6 @@
   
   <!-- FOOTER -->
   <footer class="footer">
-    <p>&copy; 2025 Loja Virtual. Todos os direitos reservados.</p>
+    <p>&copy; 2025 Neziara. Todos os direitos reservados.</p>
   </footer>
   

@@ -1,25 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component';
 import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { ProdutoComponent } from './pages/produto/produto.component';
+import { ListaDesejoComponent } from './components/lista-desejo/lista-desejo.component';
+import { FinalizarCompraComponent } from './pages/finalizar-compra/finalizar-compra.component';
 import { InputComponent} from './components/input/input.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'home', component: WelcomeComponent},
-  {path: 'produto/:id,', component: DetalheProdutoComponent}, //tem que fazer esta parte ainda, depois que fizer o back
   {path: '', component: AuthLayoutComponent, children: [
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignupComponent}
   ]
   },
   {path: 'perfil', component: PerfilComponent},
+  {path: 'produto/:id', component: ProdutoComponent}, //tem que fazer esta parte ainda, depois que fizer o back
+  {path: 'listadesejo', component: ListaDesejoComponent},
+  {path: 'finalizar', component: FinalizarCompraComponent},
   {path: 'input', component: InputComponent}, //tem que fazer esta parte ainda, depois que fizer o back
 ];
 

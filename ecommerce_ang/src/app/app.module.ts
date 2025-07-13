@@ -14,11 +14,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card'; // útil para produto
 import { MatMenuModule} from '@angular/material/menu';
 import { MatOption } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select';
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HomeComponent } from './components/home/home.component';
-import { DetalheProdutoComponent } from './components/detalhe-produto/detalhe-produto.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
@@ -27,13 +26,15 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { AvatarDialogComponent } from './components/avatar-dialog/avatar-dialog.component';
 import { DadosDialogComponent } from './components/dados-dialog/dados-dialog.component';
 import { EnderecoDialogComponent } from './components/endereco-dialog/endereco-dialog.component';
+import { FinalizarCompraComponent } from './pages/finalizar-compra/finalizar-compra.component';
+import { ListaDesejoComponent } from './components/lista-desejo/lista-desejo.component';
+import { ProdutoComponent } from './pages/produto/produto.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     WelcomeComponent,
-    DetalheProdutoComponent,
     LoginComponent,
     SignupComponent,
     AuthLayoutComponent,
@@ -42,6 +43,9 @@ import { EnderecoDialogComponent } from './components/endereco-dialog/endereco-d
     AvatarDialogComponent,
     DadosDialogComponent,
     EnderecoDialogComponent,
+    FinalizarCompraComponent,
+    ListaDesejoComponent,
+    ProdutoComponent,
   ],
   imports: [
     BrowserModule,

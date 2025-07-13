@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProdutosService } from '../../services/produto/produtos.service';
 import { URL } from 'node:url';
 
 @Component({
@@ -6,49 +7,15 @@ import { URL } from 'node:url';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent {
+export class WelcomeComponent implements OnInit {
+  produtos: any [] = [];
 
-  produtos = [
-    {
-      nome: 'Fone Bluetooth',
-      preco: 99.90,
-      imagem: 'fone.jpg'
-    },
-    {
-      nome: 'Smartwatch',
-      preco: 149.90,
-      imagem: '/assets/smartwatch.jpg'
-    },
-    {
-      nome: 'Câmera de Segurança',
-      preco: 199.90,
-      imagem: '/assets/camera.jpg'
-    },
-    {
-      nome: 'Notebook Dell',
-      preco: 3599.00,
-      imagem: '/assets/notebook.jpg'
-    },
-    {
-      nome: 'Monitor Gamer 144Hz',
-      preco: 1249.00,
-      imagem: '/assets/monitor.jpg'
-    },
-    {
-      nome: 'Mouse sem fio',
-      preco: 79.90,
-      imagem: '/assets/mouse.jpg'
-    }
-  ];
-
-  categorias = [
-    'Eletrônicos',
-    'Moda',
-    'Casa e Decoração',
-    'Beleza',
-    'Brinquedos',
-    'Esporte e Lazer'
-  ];
+  categorias: string[] = [];
   
+  constructor (private produtoService: ProdutosService) {}
 
+  ngOnInit(): void {
+    this.produtos = this.produtoService.getTodos();
+    this.categorias = this.produtoService.getCategorias();
+  }
 }
