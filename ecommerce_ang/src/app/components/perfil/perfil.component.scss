@@ -1,3 +1,12 @@
+// Cores base da Neziara
+$primary-color: #1A1F2B;      // Fundo principal
+$neutral-color: #3D4454; // entre o primary e secondary
+$secondary-color: #2C3240;    // Cartões, elementos escuros
+$accent-color: #D4A017;       // Amarelo dourado
+$highlight-color: #8FB9A8; // um verde-azulado suave
+$text-light: #F2F2F2;
+$text-dark: #1A1F2B;
+
 .perfil-container {
   background-color: #1A1F2B;
   color: #F2F2F2;
@@ -15,7 +24,7 @@
   z-index: 1000;
   font-weight: bold;
   border-color: #D4A017 !important;
-  color: #D4A017 !important;
+  color: $text-light !important;
   background-color: transparent;
 
   &:hover {
@@ -83,7 +92,7 @@
 
 button[mat-raised-button] {
   background-color: #D4A017 !important;
-  color: #1A1F2B !important;
+  color: $text-dark !important;
   font-weight: bold;
   margin-right: 10px;
 }
@@ -177,11 +186,15 @@ h3 {
       font-size: 13px;
     }
   }
-}
-
-button[mat-raised-button][color="accent"] {
-  align-self: flex-start;
-  background-color: #D4A017 !important;
-  color: #1A1F2B !important;
-  font-weight: bold;
+  
+  button[mat-stroked-button] {
+    color: $text-light !important;
+  }
+  
+  button[mat-raised-button][color="accent"] {
+    align-self: flex-start;
+    background-color: #D4A017 !important;
+    color: #1A1F2B !important;
+    font-weight: bold;
+  }
 }

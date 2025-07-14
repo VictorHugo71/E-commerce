@@ -1,34 +1,62 @@
-$primary-color: #1A1F2B;
-$secondary-color: #2C3240;
-$accent-color: #D4A017;
+// Cores base da Neziara
+$primary-color: #1A1F2B;      // Fundo principal
+$neutral-color: #3D4454; // entre o primary e secondary
+$secondary-color: #2C3240;    // Cartões, elementos escuros
+$accent-color: #D4A017;       // Amarelo dourado
+$highlight-color: #8FB9A8; // um verde-azulado suave
 $text-light: #F2F2F2;
+$text-dark: #1A1F2B;
 
 .produto-detalhes-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 40px 20px;
   background-color: $primary-color;
-  min-height: 100vh;
+  color: $text-light;
+  min-height: 91.7vh;
+
+  .voltar-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    font-weight: bold;
+    border-color: #D4A017 !important;
+    color: $text-light !important;
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba(212, 160, 23, 0.1);
+    }
+  }
 }
 
 .produto-detalhes-card {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
-  max-width: 1000px;
   background-color: $secondary-color;
   padding: 30px;
   border-radius: 16px;
-  color: $text-light;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-direction: column;
+
+  .titulo-produto {
+    width: 100%;
+    font-size: 30px;
+    color: $accent-color;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    border-bottom: 2px solid $accent-color;
+    padding-bottom: 10px;
+  }
 
   .imagem-produto {
-    flex: 1;
-    min-width: 280px;
-
+    align-self: center;
     img {
-      width: 100%;
+      width: 300px;
+      max-width: 100%;
       border-radius: 12px;
       object-fit: cover;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -36,44 +64,71 @@ $text-light: #F2F2F2;
   }
 
   .info-produto {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 20px;
 
-    h2 {
-      font-size: 28px;
-      margin-bottom: 15px;
-      color: $accent-color;
-    }
+    .descricao-container {
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 20px;
+      border-left: 4px solid $accent-color;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 
-    .descricao {
-      font-size: 16px;
-      margin-bottom: 20px;
-      line-height: 1.6;
+      .descricao-titulo {
+        font-size: 20px;
+        font-weight: 600;
+        color: $accent-color;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+      }
+
+      .descricao-texto {
+        font-size: 15px;
+        color: lighten($text-light, 5%);
+        line-height: 1.7;
+      }
     }
 
     .preco {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: bold;
       margin-bottom: 25px;
+      color: lighten($accent-color, 10%);
     }
 
     .acoes {
       display: flex;
+      gap: 20px;
       flex-wrap: wrap;
-      gap: 15px;
 
       button {
         font-weight: bold;
-      }
+        padding: 10px 20px;
+        border-radius: 8px;
 
-      ::ng-deep .sucesso-snackbar {
-        background-color: #D4A017;
-        color: #1A1F2B;
-        font-weight: bold;
+        &.mat-primary {
+          background: linear-gradient(135deg, #D4A017, #C7960F) !important;
+          color: $text-dark !important;
+
+          &:hover {
+            background-color: darken($accent-color, 10%) !important;
+          }
+        }
+
+        &.mat-accent {
+          background-color: transparent;
+          border: 1px solid $accent-color;
+          color: $accent-color;
+
+          &:hover {
+            background-color: $accent-color;
+            color: $primary-color;
+          }
+        }
       }
-      
     }
   }
 }
