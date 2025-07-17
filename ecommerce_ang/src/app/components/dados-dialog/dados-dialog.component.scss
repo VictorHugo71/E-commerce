@@ -1,6 +1,15 @@
+// Cores base da Neziara
+$primary-color: #1A1F2B;      // Fundo principal
+$secondary-color: #2C3240;    // Cartões, elementos escuros
+$neutral-color: #3D4454;      // entre o primary e secondary
+$accent-color: #D4A017;       // Amarelo dourado
+
+$text-light: #F2F2F2;
+$text-dark: #1A1F2B;
+
 :host {
   display: block;
-  background-color: #2C3240;
+  background-color: $primary-color;
 }
 
 
@@ -10,51 +19,51 @@
 }
 
 ::ng-deep .mat-mdc-form-field {
-  --mdc-outlined-text-field-fill-color: #D4A017;
+  --mdc-outlined-text-field-fill-color: $accent-color;
   --mdc-outlined-text-field-hover-fill-color: #F2C94C;
   --mdc-outlined-text-field-disabled-fill-color: #555;
 
   .mdc-floating-label {
-    color: #D4A017 !important;
+    color: $accent-color !important;
     font-weight: bold !important;
     top: 18px !important;
     font-size: 14px !important;
   }
 
   .mdc-text-field__input {
-    color: #f2f2f2 !important;
-    background-color: #1A1F2B;
+    color: $text-light !important;
+    background-color: $primary-color;
   }
 
   .mdc-text-field {
-    background-color: #1A1F2B !important;
+    background-color: $primary-color !important;
     border-radius: 8px !important;
   }
 
   .mat-dialog-title {
-    color: #f2f2f2;
+    color: $text-light;
   }
 }
 
 ::ng-deep .mat-mdc-dialog-actions {
 
   button[mat-raised-button] {
-    background-color: #D4A017 !important;
-    color: #1A1F2B !important;
+    background-color: $accent-color !important;
+    color: $primary-color !important;
     font-weight: bold;
     margin-right: 10px;
   }
 
   button[mat-button] {
     background-color: transparent !important;
-    color: #D4A017 !important;
-    border: 1px solid #D4A017 !important;
+    color: $accent-color !important;
+    border: 1px solid $accent-color !important;
   }
 }
 
 h2[mat-dialog-title] {
   font-size: 22px;
   font-weight: bold;
-  color: #D4A017;
+  color: $accent-color;
   margin-bottom: 16px;
 }

@@ -1,6 +1,9 @@
+// Cores base da Neziara
 $primary-color: #1A1F2B;     // Fundo Principal
 $secondary-color: #2C3240;   // Detalhes Escuros Intermediários / Fundo Secundário
+$neutral-color: #3D4454;      // entre o primary e secondary
 $accent-color: #D4A017;      // Cor de Destaque
+
 $text-light: #F2F2F2;
 $text-dark: #1A1F2B;
 $bg-light: #F3F3F3;
@@ -86,6 +89,7 @@ body, html {
     color: $text-light;
     text-transform: none !important;
     font-weight: 500;
+    transition: all .5s ease;
 
     &:hover {
       color: $accent-color;

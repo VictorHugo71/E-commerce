@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card'; // útil para produto
 import { MatMenuModule} from '@angular/material/menu';
 import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HomeComponent } from './components/home/home.component';
@@ -60,7 +61,8 @@ import { ProdutoComponent } from './pages/produto/produto.component';
     FormsModule,
     MatDialogModule,
     MatOption,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [
     provideClientHydration(),
