@@ -1,20 +1,95 @@
+// Cores base
 $primary-color: #1A1F2B;
 $secondary-color: #2C3240;
 $accent-color: #D4A017;
 $text-light: #F2F2F2;
+$text-dark: #1A1F2B;
 
+// VOLTAR PARA HOME
+.voltar-home {
+  padding: 20px;
+
+  &.bloco-claro {
+    background-color: #fafafa;
+
+    button {
+      border: 1px solid $primary-color;
+      color: $text-dark;
+      background-color: transparent;
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $text-light;
+      }
+    }
+  }
+
+  &.bloco-escuro {
+    background-color: lighten($secondary-color, 5%);
+
+    button {
+      border: 1px solid $accent-color;
+      color: $accent-color;
+      background-color: transparent;
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: $accent-color;
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+// CONTAINER PRINCIPAL
 .lista-desejo-container {
   padding: 30px;
   background-color: lighten($secondary-color, 5%);
   color: $text-light;
-  min-height: 91.7vh;
+  min-height: 93.8vh;
 
   h2 {
     color: $accent-color;
     margin-bottom: 25px;
+    padding-bottom: 25px;
     text-align: center;
   }
 
+  .acoes-globais {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    .botao-carrinho {
+      font-weight: bold;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+
+      &:not(:disabled) {
+        background: linear-gradient(135deg, $accent-color, #C7960F) !important;
+        color: $text-dark;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+        &:hover {
+          background-color: #E2B100;
+          transform: translateY(-2px);
+        }
+      }
+
+      &:disabled {
+        background-color: #999999;
+        color: #E0E0E0;
+        opacity: 0.6;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+    }
+  }
+
+  // GRADE DE PRODUTOS
   .grid-lista {
     display: flex;
     flex-wrap: wrap;
@@ -22,6 +97,7 @@ $text-light: #F2F2F2;
     justify-content: center;
   }
 
+  // CARD INDIVIDUAL
   .card-produto {
     background-color: $primary-color;
     padding: 20px;
@@ -29,6 +105,14 @@ $text-light: #F2F2F2;
     width: 240px;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+    ::ng-deep .mat-chekbox-overrides{
+      color: orange;
+    }
+    
+    mat-checkbox {
+      margin-bottom: 10px;
+    }
 
     img {
       width: 100%;
@@ -56,19 +140,35 @@ $text-light: #F2F2F2;
       justify-content: center;
       flex-wrap: wrap;
 
-      button {
+      [mat-stroked-button] {
+        background-color: $text-light;
+        color: $text-dark;
+
+        &:hover {
+          background-color: darken($text-light, 5%);
+        }
+      }
+
+      [mat-raised-button] {
+        background-color: $accent-color;
+        color: $text-dark;
         font-weight: bold;
+
+        &:hover {
+          background-color: darken($accent-color, 5%);
+        }
       }
     }
   }
 }
 
+// ESTILO QUANDO LISTA ESTÁ VAZIA
 .lista-vazia {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: $text-light;
+  color: #fafafa !important;
   min-height: 80vh;
   text-align: center;
 
@@ -78,6 +178,16 @@ $text-light: #F2F2F2;
   }
 
   button {
+    border: 1px solid $primary-color;
+    color: $text-dark;
+    background-color: transparent;
     font-weight: bold;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $text-light;
+    }
   }
 }
+

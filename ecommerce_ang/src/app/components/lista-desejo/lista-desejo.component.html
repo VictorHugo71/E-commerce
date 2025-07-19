@@ -1,49 +1,48 @@
-<div class="voltar-home">
-    <button mat-stroked-button color="accent" routerLink="/home">
-        ← Voltar para a Home
-    </button>
+<div [ngClass]="listaDesejo.length === 0 ? 'bloco-claro' : 'bloco-escuro'" class="voltar-home">
+  <button mat-stroked-button routerLink="/home">
+    ← Voltar para a Home
+  </button>
 </div>
 
+
 <div class="lista-desejo-container" *ngIf="listaDesejo.length > 0; else vazio">
-    <h2>Sua Lista de Desejos</h2>
+  <h2>Sua Lista de Desejos</h2>
 
-    <div class="acoes-globais">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="adicionarSelecionadosAoCarrinho()"
-          [disabled]="produtosSelecionados.length === 0">
-          Adicionar Selecionados ao Carrinho
+  <div class="acoes-globais">
+    <button mat-raised-button color="primary"
+      (click)="adicionarSelecionadosAoCarrinho()" 
+      [disabled]="produtosSelecionados.length === 0" 
+      class="botao-carrinho">
+      Adicionar Selecionados ao Carrinho
+    </button>
+  </div>
+
+  <div class="grid-lista">
+    <div class="card-produto" *ngFor="let produto of listaDesejo">
+      <mat-checkbox
+        [(ngModel)]="produto.selecionado"
+        (change)="onSelecionadoChange(produto)">
+      </mat-checkbox>
+
+      <img [src]="produto.imagem" alt="{{ produto.nome }}" />
+      <h3>{{ produto.nome }}</h3>
+      <p class="preco">{{ produto.preco | currency:'BRL' }}</p>
+
+      <div class="acoes">
+        <button mat-stroked-button color="accent" (click)="remover(produto.id)">
+          Remover
         </button>
-      </div>
-  
-    <div class="grid-lista">
-      <div class="card-produto" *ngFor="let produto of listaDesejo">
-        <mat-checkbox
-            [(ngModel)]="produto.selecionado"
-            (change)="onSelecionadoChange(produto)">
-        </mat-checkbox>
-
-        <img [src]="produto.imagem" alt="{{ produto.nome }}" />
-        <h3>{{ produto.nome }}</h3>
-        <p class="preco">{{ produto.preco | currency:'BRL' }}</p>
-  
-        <div class="acoes">
-          <button mat-stroked-button color="accent" (click)="remover(produto.id)">
-            Remover
-          </button>
-          <button mat-raised-button color="primary" (click)="comprar(produto)">
-            Adicionar para Carrinho
-          </button>
-        </div>
+        <button mat-raised-button color="primary" (click)="comprar(produto)">
+          Adicionar para Carrinho
+        </button>
       </div>
     </div>
   </div>
+</div>
   
-  <ng-template #vazio>
-    <div class="lista-vazia">
-      <h2>Sua lista de desejos está vazia 😔</h2>
-      <button mat-raised-button color="accent" routerLink="/home">Ver Produtos</button>
-    </div>
-  </ng-template>
-  
+<ng-template #vazio>
+  <div class="lista-vazia">
+    <h2>Sua lista de desejos está vazia 😔</h2>
+    <button mat-raised-button color="accent" routerLink="/home">Ver Produtos</button>
+  </div>
+</ng-template>
