@@ -87,3 +87,40 @@
     top: -10px !important;
     position: relative !important;
 }
+
+::ng-deep .mdc-checkbox {
+    .mdc-checkbox__background { //dasmarcado
+        border-color: #4f0;
+        background-color: #f00;
+        transition: all 0.3s ease;
+    }
+
+
+    .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background { //marcado
+        border-color: black;
+        background-color: orange;
+        --mdc-checkbox-selected-checkmark-color: #2c00ff; //icone marcador quando acontece tal ação
+    }
+
+    .mdc-checkbox__native-control:focus:focus:checked ~ .mdc-checkbox__background, .mdc-checkbox__native-control:focus:focus:not(:indeterminate) ~ .mdc-checkbox__background {
+        background-color: aqua;
+        border-color: pink;
+        --mdc-checkbox-selected-checkmark-color: green; //icone marcador quando acontece tal ação
+    }
+
+    .mdc-checkbox__checkmark {
+        color: white; //cor do marcador sempre, esse sobrepoẽ todos
+    }
+}
+
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background,
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:indeterminate) ~ .mdc-checkbox__background {
+    border-color: pink !important;
+    background-color: gray !important;
+}
+
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background,
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
+    border-color: red !important;
+    background-color: black !important;
+}
