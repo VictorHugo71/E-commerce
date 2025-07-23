@@ -113,14 +113,14 @@
     }
 }
 
-::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background,
-::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:indeterminate) ~ .mdc-checkbox__background {
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background, 
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:indeterminate) ~ .mdc-checkbox__background { 
     border-color: pink !important;
-    background-color: gray !important;
+    background-color: gray !important; // efeito de hover quando o checkbox ta desativado
 }
 
 ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background,
 ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
     border-color: red !important;
-    background-color: black !important;
+    background-color: black !important; //efeito de hover quando o checkbox ta ativado
 }

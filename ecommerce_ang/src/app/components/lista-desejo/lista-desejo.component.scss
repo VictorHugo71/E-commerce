@@ -1,7 +1,9 @@
-// Cores base
-$primary-color: #1A1F2B;
-$secondary-color: #2C3240;
-$accent-color: #D4A017;
+// Cores base da Neziara
+$primary-color: #1A1F2B;      // Fundo principal
+$secondary-color: #2C3240;    // Cartões, elementos escuros
+$neutral-color: #3D4454;      // entre o primary e secondary
+$accent-color: #D4A017;       // Amarelo dourado
+
 $text-light: #F2F2F2;
 $text-dark: #1A1F2B;
 
@@ -106,12 +108,24 @@ $text-dark: #1A1F2B;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 
-    ::ng-deep .mat-chekbox-overrides{
-      color: orange;
+    ::ng-deep .mdc-checkbox {
+      .mdc-checkbox__background { //dasmarcado
+        border-color: $text-light;
+        background-color: lighten($secondary-color, 5%);
+        transition: all 0.3s ease;
+      }
+
+      .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background { //marcado
+        background-color: $accent-color;
+        border-color: $text-light;
+        --mdc-checkbox-selected-checkmark-color: #1A1F2B; //icone marcador quando acontece tal ação
+      }
     }
-    
-    mat-checkbox {
-      margin-bottom: 10px;
+
+    ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background, 
+    ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:indeterminate) ~ .mdc-checkbox__background { 
+      border-color: $accent-color ;
+      background-color: $neutral-color ; // efeito de hover quando o checkbox ta desativado
     }
 
     img {
