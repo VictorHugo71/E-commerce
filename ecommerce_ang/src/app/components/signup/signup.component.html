@@ -29,13 +29,13 @@
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Confirmar senha</mat-label>
-    <input matInput type="password" name="confirmarSenha" required [(ngModel)]="confirmarSenha" #confirmarSenhaModel="ngModel" />
-    <mat-error *ngIf="confirmarSenhaModel.touched && usuario.senha !== confirmarSenha">
+    <input matInput type="password" name="confirmarSenha" required [(ngModel)]="usuario.confirmarSenha" #confirmarSenhaModel="ngModel" />
+    <mat-error *ngIf="confirmarSenhaModel.touched && usuario.senha !== usuario.confirmarSenha">
       As senhas não coincidem.
     </mat-error>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || usuario.senha !== confirmarSenha">
+  <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || usuario.senha !== usuario.confirmarSenha">
     Criar Conta
   </button>
 

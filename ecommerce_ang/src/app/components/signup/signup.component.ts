@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CadastroService } from '../../services/cliente/cadastro.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,13 @@ export class SignupComponent {
     confirmarSenha: ''
 };
 
-constructor(private router: Router) {}
+mensagemErro = '';
+mensagemSucesso = '';
+
+constructor(
+  private router: Router,
+  private clienteService: CadastroService,
+) {}
 
   cadastrar() {
     if (this.usuario.senha !== this.usuario.confirmarSenha) {
@@ -22,16 +29,24 @@ constructor(private router: Router) {}
       return;
     }
 
-    // Aqui você vai chamar o serviço para enviar os dados ao backend (PHP, API, etc.)
-    // Exemplo:
-    // this.authService.cadastrar(this.usuario).subscribe(...)
+    const dados = {
+      nome: this.usuario.nome,
+      email: this.usuario.email,
+      senha: this.usuario.senha
+    };
 
-    console.log('Usuário cadastrado:', this.usuario);
-
-    // Simula sucesso e redireciona para login
-    alert('Cadastro realizado com sucesso!');
-    this.router.navigate(['/login']);
+    this.clienteService.cadastrarCliente(dados).subscribe({
+      next: (res) => {
+        alert(res.mensagem || 'Cadastro realizado com sucesso');
+      },
+      error: (err) => {
+        if (err.status === 409) {
+          this.mensagemErro = 'Este e-mail já está cadastrado';
+        } else {
+          this.mensagemErro = 'Erro ao cadastrar. Tente novamente';
+        }
+        this.mensagemSucesso = '';
+      }
+    });
   }
-
-  confirmarSenha = '';
 }
