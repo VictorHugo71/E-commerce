@@ -13,15 +13,15 @@ export class SignupComponent {
     email: '',
     senha: '',
     confirmarSenha: ''
-};
+  };
 
-mensagemErro = '';
-mensagemSucesso = '';
+  mensagemErro = '';
+  mensagemSucesso = '';
 
-constructor(
-  private router: Router,
-  private clienteService: CadastroService,
-) {}
+  constructor(
+    private router: Router,
+    private clienteService: CadastroService,
+  ) {}
 
   cadastrar() {
     if (this.usuario.senha !== this.usuario.confirmarSenha) {
@@ -37,7 +37,9 @@ constructor(
 
     this.clienteService.cadastrarCliente(dados).subscribe({
       next: (res) => {
-        alert(res.mensagem || 'Cadastro realizado com sucesso');
+        this.mensagemSucesso = res.mensagem || 'Cadastro Realizado com Sucesso!';
+        this.mensagemErro = '';
+        this.usuario = {nome: '', email: '', senha: '', confirmarSenha: ''};
       },
       error: (err) => {
         if (err.status === 409) {
