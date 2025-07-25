@@ -35,7 +35,13 @@
     </mat-error>
   </mat-form-field>
 
-  <p></p>
+  <div *ngIf="mensagemSucesso" class="mensagem sucesso">
+    {{mensagemSucesso}}
+  </div>
+
+  <div class="mensagem erro" *ngIf="mensagemErro">
+    {{mensagemErro}}
+  </div>
 
   <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || usuario.senha !== usuario.confirmarSenha">
     Criar Conta

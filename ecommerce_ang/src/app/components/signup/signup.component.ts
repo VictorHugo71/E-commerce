@@ -39,7 +39,6 @@ export class SignupComponent {
       next: (res) => {
         this.mensagemSucesso = res.mensagem || 'Cadastro Realizado com Sucesso!';
         this.mensagemErro = '';
-        this.usuario = {nome: '', email: '', senha: '', confirmarSenha: ''};
       },
       error: (err) => {
         if (err.status === 409) {

@@ -42,3 +42,18 @@
   margin-top: 2px;
 }
 
+.mensagem {
+  padding: 6px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-align: center;
+
+  &.sucesso {
+    color: green;
+  }
+
+  &.erro {
+    color: red;
+  }
+}
