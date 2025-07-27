@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutosService } from '../../services/produto/produtos.service';
+import { Router } from '@angular/router';
 import { URL } from 'node:url';
 
 @Component({
@@ -12,10 +13,21 @@ export class WelcomeComponent implements OnInit {
 
   categorias: string[] = [];
   
-  constructor (private produtoService: ProdutosService) {}
+  constructor (
+    private router: Router,
+    private produtoService: ProdutosService) {}
 
   ngOnInit(): void {
     this.produtos = this.produtoService.getTodos();
     this.categorias = this.produtoService.getCategorias();
+  }
+
+  get estaLogado():boolean {
+    return localStorage.getItem('usuario') !== null;
+  }
+
+  logout() {
+    localStorage.removeItem('usuario');
+    this.router.navigate(['/home']);
   }
 }

@@ -18,13 +18,17 @@
     <mat-menu #menuCategorias="matMenu">
       <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria }}</button>
     </mat-menu>
-  
     <button mat-button routerLink="/ofertas">Ofertas</button>
-    <button mat-button routerLink="/compras">Compras</button> 
-    <button mat-button routerLink="/listadesejo">Lista de Desej-os</button>
-    <button mat-button routerLink="/perfil">Perfil</button>
-    <button mat-button routerLink="/signup">Criar Conta</button>
-    <button mat-button routerLink="/login">Entrar</button>
+    <div *ngIf="!estaLogado">
+      <button mat-button routerLink="/signup">Criar Conta</button>
+      <button mat-button routerLink="/login">Entrar</button>
+    </div>
+    <div *ngIf="estaLogado">
+      <button mat-button routerLink="/compras">Compras</button>
+      <button mat-button routerLink="/listadesejo">Lista de Desej-os</button>
+      <button mat-button routerLink="/perfil">Perfil</button>
+      <button (click)="logout()" class="botao-logout">Sair</button>
+    </div>
   </nav>
   
   
