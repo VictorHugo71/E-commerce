@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/cliente/login.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,9 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private authService: AuthService
   ) {}
-
 
   login(): void {
     this.loginService.login(this.usuario).subscribe({
@@ -30,6 +31,7 @@ export class LoginComponent {
 
         //salvar usuario logado localmente
         localStorage.setItem('usuario', JSON.stringify(res.usuario));
+        this.authService.setUsuario(res.usuario);
 
         //redireciona apos o login
         this.router.navigate(['/home']);

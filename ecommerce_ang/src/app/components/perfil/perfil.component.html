@@ -7,7 +7,7 @@
     
     <mat-card class="perfil-card">
       <mat-card-content>
-        <div class="info">
+        <div class="info" *ngIf="usuario">
           <p><strong>Nome:</strong> {{ usuario.nome }}</p>
           <p><strong>Email:</strong> {{ usuario.email }}</p>
           <p><strong>Telefone:</strong> {{ usuario.telefone || 'Não informado' }}</p>
@@ -34,7 +34,7 @@
           <button mat-raised-button color="primary" (click)="abrirDialogDados()">
             Editar Dados
           </button>
-          <button mat-button color="warn">Sair</button>
+          <button mat-button color="warn" (click)="logout()">Sair</button>
         </div>
       </mat-card-content>
     </mat-card>
@@ -48,7 +48,7 @@
         <p>{{ endereco.bairro }} - {{ endereco.cidade }} ({{ endereco.estado }})</p>
         <p>CEP: {{ endereco.cep }}</p>
 
-        <button mat-stroked-button color="primary" *ngIf="!endereco.principal" (click)="definirComoPrincipal(endereco.id)">
+        <button mat-stroked-button color="primary" *ngIf="!endereco.principal" (click)="definirComoPrincipal(endereco.id_endereco)">
             Definir como principal
         </button>
 
@@ -56,7 +56,7 @@
 
         <div class="acoes">
           <button mat-button (click)="editarEndereco(endereco)">Editar</button>
-          <button mat-button color="warn" (click)="removerEndereco(endereco.id)">Remover</button>
+          <button mat-button color="warn" (click)="removerEndereco(endereco.id_endereco)">Remover</button>
         </div>
       </mat-card>
 

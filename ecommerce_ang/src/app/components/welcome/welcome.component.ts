@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutosService } from '../../services/produto/produtos.service';
 import { Router } from '@angular/router';
-import { URL } from 'node:url';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-welcome',
@@ -15,7 +15,8 @@ export class WelcomeComponent implements OnInit {
   
   constructor (
     private router: Router,
-    private produtoService: ProdutosService) {}
+    private produtoService: ProdutosService,
+    public authService: AuthService) {}
 
   ngOnInit(): void {
     this.produtos = this.produtoService.getTodos();

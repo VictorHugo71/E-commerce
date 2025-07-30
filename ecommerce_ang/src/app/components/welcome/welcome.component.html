@@ -26,7 +26,7 @@
     <div *ngIf="estaLogado">
       <button mat-button routerLink="/compras">Compras</button>
       <button mat-button routerLink="/listadesejo">Lista de Desej-os</button>
-      <button mat-button routerLink="/perfil">Perfil</button>
+      <button mat-button routerLink="/perfil" *ngIf="authService.estaLogado()">Perfil</button>
       <button (click)="logout()" class="botao-logout">Sair</button>
     </div>
   </nav>
