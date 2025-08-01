@@ -47,6 +47,8 @@ export class EnderecoDialogComponent {
     this.endereco = data?.endereco
       ? { ...data.endereco }
       : {
+          id_endereco: undefined,
+          rua: '',
           logradouro: '',
           numero: '',
           complemento: '',

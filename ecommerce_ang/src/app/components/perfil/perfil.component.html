@@ -44,7 +44,7 @@
     <div class="enderecos-wrapper">
       <h3>Endereços Cadastrados</h3>
       <mat-card *ngFor="let endereco of enderecos" class="endereco-card">
-        <p>{{ endereco.logradouro }}, {{ endereco.numero }}</p>
+        <p>{{ endereco.rua }}, {{ endereco.logradouro }}, {{ endereco.numero }}</p>
         <p>{{ endereco.bairro }} - {{ endereco.cidade }} ({{ endereco.estado }})</p>
         <p>CEP: {{ endereco.cep }}</p>
 

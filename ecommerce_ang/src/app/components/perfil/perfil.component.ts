@@ -52,8 +52,18 @@ export class PerfilComponent {
 
     this.perfilService.obterPerfil({email: dados.email}).subscribe({
       next:(res) => {
-        this.usuario = res.usuario;
-        this.enderecos = res.enderecos;
+        const user = res.usuario;
+        this.usuario = {
+          id: user.id || user.id_cliente,
+          nome: user.nome || '',
+          email: user.email ||'',
+          telefone: user.telefone || '',
+          cpf: user.cpf || '',
+          avatar: user.avatar || '',
+          endereco: res.enderecos || []
+        };
+        this.enderecos = [...this.usuario.endereco];
+        console.log('Endereços formatados no Angular: ', this.enderecos);
       },
       error:(err) => {
         console.error('Erro ao carregar perfil:', err)
@@ -100,8 +110,8 @@ export class PerfilComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        result.id = Date.now(); // Simula ID único
         this.enderecos.push(result);
+        this.usuario.endereco = [...this.enderecos];
         this.salvarPerfil();
       }
     });
@@ -110,17 +120,19 @@ export class PerfilComponent {
   editarEndereco(endereco: any): void {
     const dialogRef = this.dialog.open(EnderecoDialogComponent, {
       width: '450px',
-      data: { endereco }
+      data: { endereco: { ...endereco } }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.enderecos.findIndex(e => e.id === endereco.id_endereco);
+        const index = this.enderecos.findIndex(e => e.id_endereco === result.id_endereco);
         if (index !== -1) {
-          this.enderecos[index] = { ...result, id_endereco: endereco.id_endereco};
-          this.usuario.endereco = [...this.enderecos];
-          this.salvarPerfil();
+          this.enderecos[index] = result;
+        } else {
+          this.enderecos.push(result);
         }
+        this.usuario.endereco = [...this.enderecos];
+        this.salvarPerfil();
       }
     });
   }
@@ -142,9 +154,30 @@ export class PerfilComponent {
   }
 
   salvarPerfil(): void {
-    this.perfilService.atualizarPerfil(this.usuario).subscribe({
+    const enderecosParaBackend = this.enderecos.map(e => ({
+      id_endereco: e.id_endereco,
+      rua: e.rua,
+      numero: e.numero,
+      cidade: e.cidade,
+      estado: e.estado,
+      cep: e.cep,
+      complemento: e.complemento,
+      bairro: e.bairro,
+      principal: e.principal ? 1 : 0,
+      logradouro: e.logradouro
+    }));
+
+    const usuarioParaBackend = {
+      ...this.usuario,
+      endereco: enderecosParaBackend
+    };
+
+    console.log('Enviando para atualizar: ', usuarioParaBackend);
+
+    this.perfilService.atualizarPerfil(usuarioParaBackend).subscribe({
       next: (res) => {
-        console.log('Perfil atualizado com sucesso');
+        console.log('Perfil atualizado com sucesso', res);
+        this.ngOnInit(); // Chame ngOnInit para buscar os dados frescos do banco
       },
       error: (err) => {
         console.error('Erro ao atualizar perfil:', err);

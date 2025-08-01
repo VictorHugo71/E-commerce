@@ -7,7 +7,7 @@ export class AvatarService {
   private avatarMap: {[key: string]: string} = {
     'avatar01.png': 'Robô Vingador',
     'avatar02.png': 'Robô Destemido',
-    'avatar03.png': 'Roboô Surpreso',
+    'avatar03.png': 'Robô Surpreso',
     'avatar04.png': 'Robô Guardião',
     'avatar05.png': 'Robõ Caçador',
     'avatar06.png': 'Robô Lâmpada'

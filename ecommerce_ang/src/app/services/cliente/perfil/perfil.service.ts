@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class PerfilService {
   private perfilUrl = 'http://localhost/neziara-sgbd/perfil/perfil.php';
   private atualizarUrl = 'http://localhost/neziara-sgbd/perfil/atualiza_perfil.php';
+
   constructor(
     private http: HttpClient,
   ) {}

@@ -3,6 +3,11 @@
 <mat-dialog-content>
   <form>
     <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Rua</mat-label>
+      <input matInput [(ngModel)]="endereco.rua" name="rua" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Logradouro</mat-label>
       <input matInput [(ngModel)]="endereco.logradouro" name="logradouro" required>
     </mat-form-field>
