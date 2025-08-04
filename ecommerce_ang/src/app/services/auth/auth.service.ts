@@ -17,13 +17,8 @@ export class AuthService {
   }
 
   getEmail(): string | null {
-    const usuario = localStorage.getItem('usuario');
-    if(!usuario) return null;
-
-    const dados = JSON.parse(usuario);
-    return dados.email || null;
-
-    
+    const usuario = this.getUsuario();
+    return usuario ? usuario.email : null;
   }
 
   estaLogado(): boolean {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
@@ -19,11 +20,13 @@ const routes: Routes = [
     {path: 'signup', component: SignupComponent}
   ]
   },
-  {path: 'perfil', component: PerfilComponent},
+  {path: 'perfil', component: PerfilComponent, canActivate: [authGuard]},
   {path: 'produto/:id', component: ProdutoComponent}, //tem que fazer esta parte ainda, depois que fizer o back
-  {path: 'listadesejo', component: ListaDesejoComponent},
-  {path: 'finalizar', component: FinalizarCompraComponent},
+  {path: 'listadesejo', component: ListaDesejoComponent, canActivate: [authGuard]},
+  {path: 'finalizar', component: FinalizarCompraComponent, canActivate: [authGuard]},
   {path: 'input', component: InputComponent}, //tem que fazer esta parte ainda, depois que fizer o back
+
+  {path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({

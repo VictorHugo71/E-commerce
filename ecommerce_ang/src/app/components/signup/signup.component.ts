@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CadastroService } from '../../services/cliente/cadastro.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
   usuario = {
     nome: '',
     email: '',
@@ -21,7 +22,14 @@ export class SignupComponent {
   constructor(
     private router: Router,
     private clienteService: CadastroService,
+    private authService: AuthService
   ) {}
+
+  ngOnInit(): void {
+    if(this.authService.estaLogado()) {
+      this.router.navigate(['/perfil']);
+    }
+  }
 
   cadastrar() {
     if (this.usuario.senha !== this.usuario.confirmarSenha) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/cliente/login.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   usuario = {
     email: '',
     senha: ''
@@ -22,6 +22,12 @@ export class LoginComponent {
     private loginService: LoginService,
     private authService: AuthService
   ) {}
+
+  ngOnInit(): void {
+    if(this.authService.estaLogado()) {
+      this.router.navigate(['/perfil']);
+    }
+  }
 
   login(): void {
     this.loginService.login(this.usuario).subscribe({
