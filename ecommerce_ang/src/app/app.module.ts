@@ -19,7 +19,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
@@ -31,11 +30,12 @@ import { EnderecoDialogComponent } from './components/endereco-dialog/endereco-d
 import { FinalizarCompraComponent } from './pages/finalizar-compra/finalizar-compra.component';
 import { ListaDesejoComponent } from './components/lista-desejo/lista-desejo.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
+import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
+import { AdminSignupComponent } from './components/admin/admin-signup/admin-signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     WelcomeComponent,
     LoginComponent,
     SignupComponent,
@@ -48,6 +48,8 @@ import { ProdutoComponent } from './pages/produto/produto.component';
     FinalizarCompraComponent,
     ListaDesejoComponent,
     ProdutoComponent,
+    AdminLoginComponent,
+    AdminSignupComponent,
   ],
   imports: [
     BrowserModule,
