@@ -1,1 +1,50 @@
-<p>admin-signup works!</p>
+<form #form="ngForm" class="cadastro-form" (ngSubmit)="cadastrar()">
+    <h2>Cadastrar Administrador</h2>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nome completo</mat-label>
+      <input matInput name="nome" required [(ngModel)]="admin.nome" #nomeModel="ngModel" />
+      <mat-error *ngIf="nomeModel.invalid && nomeModel.touched">
+        O nome é obrigatório.
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" name="email" required email [(ngModel)]="admin.email" #emailModel="ngModel" />
+      <mat-error *ngIf="emailModel.invalid && emailModel.touched">
+        <span *ngIf="emailModel.errors?.['required']">O email é obrigatório.</span>
+        <span *ngIf="emailModel.errors?.['email']">Formato de email inválido.</span>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" name="senha" required minlength="6" [(ngModel)]="admin.senha" #senhaModel="ngModel" />
+      <mat-error *ngIf="senhaModel.invalid && senhaModel.touched">
+        <span *ngIf="senhaModel.errors?.['required']">A senha é obrigatória.</span>
+        <span *ngIf="senhaModel.errors?.['minlength']">Mínimo de 6 caracteres.</span>
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Confirmar senha</mat-label>
+      <input matInput type="password" name="confirmarSenha" required [(ngModel)]="admin.confirmarSenha" #confirmarSenhaModel="ngModel" />
+      <mat-error *ngIf="confirmarSenhaModel.touched && admin.senha !== admin.confirmarSenha">
+        As senhas não coincidem.
+      </mat-error>
+    </mat-form-field>
+  
+    <div *ngIf="mensagemSucesso" class="mensagem sucesso">
+      {{mensagemSucesso}}
+    </div>
+  
+    <div class="mensagem erro" *ngIf="mensagemErro">
+      {{mensagemErro}}
+    </div>
+  
+    <button mat-raised-button color="primary" class="submit-button" type="submit" [disabled]="form.invalid || admin.senha !== admin.confirmarSenha">
+      Cadastrar
+    </button>
+  
+  </form>
