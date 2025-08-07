@@ -8,7 +8,7 @@ import { AdminCadastro } from '../../models/admin/admin-cadastro';
   providedIn: 'root'
 })
 export class SignupAdminService {
-  private apiUrl = ''
+  private apiUrl = 'http://localhost/neziara-sgbd/admin/cadastro/cadastro.php'
 
   constructor(
     private http: HttpClient
