@@ -1,1 +1,31 @@
-<p>admin-login works!</p>
+<form class="login-form" #form="ngForm" (ngSubmit)="login()">
+    <h2>Entrar</h2>
+  
+      <mat-form-field appearance="fill" class="full-width" floatLabel="auto">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email" [(ngModel)]="admin.email" required email #emailModel="ngModel" />
+        <mat-error *ngIf="emailModel.invalid && emailModel.touched">
+          <span *ngIf="emailModel.errors?.['required']">O email é obrigatório.</span>
+          <span *ngIf="emailModel.errors?.['email']">Formato de email inválido.</span>
+        </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" name="senha" [(ngModel)]="admin.senha" required minlength="6" #senhaModel="ngModel" />
+        <mat-error *ngIf="senhaModel.invalid && senhaModel.touched">
+          <span *ngIf="senhaModel.errors?.['required']">A senha é obrigatória.</span>
+          <span *ngIf="senhaModel.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</span>
+        </mat-error>
+      </mat-form-field>
+  
+      <div class="mensagem erro" *ngIf="mensagemErro">
+        {{ mensagemErro }}
+      </div>
+    
+      <button mat-raised-button class="submit-button" type="submity" [disabled]="form.invalid">
+        Entrar
+      </button>
+  
+    <p class="signup-link">Não tem uma conta? <a routerLink="/signup">Cadastrar</a></p>
+  </form>

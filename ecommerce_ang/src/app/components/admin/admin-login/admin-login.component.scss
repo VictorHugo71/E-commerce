@@ -1,0 +1,55 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 350px;
+    text-align: center;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .register-link {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 48px !important;
+    background-color: #F3EED9 !important;
+    border-radius: 6px;
+  }
+  
+  ::ng-deep .mdc-text-field__input {
+    color: #01223a !important; // cor do texto digitado
+    font-weight: 500;
+  }
+  
+  ::ng-deep .mdc-floating-label {
+    color: #3d3d35 !important; // cor do label
+  }
+  
+  ::ng-deep .mdc-text-field--focused .mdc-floating-label {
+    color: #9b6500 !important;
+    font-weight: bold;
+  }
+  
+  ::ng-deep .mat-mdc-form-field-error {
+    color: #FF6F61; 
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  
+  .mensagem {
+    padding: 6px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+  
+    &.erro {
+      color: red;
+    }
+  }

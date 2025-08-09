@@ -19,17 +19,27 @@
       <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria }}</button>
     </mat-menu>
     <button mat-button routerLink="/ofertas">Ofertas</button>
-    <div *ngIf="!estaLogado">
-      <button mat-button routerLink="/signup">Criar Conta</button>
-      <button mat-button routerLink="/login">Entrar</button>
-      <button mat-button routerLink="/loginAdmin">Entrar Admin</button>
-    </div>
-    <div *ngIf="estaLogado">
-      <button mat-button routerLink="/compras">Compras</button>
-      <button mat-button routerLink="/listadesejo">Lista de Desej-os</button>
-      <button mat-button routerLink="/perfil" *ngIf="authService.estaLogado()">Perfil</button>
-      <button (click)="logout()" class="botao-logout">Sair</button>
-    </div>
+
+      <div *ngIf="[!estaLogadoAdmin && !estaLogadoCliente]">
+        <button mat-button routerLink="/signup">Criar Conta</button>
+        <button mat-button routerLink="/login">Entrar</button>
+        <button mat-button routerLink="/admin/login">Entrar Admin</button>
+      </div>
+
+      <div *ngIf="estaLogadoCliente && !estaLogadoAdmin">
+        <button mat-button routerLink="/compras">Compras</button>
+        <button mat-button routerLink="/listadesejo">Lista de Desej-os</button>
+        <button mat-button routerLink="/perfil" *ngIf="authService.estaLogado()">Perfil</button>
+      </div>
+
+      <div *ngIf="!estaLogadoCliente && estaLogadoAdmin">
+        <button mat-button routerLink="/admin/dashboard">Dashboard</button>
+        <button mat-button routerLink="/admin/gerenciar-produtos">Gerenciar Produtos</button>
+        <button mat-button routerLink="/admin/signup">Cadastrar Novo Admin</button>
+        <button mat-button routerLink="/admin/perfil">Perfil Admin</button>
+      </div>
+
+      <button *ngIf="estaLogadoAdmin || estaLogadoCliente" (click)="logout()" class="botao-logout">Sair</button>
   </nav>
   
   

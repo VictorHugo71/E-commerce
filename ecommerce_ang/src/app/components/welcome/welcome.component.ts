@@ -11,26 +11,36 @@ import { AdminAuthService } from '../../services/admin/auth/admin-auth.service';
 })
 export class WelcomeComponent implements OnInit {
   produtos: any [] = [];
-
   categorias: string[] = [];
   
   constructor (
     private router: Router,
     private produtoService: ProdutosService,
+
     public authService: AuthService,
-    public adminAuthService: AdminAuthService) {}
+    public adminAuthService: AdminAuthService
+  ) {}
 
   ngOnInit(): void {
     this.produtos = this.produtoService.getTodos();
     this.categorias = this.produtoService.getCategorias();
   }
 
-  get estaLogado():boolean {
-    return localStorage.getItem('usuario') !== null;
+  //Veriicar Cliente Logado
+  get estaLogadoCliente():boolean {
+    return this.authService.estaLogado();
   }
 
+  //Verifica Admin Logado
+  get estaLogadoAdmin(): boolean {
+    return this.adminAuthService.isLoggedIn();
+  }
+
+  //Logout para Admin e Cliente
   logout() {
-    localStorage.removeItem('usuario');
+    //Chama o logout de ambos os services
+    this.authService.logout();
+    this.adminAuthService.logout();
     this.router.navigate(['/home']);
   }
 }
