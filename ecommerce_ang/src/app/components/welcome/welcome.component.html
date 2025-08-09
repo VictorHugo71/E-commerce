@@ -20,7 +20,7 @@
     </mat-menu>
     <button mat-button routerLink="/ofertas">Ofertas</button>
 
-      <div *ngIf="[!estaLogadoAdmin && !estaLogadoCliente]">
+      <div *ngIf="!estaLogadoAdmin && !estaLogadoCliente">
         <button mat-button routerLink="/signup">Criar Conta</button>
         <button mat-button routerLink="/login">Entrar</button>
         <button mat-button routerLink="/admin/login">Entrar Admin</button>

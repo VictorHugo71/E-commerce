@@ -43,7 +43,7 @@ export class AdminLoginComponent implements OnInit{
     try {
       const res: any = await firstValueFrom(this.loginAdminService.login(dados));
 
-      //this.adminAuthService.setToken(res.token); Se o php retornar um token
+      this.adminAuthService.setToken(res.token); 
 
       this.mensagemSucesso = res.mensagem;
 
