@@ -1,13 +1,14 @@
-<!--
-    TENTAR CRIAR DIVISORES TIPO O FORMFIELD SET COM CADA ÁREA
-    NECESSÁRIA PARA O ADMIN E DENTRO DESSES FIELDSET'S BOTÕES PARA
-    REDIRESCIONAR PARA A ABA ESPECIFICA
--->
-
-<!--
-<div class="dashboard-container">
+<body>
+  <div class="dashboard-container">
     <h2>Dashboard Administrativo</h2>
-    
+  
+    <div class="back-home-button-container">
+      <a mat-button routerLink="/home" class="back-home-button">
+        <mat-icon>home</mat-icon>
+        Voltar ao Home
+      </a>
+    </div>
+  
     <section class="dashboard-section">
       <div class="section-header">
         <mat-icon>inventory_2</mat-icon>
@@ -18,9 +19,9 @@
         <button mat-flat-button color="accent" routerLink="/admin/gerenciar-produtos">
           Ver Produtos
         </button>
-        <button mat-button routerLink="/admin/adicionar-produto">
+        <button mat-button routerLink="/admin/gerenciar-produtos/adicionar">
           <mat-icon>add_circle_outline</mat-icon>
-          Adicionar Novo
+          Adicionar Novo Produto
         </button>
       </div>
     </section>
@@ -64,4 +65,4 @@
       </div>
     </section>
   </div>
-  -->
+</body>

@@ -56,7 +56,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'gerenciar-produtos', component: GerenciarProdutosComponent },
-      { path: 'gerenciar-produtos/cadastrar', component: CadastrarProdutosComponent },
+      { path: 'gerenciar-produtos/adicionar', component: CadastrarProdutosComponent },
       // Adicione outras rotas de admin aqui
     ]
   },

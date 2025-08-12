@@ -2,14 +2,25 @@ $primary-color: #1a1f2b;
 $secondary-color: #2c3324;
 $neutral-color: #3d4454;
 $accent-color: #d4a017;
+
 $text-light: #f2f2f2;
 $text-dark: #1a1f2b;
+
 $error-color: #e63946;
 $success-color: #2a9d8f;
 
+body {
+  height: 100vh;
+  background-color: $primary-color;
+  // NOVAS PROPRIEDADES PARA CENTRALIZAR COM FLEXBOX
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;     /* Centraliza verticalmente */
+}
+
 .product-form-container {
   max-width: 500px;
-  margin: 40px auto;
+  // PROPRIEDADES REMOVIDAS: 'top' e 'margin: auto'
   padding: 25px;
   background: $neutral-color;
   border-radius: 10px;
@@ -21,6 +32,36 @@ $success-color: #2a9d8f;
     margin-bottom: 20px;
     color: $accent-color;
     font-weight: 600;
+  }
+
+  .back-home-button-container {
+    text-align: center;
+    margin-bottom: 25px;
+  
+    .back-home-button {
+      background-color: $neutral-color;
+      color: $text-light;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+  
+      mat-icon {
+        color: $text-light;
+      }
+  
+      &:hover {
+        background-color: darken($neutral-color, 10%);
+        color: $accent-color;
+        mat-icon {
+          color: $accent-color;
+        }
+      }
+    }
   }
 
   form {
@@ -36,6 +77,26 @@ $success-color: #2a9d8f;
         margin-bottom: 6px;
         font-weight: 500;
         color: $text-light;
+      }
+
+      /* Estilização do mat-slide-toggle usando as cores Neziara */
+      ::ng-deep .mat-mdc-slide-toggle {
+        --mdc-switch-selected-track-color: #d4a017;   /* Cor da faixa quando ligado */
+        --mdc-switch-selected-handle-color: #f2f2f2; /* Cor do botão quando ligado */
+        --mdc-switch-selected-focus-track-color: #d4a017;
+        --mdc-switch-selected-hover-track-color: #b89014;
+        --mdc-switch-selected-pressed-track-color: #b89014;
+
+        --mdc-switch-unselected-track-color: #3d4454;  /* Faixa quando desligado */
+        --mdc-switch-unselected-handle-color: #f2f2f2; /* Botão quando desligado */
+        --mdc-switch-unselected-hover-track-color: #2c3340;
+        --mdc-switch-unselected-pressed-track-color: #2c3340;
+      }
+
+      /* Texto ao lado do slide-toggle */
+      ::ng-deep .mat-mdc-slide-toggle .mdc-label {
+        color: #f2f2f2; /* Texto claro */
+        font-weight: 500;
       }
 
       input {
