@@ -1,0 +1,129 @@
+$primary-color: #1a1f2b;
+$secondary-color: #2c3324;
+$neutral-color: #3d4454;
+$accent-color: #d4a017;
+$text-light: #f2f2f2;
+$text-dark: #1a1f2b;
+$error-color: #e63946;
+$success-color: #2a9d8f;
+
+.product-form-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  background: $neutral-color;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: $text-light;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: $accent-color;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: $text-light;
+      }
+
+      input {
+        padding: 10px;
+        border: 1px solid lighten($neutral-color, 15%);
+        border-radius: 5px;
+        font-size: 14px;
+        background: $primary-color;
+        color: $text-light;
+        transition: border-color 0.3s, box-shadow 0.3s;
+
+        &::placeholder {
+          color: lighten($neutral-color, 40%);
+        }
+
+        &:focus {
+          border-color: $accent-color;
+          outline: none;
+          box-shadow: 0 0 5px rgba($accent-color, 0.4);
+        }
+
+        &:invalid:focus {
+          border-color: $error-color;
+          box-shadow: 0 0 5px rgba($error-color, 0.4);
+        }
+      }
+
+      .error-message {
+        color: $error-color;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+
+      button {
+        padding: 10px 20px;
+        font-weight: 500;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:first-child {
+          background: $accent-color;
+          color: $text-dark;
+
+          &:hover:enabled {
+            background: darken($accent-color, 5%);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+
+        &:last-child {
+          background: lighten($neutral-color, 5%);
+          color: $text-light;
+
+          &:hover {
+            background: lighten($neutral-color, 10%);
+          }
+        }
+      }
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: 500;
+
+      &.sucesss {
+        background: lighten($success-color, 30%);
+        color: $success-color;
+      }
+
+      &.error {
+        background: lighten($error-color, 35%);
+        color: $error-color;
+      }
+    }
+  }
+}

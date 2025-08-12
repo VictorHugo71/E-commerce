@@ -32,6 +32,9 @@ import { ListaDesejoComponent } from './components/lista-desejo/lista-desejo.com
 import { ProdutoComponent } from './pages/produto/produto.component';
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
 import { AdminSignupComponent } from './components/admin/admin-signup/admin-signup.component';
+import { CadastrarProdutosComponent } from './components/admin/cadastrar-produtos/cadastrar-produtos.component';
+import { GerenciarProdutosComponent } from './components/admin/gerenciar-produtos/gerenciar-produtos.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { AdminSignupComponent } from './components/admin/admin-signup/admin-sign
     ProdutoComponent,
     AdminLoginComponent,
     AdminSignupComponent,
+    CadastrarProdutosComponent,
+    GerenciarProdutosComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

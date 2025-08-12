@@ -10,7 +10,7 @@ export class ProdutosService {
       id: 1,
       nome: 'Fone Bluetooth',
       preco: 99.90,
-      imagem: 'fone.jpg',
+      imagem: 'uploads/fone.jpg',
       descricao: 'Fone bluetooth legal'
     },
     {

@@ -19,7 +19,11 @@ import { ListaDesejoComponent } from './components/lista-desejo/lista-desejo.com
 import { FinalizarCompraComponent } from './pages/finalizar-compra/finalizar-compra.component';
 
 //Rota Privada de Admin
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { AdminSignupComponent } from './components/admin/admin-signup/admin-signup.component';
+import { GerenciarProdutosComponent } from './components/admin/gerenciar-produtos/gerenciar-produtos.component';
+import { CadastrarProdutosComponent } from './components/admin/cadastrar-produtos/cadastrar-produtos.component';
+
 
 const routes: Routes = [
   // Redireciona a rota base para a página inicial
@@ -45,17 +49,17 @@ const routes: Routes = [
   
   // Rotas de administrador, protegidas pelo adminGuard
   // Todas as rotas dentro deste bloco só poderão ser acessadas se o adminGuard permitir
-  /*{
+  {
     path: 'admin',
     canActivate: [adminGuard],
-    Se quiser pode tirar esta linha toda component: AdminLayoutComponent, // Recomenda-se um layout próprio para a área administrativa
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'dashboard', component: DashboardComponent },
       { path: 'gerenciar-produtos', component: GerenciarProdutosComponent },
+      { path: 'gerenciar-produtos/cadastrar', component: CadastrarProdutosComponent },
       // Adicione outras rotas de admin aqui
     ]
-  },*/
+  },
   
   {path: 'input', component: InputComponent},
 

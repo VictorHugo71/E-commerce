@@ -1,0 +1,58 @@
+// Cores base da Neziara
+$primary-color: #1A1F2B;     // Fundo Principal
+$secondary-color: #2C3240;   // Detalhes Escuros Intermediários / Fundo Secundário
+$neutral-color: #3D4454;      // entre o primary e secondary
+$accent-color: #D4A017;      // Cor de Destaque
+
+$text-light: #F2F2F2;
+$text-dark: #1A1F2B;
+$bg-light: #F3F3F3;
+
+nav {
+    display: flex;
+    gap: 15px;
+    padding: 10px 0;
+    background-color: $secondary-color;
+    flex-wrap: wrap;
+    font-size: 14px;
+    justify-content: center;
+  
+    button[mat-button] {
+      color: $text-light;
+      text-transform: none !important;
+      font-weight: 500;
+      transition: all .5s ease;
+  
+      &:hover {
+        color: $accent-color;
+        background-color: $primary-color;
+      }
+    }
+  
+    .botao-logout {
+      padding: 10px 20px;
+      border: 2px solid $accent-color;
+      background-color: transparent;
+      color: $accent-color;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background-color: $accent-color;
+        color: $primary-color;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+  
+      &:active {
+        transform: scale(.97);
+      }
+  
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.5);
+      }
+    }
+  }
