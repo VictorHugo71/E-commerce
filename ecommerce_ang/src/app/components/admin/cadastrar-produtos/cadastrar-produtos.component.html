@@ -28,6 +28,11 @@
     
             <div class="form-group">
                 <label for="categoria">Categoria:</label>
+                <mat-select [(ngModel)]="produto.categoria" name="categoria" required>
+                    <mat-option *ngFor="let categoria of categorias" [value]="categoria.Nome">
+                        {{categoria.Nome}}
+                    </mat-option>
+                </mat-select>
                 <input type="text" id="categoria" name="categoria" [(ngModel)]="produto.categoria" required>
                 <div class="error-message" *ngIf="productForm.controls['categoria']?.invalid && (productForm.controls['categoria']?.dirty || productForm.controls['categoria']?.touched)">
                     Categoria é obrigatória.

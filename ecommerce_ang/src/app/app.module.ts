@@ -36,6 +36,7 @@ import { AdminSignupComponent } from './components/admin/admin-signup/admin-sign
 import { CadastrarProdutosComponent } from './components/admin/cadastrar-produtos/cadastrar-produtos.component';
 import { GerenciarProdutosComponent } from './components/admin/gerenciar-produtos/gerenciar-produtos.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { CategoriaDialogComponent } from './components/admin/categoria-dialog/categoria-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
     CadastrarProdutosComponent,
     GerenciarProdutosComponent,
     DashboardComponent,
+    CategoriaDialogComponent,
   ],
   imports: [
     BrowserModule,

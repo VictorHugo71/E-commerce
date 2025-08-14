@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Adicionar Nova Categoria</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form #categoriaForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome da Categoria</mat-label>
+        <input matInput [(ngModel)]="categoria.nome" name="nome" required>
+        <mat-error *ngIf="categoriaForm.controls['nome']?.invalid">
+          O nome da categoria é obrigatório.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClick()">Cancelar</button>
+  <button mat-flat-button [mat-dialog-close]="categoria.nome" color="accent" [disabled]="categoriaForm.invalid">
+    Adicionar
+  </button>
+</mat-dialog-actions>

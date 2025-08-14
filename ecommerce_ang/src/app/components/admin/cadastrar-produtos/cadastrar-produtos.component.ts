@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminProdutos } from '../../../models/admin/produtos/admin-produtos';
+import { Categoria } from '../../../models/admin/produtos/categorias';
 import { CadastroProdutosService } from '../../../services/admin/produtos/cadastro-produtos.service';
 import { firstValueFrom } from 'rxjs';
 
@@ -8,7 +9,7 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './cadastrar-produtos.component.html',
   styleUrl: './cadastrar-produtos.component.scss'
 })
-export class CadastrarProdutosComponent /*implements OnInit*/ {
+export class CadastrarProdutosComponent implements OnInit {
   produto: AdminProdutos = {
     nome: '',
     preco: 0.0,
@@ -17,6 +18,8 @@ export class CadastrarProdutosComponent /*implements OnInit*/ {
     estoque: 0,
     status: false,
   };
+
+  categorias: Categoria[] = [];
 
   mensagemSucesso = '';
   mensagemErro = '';
@@ -28,7 +31,16 @@ export class CadastrarProdutosComponent /*implements OnInit*/ {
   ) {}
 
   ngOnInit(): void {
+    this.carregarCategorias();
+  }
 
+  async carregarCategorias(): Promise<void> {
+    try{
+      this.categorias = await firstValueFrom(this.produtoService.getCategoria());
+
+    } catch(error: any) {
+      this.mensagemErro = 'Erro ao carregar categorias.';
+    }
   }
 
   onFileSelected(event: any) {
