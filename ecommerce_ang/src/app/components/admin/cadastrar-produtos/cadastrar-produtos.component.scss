@@ -12,15 +12,13 @@ $success-color: #2a9d8f;
 body {
   height: 100vh;
   background-color: $primary-color;
-  // NOVAS PROPRIEDADES PARA CENTRALIZAR COM FLEXBOX
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center;     /* Centraliza verticalmente */
+  justify-content: center;
+  align-items: center;
 }
 
 .product-form-container {
   max-width: 500px;
-  // PROPRIEDADES REMOVIDAS: 'top' e 'margin: auto'
   padding: 25px;
   background: $neutral-color;
   border-radius: 10px;
@@ -79,23 +77,87 @@ body {
         color: $text-light;
       }
 
-      /* Estilização do mat-slide-toggle usando as cores Neziara */
+      /* mat-select estilizado */
+      .full-width {
+        width: 100%;
+      }
+
+      ::ng-deep .mat-mdc-form-field {
+        color: $text-light;
+
+        .mdc-text-field {
+          background-color: $primary-color !important;
+          border-radius: 8px !important;
+        }
+
+        /* Borda */
+        .mat-mdc-form-field-outline {
+          stroke: lighten($neutral-color, 15%);
+        }
+
+        /* Label */
+        .mat-mdc-floating-label {
+          color: lighten($text-light, 20%);
+        }
+
+        /* Select */
+        .mat-mdc-select {
+          color: $text-light;
+        }
+
+        /* Setinha */
+        .mat-mdc-select-arrow {
+          color: $accent-color;
+        }
+
+        /* Foco */
+        &.mat-focused .mat-mdc-form-field-outline-thick {
+          stroke: $accent-color;
+        }
+
+        /* Dropdown */
+        ::ng-deep .mat-mdc-select-panel {
+          background-color: $neutral-color;
+          color: $text-light;
+
+          .mat-mdc-option {
+            color: $text-light;
+
+            &:hover {
+              background-color: lighten($neutral-color, 5%);
+            }
+
+            &.mat-mdc-selected {
+              background-color: $accent-color;
+              color: $text-dark;
+            }
+          }
+        }
+      }
+
+      /* Erro do Angular Material */
+      mat-error {
+        color: $error-color;
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      /* Estilo do mat-slide-toggle */
       ::ng-deep .mat-mdc-slide-toggle {
-        --mdc-switch-selected-track-color: #d4a017;   /* Cor da faixa quando ligado */
-        --mdc-switch-selected-handle-color: #f2f2f2; /* Cor do botão quando ligado */
+        --mdc-switch-selected-track-color: #d4a017;
+        --mdc-switch-selected-handle-color: #f2f2f2;
         --mdc-switch-selected-focus-track-color: #d4a017;
         --mdc-switch-selected-hover-track-color: #b89014;
         --mdc-switch-selected-pressed-track-color: #b89014;
 
-        --mdc-switch-unselected-track-color: #3d4454;  /* Faixa quando desligado */
-        --mdc-switch-unselected-handle-color: #f2f2f2; /* Botão quando desligado */
+        --mdc-switch-unselected-track-color: #3d4454;
+        --mdc-switch-unselected-handle-color: #f2f2f2;
         --mdc-switch-unselected-hover-track-color: #2c3340;
         --mdc-switch-unselected-pressed-track-color: #2c3340;
       }
 
-      /* Texto ao lado do slide-toggle */
       ::ng-deep .mat-mdc-slide-toggle .mdc-label {
-        color: #f2f2f2; /* Texto claro */
+        color: #f2f2f2;
         font-weight: 500;
       }
 

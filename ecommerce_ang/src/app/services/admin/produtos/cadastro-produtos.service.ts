@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AdminProdutos } from '../../../models/admin/produtos/admin-produtos';
-import { Categoria } from '../../../models/admin/produtos/categorias';
 import { AdminResponse } from '../../../models/admin/admin-response';
+import { Categoria } from '../../../models/admin/produtos/categorias';
+
+interface NovaCategoriaRequest {
+  nome: string
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CadastroProdutosService {
   private apiUrl = 'http://localhost/neziara-sgbd/';
-  private urlGetCategorias = `${this.apiUrl}admin/produtos/categorias.php`
+  private urlCategorias = `${this.apiUrl}admin/produtos/categorias.php`
   private urlAddProdutos = `${this.apiUrl}admin/produtos/cadastrar-produtos.php`
 
   constructor(
@@ -22,6 +26,11 @@ export class CadastroProdutosService {
   }
 
   getCategoria(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.urlGetCategorias);
+    return this.http.get<Categoria[]>(this.urlCategorias);
+  }
+
+  addCategoria(nomeCategoria: string): Observable<AdminResponse> {
+    const categoriaData: NovaCategoriaRequest = { nome: nomeCategoria };
+    return this.http.post<AdminResponse>(this.urlCategorias, categoriaData);
   }
 }

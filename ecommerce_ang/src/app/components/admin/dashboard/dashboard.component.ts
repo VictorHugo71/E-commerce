@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoriaDialogComponent } from '../categoria-dialog/categoria-dialog.component';
+import { CadastroProdutosService } from '../../../services/admin/produtos/cadastro-produtos.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +10,13 @@ import { CategoriaDialogComponent } from '../categoria-dialog/categoria-dialog.c
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+  mensagemSucesso: string = '';
+  mensagemErro: string = '';
 
   constructor(
     public dialog: MatDialog,
+    private categoriaService: CadastroProdutosService,
+    private snackBar: MatSnackBar
   ) {}
 
   openCategoriaDialog(): void {
@@ -21,10 +27,30 @@ export class DashboardComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('O diálogo foi fechado');
-      console.log('A categoria foi adicionada');
+      this.mensagemSucesso = '';
+      this.mensagemErro = '';
 
       //Adicionar o service para cadastrar a categoria
+      if(result) {
+        this.categoriaService.addCategoria(result).subscribe({
+          next: (res) => {
+            this.mensagemSucesso = res?.mensagem || 'Categoria cadastrada com sucesso';
+            console.log('Categoria adicionada: ', res);
+            this.snackBar.open(res.mensagem, 'Fechar', {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            });
+          },
+          error: (err) => {
+            const mensagemErro = err.error?.mensagem || 'Erro ao adicionar categoria.';
+            console.log('Erro ao adicionar categoria: ', err);
+            this.snackBar.open(mensagemErro, 'Fechar', {
+              duration: 3000,
+              panelClass: ['snackbar-error']
+            });
+          }
+        });
+      }
     });
   }
 }
