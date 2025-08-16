@@ -14,7 +14,7 @@ export class CadastrarProdutosComponent implements OnInit {
     nome: '',
     preco: 0.0,
     descricao: '',
-    categoria: '',
+    categoria: 0,
     estoque: 0,
     status: false,
   };
@@ -65,15 +65,16 @@ export class CadastrarProdutosComponent implements OnInit {
     formData.append('descricao', this.produto.descricao);
     formData.append('preco', this.produto.preco.toString()); // Converte para string
     formData.append('estoque', this.produto.estoque.toString());
-    formData.append('categoria', this.produto.categoria);
+    formData.append('categoria', this.produto.categoria.toString());
     formData.append('imagem', this.selectedFile, this.selectedFile.name);
-    formData.append('status', this.produto.status.toString());
+    formData.append('status', this.produto.status ? '1' : '0');
+    
 
     try {
-      const res = await firstValueFrom(this.produtoService.addProduto(this.produto));
+      const res = await firstValueFrom(this.produtoService.addProduto(formData));
       this.mensagemSucesso = res.mensagem;
 
-      this.produto = {nome: '', preco: 0.0, descricao: '', categoria: '', estoque: 0, status: false};
+      this.produto = {nome: '', preco: 0.0, descricao: '', categoria: 0, estoque: 0, status: false};
       this.selectedFile = null;
 
     } catch(error: any) {
@@ -82,7 +83,7 @@ export class CadastrarProdutosComponent implements OnInit {
   }
 
   cancelarCadastro(): void {
-    this.produto = {nome: '', preco: 0.0, descricao: '', categoria: '', estoque: 0, status: false};
+    this.produto = {nome: '', preco: 0.0, descricao: '', categoria: 0, estoque: 0, status: false};
     console.log('Cadastro de produto cancelado');
   }
 }

@@ -2,7 +2,7 @@ export interface AdminProdutos {
     nome: string,
     preco: number,
     descricao: string,
-    categoria: string,
+    categoria: number,
     estoque: number,
-    status: boolean
+    status: boolean,
 }

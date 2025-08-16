@@ -21,8 +21,8 @@ export class CadastroProdutosService {
     private http: HttpClient,
   ) { }
 
-  addProduto(produtos: AdminProdutos): Observable<AdminResponse> {
-    return this.http.post<AdminResponse>(this.urlAddProdutos, produtos);
+  addProduto(formData: FormData): Observable<AdminResponse> {
+    return this.http.post<AdminResponse>(this.urlAddProdutos, formData);
   }
 
   getCategoria(): Observable<Categoria[]> {

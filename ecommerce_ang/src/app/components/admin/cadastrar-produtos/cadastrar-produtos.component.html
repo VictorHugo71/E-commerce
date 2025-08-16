@@ -32,7 +32,7 @@
                         Categorias
                     </mat-label>
                     <mat-select [(ngModel)]="produto.categoria" name="categoria" required>
-                        <mat-option *ngFor="let categoria of categorias" [value]="categoria.Nome">
+                        <mat-option *ngFor="let categoria of categorias" [value]="categoria.Id_Categoria">
                             {{ categoria.Nome}}
                         </mat-option>
                     </mat-select>
@@ -66,7 +66,7 @@
     
             <div class="form-group">
                 <label for="status">Status do Produto:</label>
-                <mat-slide-toggle id="status" name="status" [(ngModel)]="produto.status">
+                <mat-slide-toggle id="status" name="status" [(ngModel)]="produto.status" required>
                   {{ produto.status ? 'Ativo' : 'Inativo' }}
                 </mat-slide-toggle>
             </div>
