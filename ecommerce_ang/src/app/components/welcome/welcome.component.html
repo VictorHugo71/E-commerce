@@ -57,10 +57,10 @@
       <!-- Aqui você pode exibir categorias ou produtos -->
       <div class="grid">
         <div class="product-card" *ngFor="let produto of produtos">
-          <img [src]="produto.imagem" alt="Produto" />
+          <img [src]="produto.imagem_url" alt="Produto" />
           <h3>{{ produto.nome }}</h3>
           <h3 class="preco">{{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}</h3>
-          <button mat-raised-button color="accent" [routerLink]="['/produto', produto.id]">
+          <button mat-raised-button color="accent" [routerLink]="['/produto', produto.id_produto]">
             Ver mais
           </button>          
         </div>

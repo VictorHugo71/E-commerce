@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ProdutosService } from '../../services/produto/produtos.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { AdminAuthService } from '../../services/admin/auth/admin-auth.service'; 
+
+import { ProdutosService } from '../../services/produto/produtos.service';
+import { Categoria } from '../../models/admin/produtos/categorias';
+import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
 
 @Component({
   selector: 'app-welcome',
@@ -10,8 +13,8 @@ import { AdminAuthService } from '../../services/admin/auth/admin-auth.service';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-  produtos: any [] = [];
-  categorias: string[] = [];
+  produtos: AdminProdutos[] = [];
+  categorias: Categoria[] = [];
   
   constructor (
     private router: Router,
@@ -22,8 +25,18 @@ export class WelcomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.produtos = this.produtoService.getTodos();
-    this.categorias = this.produtoService.getCategorias();
+    this.produtoService.getProdutos().subscribe(
+      (data: AdminProdutos[]) => {
+        this.produtos = data;
+        console.log(this.produtos);
+      }
+    );
+    this.produtoService.getCategorias().subscribe(
+      (data: Categoria[]) => {
+        this.categorias = data;
+        console.log(this.categorias);
+      }
+    );
   }
 
   //Veriicar Cliente Logado

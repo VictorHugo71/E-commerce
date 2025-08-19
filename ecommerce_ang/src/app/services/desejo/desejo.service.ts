@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Produto } from '../../models/produto';
+import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DesejoService {
-  private listaDesejo: Produto[] = [];
+  private listaDesejo: AdminProdutos[] = [];
 
-  adicionar(produto: Produto): void {
-    const jaExiste = this.listaDesejo.some(p => p.id === produto.id);
+  adicionar(produto: AdminProdutos): void {
+    const jaExiste = this.listaDesejo.some(p => p.id_produto === produto.id_produto);
     if(!jaExiste) {
       this.listaDesejo.push(produto);
     }
   }
 
   remover(id: number): void {
-    this.listaDesejo = this.listaDesejo.filter(p => p.id !== id);
+    this.listaDesejo = this.listaDesejo.filter(p => p.id_produto !== id);
   }
 
-  getTodos(): Produto[] { //listar também pode ser  o nome
+  getTodos(): AdminProdutos[] { //listar também pode ser  o nome
     return this.listaDesejo;
   }
 

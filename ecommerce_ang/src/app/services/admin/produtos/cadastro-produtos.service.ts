@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AdminProdutos } from '../../../models/admin/produtos/admin-produtos';
 import { AdminResponse } from '../../../models/admin/admin-response';
 import { Categoria } from '../../../models/admin/produtos/categorias';
 
