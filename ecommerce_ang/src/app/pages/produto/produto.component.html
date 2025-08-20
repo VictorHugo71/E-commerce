@@ -19,10 +19,10 @@
       <h3 class="preco">{{ produto.Preco | currency:'BRL':'symbol':'1.2-2' }}</h3>
 
       <div class="acoes">
-        <button mat-raised-button color="primary" (click)="adicionarAoCarrinho()">
+        <button mat-raised-button color="primary" (click)="adicionarAoCarrinho(produto)">
           Adicionar ao Carrinho
         </button>
-        <button mat-raised-button color="accent" (click)="comprarAgora()">
+        <button mat-raised-button color="accent" > <!--(click)="comprarAgora()"-->
           Comprar Agora
         </button>
       </div>

@@ -51,14 +51,14 @@ export class ListaDesejoComponent implements OnInit {
   }
 
 
-  remover(id: number): void {
+  /*remover(id: number): void {
     this.desejoService.remover(id);
     this.listaDesejo = this.listaDesejo.filter(produto => produto.id !== id);
     this.produtosSelecionados = this.produtosSelecionados.filter(p => p.id !== id);
     this.snackBar.open('Produto removido da lista de desejos', 'Fechar', {
       duration: 3000
     });
-  }
+  }*/
 
   comprar(produto: Produto): void {
     // Substituir futuramente com CarrinhoService

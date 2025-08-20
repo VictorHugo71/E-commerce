@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProdutosService } from '../../services/produto/produtos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { AuthService } from '../../services/auth/auth.service';
 import { DesejoService } from '../../services/desejo/desejo.service';
 import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-produto',
@@ -15,12 +19,16 @@ export class ProdutoComponent implements OnInit{
   produto: AdminProdutos | undefined;
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
 
+  mensagemSucesso: string = '';
+  mensagemErro: string = '';
+
   constructor (
     private route: ActivatedRoute, 
     private router: Router,
     private snackBar: MatSnackBar,
     private produtoService: ProdutosService,
     private desejoService: DesejoService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -44,15 +52,25 @@ export class ProdutoComponent implements OnInit{
   }
   
 
-  adicionarAoCarrinho(): void {
-    if(this.produto) {
-      this.desejoService.adicionar(this.produto);
-      this.snackBar.open('Produto adicionado ao carrinho com sucesso!!', 'Fechar', {
-        duration: 3000,
-        panelClass: ['sucesso-snackbar']
-      });
-    } else {
-      this.snackBar.open('Não foi possivel adiconar o produto ao carrinho.', 'Fechar');
+  async adicionarAoCarrinho(produto: AdminProdutos): Promise<void> {
+    const usuario = this.authService.getUsuario();
+
+    if(usuario && produto && produto.Id_Produto) {
+      try {
+        const idProduto = produto.Id_Produto;
+        const idCliente = usuario.Id_Cliente;
+
+        const resultado = await firstValueFrom(this.desejoService.addListaDesejo(idProduto, idCliente));
+        this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso à Lista de Desejo';
+
+        this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
+
+        console.log(idProduto, idCliente);
+
+      } catch(error: any) {
+        this.mensagemErro = error?.error?.mensagem || 'Erro ao adicionar produto à Lista de Desejo';
+        this.snackBar.open(this.mensagemErro, 'Fechar', { duration: 3000 });
+      }
     }
   }
 

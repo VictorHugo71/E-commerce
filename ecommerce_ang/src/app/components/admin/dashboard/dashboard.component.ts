@@ -30,7 +30,6 @@ export class DashboardComponent {
       this.mensagemSucesso = '';
       this.mensagemErro = '';
 
-      //Adicionar o service para cadastrar a categoria
       if(result) {
         this.categoriaService.addCategoria(result).subscribe({
           next: (res) => {

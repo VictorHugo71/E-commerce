@@ -29,7 +29,7 @@
       <p class="preco">{{ produto.preco | currency:'BRL' }}</p>
 
       <div class="acoes">
-        <button mat-stroked-button color="accent" (click)="remover(produto.id)">
+        <button mat-stroked-button color="accent" > <!--(click)="remover(produto.id)"-->
           Remover
         </button>
         <button mat-raised-button color="primary" (click)="comprar(produto)">

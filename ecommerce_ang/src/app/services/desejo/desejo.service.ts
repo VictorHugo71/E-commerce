@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
 import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AdminResponse } from '../../models/admin/admin-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DesejoService {
-  private listaDesejo: AdminProdutos[] = [];
+  private apiUrl = '';
 
-  adicionar(produto: AdminProdutos): void {
-    const jaExiste = this.listaDesejo.some(p => p.Id_Produto === produto.Id_Produto);
-    if(!jaExiste) {
-      this.listaDesejo.push(produto);
-    }
+  constructor(
+    private http: HttpClient
+  ) { }
+  
+  addListaDesejo(idProduto: number, idCliente: number): Observable<AdminResponse> {
+    const dados = {
+      Id_Produto: idProduto,
+      Id_Cliente: idCliente
+    };
+
+    return this.http.post<AdminResponse>(this.apiUrl, dados);
   }
 
-  remover(id: number): void {
-    this.listaDesejo = this.listaDesejo.filter(p => p.Id_Produto !== id);
-  }
+  removeListaDesejo() {}
 
-  getTodos(): AdminProdutos[] { //listar também pode ser  o nome
-    return this.listaDesejo;
-  }
-
-  limpar(): void {
-    this.listaDesejo = [];
-  }
-  constructor() { }
+  getListaDesejo() {}
 }
