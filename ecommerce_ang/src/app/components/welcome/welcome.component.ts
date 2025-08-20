@@ -15,6 +15,8 @@ import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
 export class WelcomeComponent implements OnInit {
   produtos: AdminProdutos[] = [];
   categorias: Categoria[] = [];
+  public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
+
   
   constructor (
     private router: Router,
@@ -24,7 +26,7 @@ export class WelcomeComponent implements OnInit {
     public adminAuthService: AdminAuthService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.produtoService.getProdutos().subscribe(
       (data: AdminProdutos[]) => {
         this.produtos = data;

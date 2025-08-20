@@ -8,12 +8,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProdutosService {
-  private apiUrl = 'http://localhost/neziara-sgbd/';
-  private urlGetCategorias = `${this.apiUrl}admin/produtos/categorias.php`;
-  private urlGetProdutos = `${this.apiUrl}admin/produtos/`;
-
-  private produtos: AdminProdutos[] = [];
-  private categorias: Categoria[] = [];
+  private apiUrl = 'http://localhost/neziara-sgbd/admin/produtos/';
+  private urlGetCategorias = `${this.apiUrl}categorias.php`;
+  private urlGetProdutos = `${this.apiUrl}getProdutos.php`;
+  private urlGetIdProdutos = `${this.apiUrl}getIdProduto.php`;
 
   constructor(
     private http: HttpClient
@@ -28,6 +26,6 @@ export class ProdutosService {
   }
   
   getIdProduto(id: number): Observable<AdminProdutos> {
-    return this.http.get<AdminProdutos>(`${this.urlGetProdutos}/${id}`);
+    return this.http.get<AdminProdutos>(`${this.urlGetIdProdutos}/${id}`);
   }
 }

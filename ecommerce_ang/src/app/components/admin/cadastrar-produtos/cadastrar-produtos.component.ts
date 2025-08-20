@@ -11,12 +11,12 @@ import { firstValueFrom } from 'rxjs';
 })
 export class CadastrarProdutosComponent implements OnInit {
   produto: AdminProdutos = {
-    nome: '',
-    preco: 0.0,
-    descricao: '',
-    categoria: 0,
-    estoque: 0,
-    status: false,
+    Nome_Produto: '',
+    Preco: 0.0,
+    Descricao: '',
+    Id_Categoria: 0,
+    Estoque: 0,
+    Status: false,
   };
 
   categorias: Categoria[] = [];
@@ -61,20 +61,20 @@ export class CadastrarProdutosComponent implements OnInit {
     }
 
     const formData = new FormData();
-    formData.append('nome', this.produto.nome);
-    formData.append('descricao', this.produto.descricao);
-    formData.append('preco', this.produto.preco.toString()); // Converte para string
-    formData.append('estoque', this.produto.estoque.toString());
-    formData.append('categoria', this.produto.categoria.toString());
+    formData.append('nome', this.produto.Nome_Produto);
+    formData.append('descricao', this.produto.Descricao);
+    formData.append('preco', this.produto.Preco.toString()); // Converte para string
+    formData.append('estoque', this.produto.Estoque.toString());
+    formData.append('categoria', this.produto.Id_Categoria.toString());
     formData.append('imagem', this.selectedFile, this.selectedFile.name);
-    formData.append('status', this.produto.status ? '1' : '0');
+    formData.append('status', this.produto.Status ? '1' : '0');
     
 
     try {
       const res = await firstValueFrom(this.produtoService.addProduto(formData));
       this.mensagemSucesso = res.mensagem;
 
-      this.produto = {nome: '', preco: 0.0, descricao: '', categoria: 0, estoque: 0, status: false};
+      this.produto = {Nome_Produto: '', Preco: 0.0, Descricao: '', Id_Categoria: 0, Estoque: 0, Status: false};
       this.selectedFile = null;
 
     } catch(error: any) {
@@ -83,7 +83,7 @@ export class CadastrarProdutosComponent implements OnInit {
   }
 
   cancelarCadastro(): void {
-    this.produto = {nome: '', preco: 0.0, descricao: '', categoria: 0, estoque: 0, status: false};
+    this.produto = {Nome_Produto: '', Preco: 0.0, Descricao: '', Id_Categoria: 0, Estoque: 0, Status: false};
     console.log('Cadastro de produto cancelado');
   }
 }

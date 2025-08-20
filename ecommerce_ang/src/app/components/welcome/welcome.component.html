@@ -16,7 +16,7 @@
   <nav class="sub-nav">
     <button mat-button [matMenuTriggerFor]="menuCategorias">Categorias</button>
     <mat-menu #menuCategorias="matMenu">
-      <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria }}</button>
+      <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria.Nome }}</button>
     </mat-menu>
     <button mat-button routerLink="/ofertas">Ofertas</button>
 
@@ -28,7 +28,7 @@
 
       <div *ngIf="estaLogadoCliente && !estaLogadoAdmin">
         <button mat-button routerLink="/compras">Compras</button>
-        <button mat-button routerLink="/listadesejo">Lista de Desej-os</button>
+        <button mat-button routerLink="/listadesejo">Lista de Desejos</button>
         <button mat-button routerLink="/perfil" *ngIf="authService.estaLogado()">Perfil</button>
       </div>
 
@@ -57,10 +57,10 @@
       <!-- Aqui você pode exibir categorias ou produtos -->
       <div class="grid">
         <div class="product-card" *ngFor="let produto of produtos">
-          <img [src]="produto.imagem_url" alt="Produto" />
-          <h3>{{ produto.nome }}</h3>
-          <h3 class="preco">{{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}</h3>
-          <button mat-raised-button color="accent" [routerLink]="['/produto', produto.id_produto]">
+          <img [src]="imagemBaseUrl + produto.Imagem_Url" alt="produto.Nome_Produto" />
+          <h3>{{ produto.Nome_Produto }}</h3>
+          <h3 class="preco">{{ produto.Preco | currency:'BRL':'symbol':'1.2-2' }}</h3>
+          <button mat-raised-button color="accent" [routerLink]="['/produto', produto.Id_Produto]">
             Ver mais
           </button>          
         </div>

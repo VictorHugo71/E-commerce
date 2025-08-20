@@ -8,14 +8,14 @@ export class DesejoService {
   private listaDesejo: AdminProdutos[] = [];
 
   adicionar(produto: AdminProdutos): void {
-    const jaExiste = this.listaDesejo.some(p => p.id_produto === produto.id_produto);
+    const jaExiste = this.listaDesejo.some(p => p.Id_Produto === produto.Id_Produto);
     if(!jaExiste) {
       this.listaDesejo.push(produto);
     }
   }
 
   remover(id: number): void {
-    this.listaDesejo = this.listaDesejo.filter(p => p.id_produto !== id);
+    this.listaDesejo = this.listaDesejo.filter(p => p.Id_Produto !== id);
   }
 
   getTodos(): AdminProdutos[] { //listar também pode ser  o nome

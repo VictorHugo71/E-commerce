@@ -1,10 +1,10 @@
 export interface AdminProdutos {
-    id_produto: number,
-    nome: string,
-    preco: number,
-    descricao: string,
-    categoria_id: number,
-    estoque: number,
-    status: boolean,
-    imagem_url: string
+    Id_Produto?: number,
+    Nome_Produto: string,
+    Preco: number,
+    Descricao: string,
+    Id_Categoria: number,
+    Estoque: number,
+    Status: boolean,
+    Imagem_Url?: string
 }

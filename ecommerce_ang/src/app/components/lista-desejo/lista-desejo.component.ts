@@ -21,7 +21,7 @@ export class ListaDesejoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listaDesejo = this.desejoService.getTodos();
+    
   }
 
   onSelecionadoChange(produto: any): void {

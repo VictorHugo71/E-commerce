@@ -13,6 +13,7 @@ import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
 export class ProdutoComponent implements OnInit{
   produtoId: number = 0;
   produto: AdminProdutos | undefined;
+  public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
 
   constructor (
     private route: ActivatedRoute, 

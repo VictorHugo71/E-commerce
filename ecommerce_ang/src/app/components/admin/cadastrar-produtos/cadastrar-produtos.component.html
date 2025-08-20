@@ -12,7 +12,7 @@
         <form #productForm="ngForm" (ngSubmit)="cadastrarProduto()">
             <div class="form-group">
                 <label for="nome">Nome do Produto:</label>
-                <input type="text" id="nome" name="nome" [(ngModel)]="produto.nome" required>
+                <input type="text" id="nome" name="nome" [(ngModel)]="produto.Nome_Produto" required>
                 <div class="error-message" *ngIf="productForm.controls['nome']?.invalid && (productForm.controls['nome']?.dirty || productForm.controls['nome']?.touched)">
                     Nome do produto é obrigatório.
                 </div>
@@ -20,7 +20,7 @@
     
             <div class="form-group">
                 <label for="preco">Preço:</label>
-                <input type="number" id="preco" name="preco" [(ngModel)]="produto.preco" required>
+                <input type="number" id="preco" name="preco" [(ngModel)]="produto.Preco" required>
                 <div class="error-message" *ngIf="productForm.controls['preco']?.invalid && (productForm.controls['preco']?.dirty || productForm.controls['preco']?.touched)">
                     Preço é obrigatório.
                 </div>
@@ -31,7 +31,7 @@
                     <mat-label>
                         Categorias
                     </mat-label>
-                    <mat-select [(ngModel)]="produto.categoria" name="categoria" required>
+                    <mat-select [(ngModel)]="produto.Id_Categoria" name="categoria" required>
                         <mat-option *ngFor="let categoria of categorias" [value]="categoria.Id_Categoria">
                             {{ categoria.Nome}}
                         </mat-option>
@@ -44,7 +44,7 @@
     
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
-                <input type="text" id="descricao" name="descricao" [(ngModel)]="produto.descricao" required>
+                <input type="text" id="descricao" name="descricao" [(ngModel)]="produto.Descricao" required>
                 <div class="error-message" *ngIf="productForm.controls['descricao']?.invalid && (productForm.controls['descricao']?.dirty || productForm.controls['descricao']?.touched)">
                     Descrição é obrigatória.
                 </div>
@@ -52,7 +52,7 @@
     
             <div class="form-group">
                 <label for="estoque">Estoque:</label>
-                <input type="text" id="estoque" name="estoque" [(ngModel)]="produto.estoque" required>
+                <input type="text" id="estoque" name="estoque" [(ngModel)]="produto.Estoque" required>
                 <div class="error-message" *ngIf="productForm.controls['estoque']?.invalid && (productForm.controls['estoque']?.dirty || productForm.controls['estoque']?.touched)">
                     Estoque é obrigatória.
                 </div>
@@ -66,8 +66,8 @@
     
             <div class="form-group">
                 <label for="status">Status do Produto:</label>
-                <mat-slide-toggle id="status" name="status" [(ngModel)]="produto.status" required>
-                  {{ produto.status ? 'Ativo' : 'Inativo' }}
+                <mat-slide-toggle id="status" name="status" [(ngModel)]="produto.Status" required>
+                  {{ produto.Status ? 'Ativo' : 'Inativo' }}
                 </mat-slide-toggle>
             </div>
     
