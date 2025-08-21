@@ -51,14 +51,14 @@ export class ProdutoComponent implements OnInit{
     }
   }
   
-
   async adicionarAoCarrinho(produto: AdminProdutos): Promise<void> {
     const usuario = this.authService.getUsuario();
 
     if(usuario && produto && produto.Id_Produto) {
       try {
         const idProduto = produto.Id_Produto;
-        const idCliente = usuario.Id_Cliente;
+        const idCliente = usuario.id;
+
 
         const resultado = await firstValueFrom(this.desejoService.addListaDesejo(idProduto, idCliente));
         this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso à Lista de Desejo';
@@ -74,12 +74,12 @@ export class ProdutoComponent implements OnInit{
     }
   }
 
-  comprarAgora() {
+  /*comprarAgora() {
     if(this.produto) {
       this.router.navigate(['/finalizar'], {
         state: { produtos: [this.produto] }
       });
     }
-  }
+  }*/
 }
 

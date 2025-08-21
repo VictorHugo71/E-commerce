@@ -8,7 +8,10 @@ import { AdminResponse } from '../../models/admin/admin-response';
   providedIn: 'root'
 })
 export class DesejoService {
-  private apiUrl = '';
+  private apiUrl = 'http://localhost/neziara-sgbd/admin/';
+  private apiAddLista = `${this.apiUrl}lista-desejo/addListaDesejo.php`;
+  private apiRemoveLista = `${this.apiUrl}`;
+  private apiGetLista = `${this.apiUrl}`;
 
   constructor(
     private http: HttpClient
@@ -20,10 +23,10 @@ export class DesejoService {
       Id_Cliente: idCliente
     };
 
-    return this.http.post<AdminResponse>(this.apiUrl, dados);
+    return this.http.post<AdminResponse>(this.apiAddLista, dados);
   }
 
-  removeListaDesejo() {}
+  removeListaDesejo() {};
 
-  getListaDesejo() {}
+  getListaDesejo() {};
 }
