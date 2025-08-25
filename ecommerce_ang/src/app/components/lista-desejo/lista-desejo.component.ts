@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { DesejoService } from '../../services/desejo/desejo.service'; 
+import { AdminResponse } from '../../models/admin/admin-response';
 
 @Component({
   selector: 'app-lista-desejo',
@@ -16,6 +17,7 @@ export class ListaDesejoComponent implements OnInit {
   produtos: AdminProdutos [] = [];
   produtosSelecionados: any[] = [];
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
+  public usuario: any;
 
 
   constructor(
@@ -27,13 +29,11 @@ export class ListaDesejoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const usuario = this.authService.getUsuario();
-
-    if(usuario && usuario.id) {
-      this.desejoService.getListaDesejo(usuario.id).subscribe({
+    this.usuario = this.authService.getUsuario();
+    if(this.usuario && this.usuario.id) {
+      this.desejoService.getListaDesejo(this.usuario.id).subscribe({
         next: (data: AdminProdutos[]) => {
           this.produtos = data;
-          console.log('Usario', usuario.id);
         },
 
         error: (_error) => {
@@ -48,6 +48,36 @@ export class ListaDesejoComponent implements OnInit {
     }
   }
 
+  removeProduto(Id_Produto: number | undefined): void {
+    if (!Id_Produto) {
+      this.snackBar.open('ID do produto não encontrado.', 'Fechar', { duration: 3000 });
+      return; // Para a execução da função aqui
+    }
+    
+    this.usuario = this.authService.getUsuario();
+
+    if(this.usuario && this.usuario.id) {
+      this.desejoService.removeListaDesejo(Id_Produto, this.usuario.id).subscribe({
+        next: (data : AdminResponse) => {
+          this.snackBar.open(data.mensagem, 'Fechar', { duration: 3000 });
+
+          const index = this.produtos.findIndex(p => p.Id_Produto === Id_Produto); //encontra o indice do produto dentro do array
+          if(index > -1) {                                            // ^ valor que é para ser encontrado no arrays
+            //se o findIndex não encontra nada ele retorna -1, caso ele encontre ele retorna a posição do item no array que é 0 ou algum numero positivo
+            this.produtos.splice(index, 1);
+          }
+        },
+
+        error: (_error) => {
+          this.snackBar.open('Não foi possível remover o iten da lista de desejo.', 'Fechar', { duration: 3000 });
+        }
+      });
+
+    } else {
+      this.snackBar.open('Você precisa estar logado para acessar a lista de desejos.', 'Fechar', {duration: 3000});
+      this.router.navigate(['/home']);
+    }
+  }
   /*onSelecionadoComprar(produtos: any): void {
     if (produtos.selecionado) {
       this.produtosSelecionados.push(produtos);

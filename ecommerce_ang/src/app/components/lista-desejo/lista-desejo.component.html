@@ -27,15 +27,17 @@
       <p class="preco">{{ produto.Preco | currency:'BRL' }}</p>
 
       <div class="acoes">
-        <button mat-stroked-button color="accent" > <!--(click)="remover(produtos.id)"-->
+        <button mat-stroked-button color="accent" (click)="removeProduto(produto.Id_Produto)"> <!---->
           Remover
         </button>
         <button mat-raised-button color="primary" > <!--(click)="comprarAgora(produtos)"-->
           Comprar Agora
         </button>
       </div>
+
     </div>
   </div>
+  
 </div>
   
 <ng-template #vazio>

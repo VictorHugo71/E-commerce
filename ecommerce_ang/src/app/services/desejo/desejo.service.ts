@@ -30,7 +30,7 @@ export class DesejoService {
     return this.http.get<AdminProdutos[]>(`${this.apiGetLista}/${Id_Cliente}`);  
   };
   
-  removeListaDesejo() {
-    
+  removeListaDesejo(Id_Produto: number, Id_Cliente: number): Observable<AdminResponse> {
+    return this.http.delete<AdminResponse>(`${this.apiRemoveLista}/${Id_Produto}/${Id_Cliente}`);
   };
 }
