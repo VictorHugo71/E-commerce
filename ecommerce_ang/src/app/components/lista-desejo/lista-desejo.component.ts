@@ -15,6 +15,7 @@ import { DesejoService } from '../../services/desejo/desejo.service';
 export class ListaDesejoComponent implements OnInit {
   produtos: AdminProdutos [] = [];
   produtosSelecionados: any[] = [];
+  public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
 
 
   constructor(

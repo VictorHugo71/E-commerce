@@ -19,12 +19,10 @@
 
   <div class="grid-lista">
     <div class="card-produtos" *ngFor="let produto of produtos">
-      <mat-checkbox
-        
-        > <!--(change)="onSelecionadoComprar(produtos)" // [(ngModel)]="produtos.selecionado"-->
+      <mat-checkbox> <!--(change)="onSelecionadoComprar(produtos)" // [(ngModel)]="produtos.selecionado"-->
       </mat-checkbox>
 
-      <img [src]="produto.Imagem_Url" alt="{{ produto.Nome_Produto }}" />
+      <img [src]="imagemBaseUrl + produto.Imagem_Url" alt="{{ produto.Nome_Produto }}" />
       <h3>{{ produto.Nome_Produto }}</h3>
       <p class="preco">{{ produto.Preco | currency:'BRL' }}</p>
 

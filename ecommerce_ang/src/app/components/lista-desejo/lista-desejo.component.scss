@@ -7,7 +7,10 @@ $accent-color: #D4A017;       // Amarelo dourado
 $text-light: #F2F2F2;
 $text-dark: #1A1F2B;
 
-// VOLTAR PARA HOME
+// Estilos globais ou de componentes-base
+// (Não incluídos aqui para focar nos seus componentes, mas uma boa prática)
+
+/* Estilos para o botão "Voltar para a Home" */
 .voltar-home {
   padding: 20px;
 
@@ -46,7 +49,7 @@ $text-dark: #1A1F2B;
   }
 }
 
-// CONTAINER PRINCIPAL
+/* Estilos para o container principal da lista de desejos */
 .lista-desejo-container {
   padding: 30px;
   background-color: lighten($secondary-color, 5%);
@@ -91,25 +94,37 @@ $text-dark: #1A1F2B;
     }
   }
 
-  // GRADE DE PRODUTOS
+  /* Estilos para o grid de produtos */
   .grid-lista {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
   }
+}
 
-  // CARD INDIVIDUAL
-  .card-produto {
-    background-color: $primary-color;
-    padding: 20px;
-    border-radius: 12px;
-    width: 240px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+/* Estilos para o card de produto individual */
+.card-produtos {
+  background-color: $primary-color;
+  padding: 20px;
+  border-radius: 12px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  img {
+    width: 100%; // Ajuste para ocupar a largura total do card
+    height: 170px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  // Estilos específicos para o checkbox
+  mat-checkbox {
+    display: block; // Adiciona para manter o fluxo do layout
 
     ::ng-deep .mdc-checkbox {
-      .mdc-checkbox__background { //dasmarcado
+      .mdc-checkbox__background { //desmarcado
         border-color: $text-light;
         background-color: lighten($secondary-color, 5%);
         transition: all 0.3s ease;
@@ -122,61 +137,54 @@ $text-dark: #1A1F2B;
       }
     }
 
-    ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background, 
-    ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:indeterminate) ~ .mdc-checkbox__background { 
-      border-color: $accent-color ;
-      background-color: $neutral-color ; // efeito de hover quando o checkbox ta desativado
+    ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:checked) ~ .mdc-checkbox__background,
+    ::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:not(:indeterminate) ~ .mdc-checkbox__background {
+      border-color: $accent-color;
+      background-color: $neutral-color; // efeito de hover quando o checkbox ta desativado
     }
+  }
 
-    img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
 
-    h3 {
-      font-size: 18px;
-      color: $accent-color;
-      margin: 10px 0;
-    }
+  h3 {
+    font-size: 18px;
+    color: $accent-color;
+    margin: 10px 0;
+  }
 
-    .preco {
-      font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
+  .preco {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
 
-    .acoes {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
+  .acoes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
 
-      [mat-stroked-button] {
-        background-color: $text-light;
-        color: $text-dark;
+    [mat-stroked-button] {
+      background-color: $text-light;
+      color: $text-dark;
 
-        &:hover {
-          background-color: darken($text-light, 5%);
-        }
+      &:hover {
+        background-color: darken($text-light, 5%);
       }
+    }
 
-      [mat-raised-button] {
-        background-color: $accent-color;
-        color: $text-dark;
-        font-weight: bold;
+    [mat-raised-button] {
+      background-color: $accent-color;
+      color: $text-dark;
+      font-weight: bold;
 
-        &:hover {
-          background-color: darken($accent-color, 5%);
-        }
+      &:hover {
+        background-color: darken($accent-color, 5%);
       }
     }
   }
 }
 
-// ESTILO QUANDO LISTA ESTÁ VAZIA
+/* Estilos para a lista quando está vazia */
 .lista-vazia {
   display: flex;
   flex-direction: column;
@@ -204,4 +212,3 @@ $text-dark: #1A1F2B;
     }
   }
 }
-

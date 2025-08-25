@@ -8,10 +8,10 @@ import { AdminResponse } from '../../models/admin/admin-response';
   providedIn: 'root'
 })
 export class DesejoService {
-  private apiUrl = 'http://localhost/neziara-sgbd/admin/';
-  private apiAddLista = `${this.apiUrl}lista-desejo/addListaDesejo.php`;
+  private apiUrl = 'http://localhost/neziara-sgbd/admin/lista-desejo/';
+  private apiAddLista = `${this.apiUrl}addListaDesejo.php`;
   private apiRemoveLista = `${this.apiUrl}`;
-  private apiGetLista = `${this.apiUrl}`;
+  private apiGetLista = `${this.apiUrl}getListaDesejo.php`;
 
   constructor(
     private http: HttpClient
