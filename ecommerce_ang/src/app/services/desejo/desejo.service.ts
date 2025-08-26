@@ -10,7 +10,7 @@ import { AdminResponse } from '../../models/admin/admin-response';
 export class DesejoService {
   private apiUrl = 'http://localhost/neziara-sgbd/admin/lista-desejo/';
   private apiAddLista = `${this.apiUrl}addListaDesejo.php`;
-  private apiRemoveLista = `${this.apiUrl}`;
+  private apiRemoveLista = `${this.apiUrl}removeListaDesejo.php`;
   private apiGetLista = `${this.apiUrl}getListaDesejo.php`;
 
   constructor(
