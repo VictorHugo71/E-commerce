@@ -13,33 +13,33 @@
     </mat-form-field>
 </mat-toolbar>
   
-  <nav class="sub-nav">
-    <button mat-button [matMenuTriggerFor]="menuCategorias">Categorias</button>
-    <mat-menu #menuCategorias="matMenu">
-      <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria.Nome }}</button>
-    </mat-menu>
-    <button mat-button routerLink="/ofertas">Ofertas</button>
+<nav class="sub-nav">
+  <button mat-button [matMenuTriggerFor]="menuCategorias">Categorias</button>
+  <mat-menu #menuCategorias="matMenu">
+    <button mat-menu-item *ngFor="let categoria of categorias">{{ categoria.Nome }}</button>
+  </mat-menu>
+  <button mat-button routerLink="/ofertas">Ofertas</button>
 
-      <div *ngIf="!estaLogadoAdmin && !estaLogadoCliente">
-        <button mat-button routerLink="/signup">Criar Conta</button>
-        <button mat-button routerLink="/login">Entrar</button>
-        <button mat-button routerLink="/admin/login">Entrar Admin</button>
-      </div>
+  <div *ngIf="!allAuthService.isLoggedIn()">
+    <button mat-button routerLink="/signup">Criar Conta</button>
+    <button mat-button routerLink="/login">Entrar</button>
+    <button mat-button routerLink="/admin/login">Entrar Admin</button>
+  </div>
 
-      <div *ngIf="estaLogadoCliente && !estaLogadoAdmin">
-        <button mat-button routerLink="/compras">Compras</button>
-        <button mat-button routerLink="/listadesejo">Lista de Desejos</button>
-        <button mat-button routerLink="/perfil" *ngIf="authService.estaLogado()">Perfil</button>
-      </div>
+  <div *ngIf="allAuthService.isClient()">
+    <button mat-button routerLink="/compras">Compras</button>
+    <button mat-button routerLink="/listadesejo">Lista de Desejos</button>
+    <button mat-button routerLink="/perfil">Perfil</button>
+  </div>
 
-      <div *ngIf="!estaLogadoCliente && estaLogadoAdmin">
-        <button mat-button routerLink="/admin/dashboard">Dashboard</button>
-        <button mat-button routerLink="/admin/signup">Cadastrar Novo Admin</button>
-        <button mat-button routerLink="/admin/perfil">Perfil Admin</button>
-      </div>
+  <div *ngIf="allAuthService.isAdmin()">
+    <button mat-button routerLink="/admin/dashboard">Dashboard</button>
+    <button mat-button routerLink="/admin/signup">Cadastrar Novo Admin</button>
+    <button mat-button routerLink="/admin/perfil">Perfil Admin</button>
+  </div>
 
-      <button *ngIf="estaLogadoAdmin || estaLogadoCliente" (click)="logout()" class="botao-logout">Sair</button>
-  </nav>
+  <button *ngIf="allAuthService.isLoggedIn()" (click)="logout()" class="botao-logout">Sair</button>
+</nav>
   
   
   <!-- MAIN -->

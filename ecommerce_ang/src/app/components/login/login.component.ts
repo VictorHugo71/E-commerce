@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/cliente/login.service';
-import { AuthService } from '../../services/auth/auth.service';
+import { AllAuthService } from '../../services/auth/all-auth.service'; 
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,43 +15,45 @@ export class LoginComponent implements OnInit {
     senha: ''
   };
 
-  MensagemErro = '';
-  MensagemSucesso = '';
+  mensagemErro = '';
+  mensagemSucesso = '';
 
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private authService: AuthService
+    private allAuthService: AllAuthService
   ) {}
 
   ngOnInit(): void {
-    if(this.authService.estaLogado()) {
-      this.router.navigate(['/perfil']);
-    }
   }
 
-  login(): void {
-    this.loginService.login(this.usuario).subscribe({
-      next:(res) => {
-        this.MensagemSucesso = res.mensagem;
-        this.MensagemErro = '';
+  async login(): Promise<void> {
+    this.mensagemErro = '';
+    this.mensagemSucesso = '';
 
-        //salvar usuario logado localmente
-        localStorage.setItem('usuario', JSON.stringify(res.usuario));
-        this.authService.setUsuario(res.usuario);
+    const dados = {
+      email: this.usuario.email,
+      senha: this.usuario.senha,
+    }
 
-        //redireciona apos o login
-        this.router.navigate(['/home']);
-      },
-      error:(err) => {
-        this.MensagemSucesso = "";
-        if(err.status === 401) {
-          this.MensagemErro = 'Email ou Senha inválidos';
-        } else {
-          this.MensagemErro = 'Erro ao tentar fazer login';
-        }
+    try {
+      const res: any = await firstValueFrom(this.loginService.login(dados));
+
+      this.mensagemSucesso = res.mensagem;
+
+      // Usar o serviço global para salvar o token.
+      this.allAuthService.setToken(res.token); 
+
+      // Redireciona para a página de perfil após o login bem-sucedido.
+      this.router.navigate(['/home']);
+
+    } catch(err: any) {
+      if(err.status === 401) {
+        this.mensagemErro = 'E-mail ou senha incorretos';
+      } else {
+        this.mensagemErro = err.error?.mensagem || 'Erro ao realizar login. Tente novamente';
       }
-    });
+    }
   }
 }
 

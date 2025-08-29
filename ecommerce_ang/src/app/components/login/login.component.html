@@ -19,8 +19,8 @@
       </mat-error>
     </mat-form-field>
 
-    <div class="mensagem erro" *ngIf="MensagemErro">
-      {{ MensagemErro }}
+    <div class="mensagem erro" *ngIf="mensagemErro">
+      {{ mensagemErro }}
     </div>
   
     <button mat-raised-button class="submit-button" type="submity" [disabled]="form.invalid">

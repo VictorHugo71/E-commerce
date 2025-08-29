@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoginAdminService } from '../../../services/admin/login-admin.service';
 import { firstValueFrom } from 'rxjs';
 import { AdminLogin } from '../../../models/admin/admin-login';
-import { AdminAuthService } from '../../../services/admin/auth/admin-auth.service';
+import { AllAuthService } from '../../../services/auth/all-auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -22,16 +22,13 @@ export class AdminLoginComponent implements OnInit{
   constructor(
     private loginAdminService: LoginAdminService,
     private router: Router,
-    private adminAuthService: AdminAuthService
+    private allAuthService: AllAuthService
   ) {}
 
   ngOnInit(): void {
-    if(this.adminAuthService.isLoggedIn()) {
-      this.router.navigate(['/home']);
-    }
   }
 
-  async login() {
+  async login(): Promise<void> {
     this.mensagemErro = '';
     this.mensagemSucesso = '';
 
@@ -43,11 +40,11 @@ export class AdminLoginComponent implements OnInit{
     try {
       const res: any = await firstValueFrom(this.loginAdminService.login(dados));
 
-      this.adminAuthService.setToken(res.token); 
+      this.allAuthService.setToken(res.token); 
 
       this.mensagemSucesso = res.mensagem;
 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/admin/dashboard']);
 
     } catch(err: any) {
       if(err.status === 401) {

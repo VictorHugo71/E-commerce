@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProdutosService } from '../../services/produto/produtos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { AuthService } from '../../services/auth/auth.service';
+import { AllAuthService } from '../../services/auth/all-auth.service'; 
 import { DesejoService } from '../../services/desejo/desejo.service';
 import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
 import { firstValueFrom } from 'rxjs';
@@ -28,7 +28,7 @@ export class ProdutoComponent implements OnInit{
     private snackBar: MatSnackBar,
     private produtoService: ProdutosService,
     private desejoService: DesejoService,
-    private authService: AuthService
+    private allAuthService: AllAuthService
   ) {}
 
   ngOnInit(): void {
@@ -51,21 +51,25 @@ export class ProdutoComponent implements OnInit{
     }
   }
   
-  async adicionarAoCarrinho(produto: AdminProdutos): Promise<void> {
-    const usuario = this.authService.getUsuario();
+  async adicionarListaDesejo(produto: AdminProdutos): Promise<void> {
+    const userId = this.allAuthService.getUserIdFromToken();
 
-    if(usuario && produto && produto.Id_Produto) {
+    if (!userId) {
+      this.snackBar.open('Você precisa estar logado para adicionar produtos à Lista de Desejo.', 'Fechar', { duration: 3000 });
+      this.router.navigate(['/login']); // Redireciona para o login
+      return;
+    }
+
+    if(produto && produto.Id_Produto) {
       try {
         const idProduto = produto.Id_Produto;
-        const idCliente = usuario.id;
-
-
-        const resultado = await firstValueFrom(this.desejoService.addListaDesejo(idProduto, idCliente));
+        
+        const resultado = await firstValueFrom(this.desejoService.addListaDesejo(idProduto, userId));
         this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso à Lista de Desejo';
 
         this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
 
-        console.log(idProduto, idCliente);
+        console.log(idProduto, userId);
 
       } catch(error: any) {
         this.mensagemErro = error?.error?.mensagem || 'Erro ao adicionar produto à Lista de Desejo';

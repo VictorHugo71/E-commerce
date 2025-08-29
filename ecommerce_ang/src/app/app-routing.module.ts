@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+// IMPORT DOS GUARDS
 import { authGuard } from './guards/auth.guard'; //guard Cliente
 import { adminGuard } from './guards/admin/admin.guard';//guard Admin
+import { publicGuard } from './guards/public/public-guard.guard';
 
 //Rotas Publicas
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -30,14 +32,13 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'home', component: WelcomeComponent},
 
-  // Rotas públicas de autenticação (usando o AuthLayoutComponent)
-  {path: '', component: AuthLayoutComponent, children: [
-    {path: 'login', component: LoginComponent},
-    {path: 'signup', component: SignupComponent},
-    {path: 'admin/login', component: AdminLoginComponent},
+  // Rotas de autenticação (usando o AuthLayoutComponent)
+  { path: '', component: AuthLayoutComponent, children: [
+    { path: 'login', component: LoginComponent, canActivate: [publicGuard]},
+    { path: 'signup', component: SignupComponent },
+    { path: 'admin/login', component: AdminLoginComponent },
     {path: 'admin/signup', component: AdminSignupComponent, canActivate:[adminGuard]},
-  ]
-  },
+  ]},
 
   //Rotas Protegidas de Cliente
   {path: 'perfil', component: PerfilComponent, canActivate: [authGuard]},

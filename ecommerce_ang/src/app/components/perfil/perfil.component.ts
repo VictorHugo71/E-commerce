@@ -7,7 +7,7 @@ import { DadosDialogComponent } from '../dados-dialog/dados-dialog.component';
 import { AvatarService } from '../../services/avatar.service';
 import { AvatarDialogComponent } from '../avatar-dialog/avatar-dialog.component';
 import { PerfilService } from '../../services/cliente/perfil/perfil.service';
-import { AuthService } from '../../services/auth/auth.service';
+import { AllAuthService } from '../../services/auth/all-auth.service'; 
 
 @Component({
   selector: 'app-perfil',
@@ -31,26 +31,20 @@ export class PerfilComponent {
     private dialog: MatDialog,
     public avatarService: AvatarService,
     private perfilService: PerfilService,
-    private authService: AuthService,
+    private allAuthService: AllAuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    const usuario = localStorage.getItem('usuario');
+    const userData = this.allAuthService.getUserDataFromToken();
 
-    if(!usuario) {
-      console.error('Email não encontrado no localStorage');
+    if(!userData || !userData.email) {
+      console.error('Email não encontrado no token JWT. Redirecionando...');
       this.router.navigate(['/login']);
       return;
     }
 
-    const dados = JSON.parse(usuario);
-    if(!dados.email) {
-      console.error('Email não encontrado nos dados');
-      return;
-    }
-
-    this.perfilService.obterPerfil({email: dados.email}).subscribe({
+    this.perfilService.obterPerfil({email: userData.email}).subscribe({
       next:(res) => {
         const user = res.usuario;
         this.usuario = {
@@ -177,7 +171,7 @@ export class PerfilComponent {
     this.perfilService.atualizarPerfil(usuarioParaBackend).subscribe({
       next: (res) => {
         console.log('Perfil atualizado com sucesso', res);
-        this.ngOnInit(); // Chame ngOnInit para buscar os dados frescos do banco
+        this.ngOnInit(); 
       },
       error: (err) => {
         console.error('Erro ao atualizar perfil:', err);
@@ -186,7 +180,6 @@ export class PerfilComponent {
   }
 
   logout(): void {
-    localStorage.removeItem('usuario');
-    this.router.navigate(['/home']);
+    this.allAuthService.logout();
   }
 }

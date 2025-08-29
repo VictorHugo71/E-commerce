@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, PLATFORM_ID } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { isPlatformBrowser } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,6 +39,13 @@ import { CadastrarProdutosComponent } from './components/admin/cadastrar-produto
 import { GerenciarProdutosComponent } from './components/admin/gerenciar-produtos/gerenciar-produtos.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { CategoriaDialogComponent } from './components/admin/categoria-dialog/categoria-dialog.component';
+
+export function tokenGetter() {
+  if (isPlatformBrowser(PLATFORM_ID)) {
+    return localStorage.getItem('auth_token');
+  }
+  return null;
+}
 
 @NgModule({
   declarations: [
@@ -76,7 +85,20 @@ import { CategoriaDialogComponent } from './components/admin/categoria-dialog/ca
     MatSelectModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [
+          'localhost',
+          
+        ],
+        disallowedRoutes: [ //tem que ser rotas do back-end
+          'http://localhost/neziara-sgbd/login.php',
+          'http://localhost/neziara-sgbd/admin/admin-login.php'
+        ],
+      },
+    }),
   ],
   providers: [
     provideClientHydration(),
@@ -84,4 +106,4 @@ import { CategoriaDialogComponent } from './components/admin/categoria-dialog/ca
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
