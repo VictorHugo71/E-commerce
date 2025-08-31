@@ -35,8 +35,8 @@ const routes: Routes = [
   // Rotas de autenticação (usando o AuthLayoutComponent)
   { path: '', component: AuthLayoutComponent, children: [
     { path: 'login', component: LoginComponent, canActivate: [publicGuard]},
-    { path: 'signup', component: SignupComponent },
-    { path: 'admin/login', component: AdminLoginComponent },
+    { path: 'signup', component: SignupComponent, canActivate: [publicGuard]},
+    { path: 'admin/login', component: AdminLoginComponent, canActivate: [publicGuard]},
     {path: 'admin/signup', component: AdminSignupComponent, canActivate:[adminGuard]},
   ]},
 

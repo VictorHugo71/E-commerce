@@ -57,7 +57,6 @@ export class PerfilComponent {
           endereco: res.enderecos || []
         };
         this.enderecos = [...this.usuario.endereco];
-        console.log('Endereços formatados no Angular: ', this.enderecos);
       },
       error:(err) => {
         console.error('Erro ao carregar perfil:', err)

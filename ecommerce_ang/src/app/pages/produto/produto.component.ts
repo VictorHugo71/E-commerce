@@ -38,7 +38,6 @@ export class ProdutoComponent implements OnInit{
       this.produtoService.getIdProduto(id).subscribe(
         (data) => {
           this.produto = data;
-          console.log(this.produto); 
         },
         (_error) => {
           this.snackBar.open('Produto não encontrado.', 'Fechar', { duration: 3000 });
@@ -69,7 +68,6 @@ export class ProdutoComponent implements OnInit{
 
         this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
 
-        console.log(idProduto, userId);
 
       } catch(error: any) {
         this.mensagemErro = error?.error?.mensagem || 'Erro ao adicionar produto à Lista de Desejo';
