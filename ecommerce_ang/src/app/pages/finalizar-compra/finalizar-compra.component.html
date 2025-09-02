@@ -1,1 +1,70 @@
-<p>finalizar-compra works!</p>
+<div>
+    <button mat-stroked-button routerLink="/home">
+      ← Voltar para a Home
+    </button>
+  </div>
+  
+  <main class="carrinho-container">
+    <h1>Seu Carrinho</h1>
+  
+    <section class="grid-produtos">
+      <ul>
+        <li class="card-produto" *ngFor="let produto of produtos">
+          <img 
+            [src]="imagemBaseUrl + produto.Imagem_Url" 
+            [alt]="'Imagem do produto ' + produto.Nome_Produto" 
+          />
+          
+          <h2>{{ produto.Nome_Produto }}</h2>
+          <p class="preco">{{ produto.Preco | currency:'BRL' }}</p>
+          
+          <div class="quantidade">
+            <button 
+              mat-icon-button 
+              aria-label="Diminuir quantidade" 
+              [disabled]="produto.Quantidade === 1" 
+              ><!--(click)="diminuiQuantidade(produto)"-->
+              <mat-icon>remove</mat-icon>
+            </button>
+  
+            <input 
+              matInput 
+              type="number" 
+              [(ngModel)]="produto.Quantidade" 
+              [min]="1" 
+              [max]="produto.Estoque"
+            />
+  
+            <button 
+              mat-icon-button 
+              aria-label="Aumentar quantidade" 
+              [disabled]="produto.Quantidade === produto.Estoque" 
+              ><!--(click)="aumentaQuantidade(produto)"-->
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+  
+          <button 
+            mat-stroked-button 
+            color="warn" 
+            aria-label="Remover produto do carrinho"
+            ><!--(click)="removerProduto(produto)">-->
+            Remover do Carrinho
+          </button>
+        </li>
+      </ul>
+    </section>
+  
+    <aside class="resumo">
+      <h2>Resumo da Compra</h2>
+  
+      <div class="total">
+        <p class="label-total">Total:</p>
+        <p>{{ valorTotal | currency:'BRL' }}</p>
+      </div>
+  
+      <button mat-raised-button color="primary">
+        Finalizar Compra
+      </button>
+    </aside>
+  </main>

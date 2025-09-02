@@ -29,15 +29,15 @@ import { CadastrarProdutosComponent } from './components/admin/cadastrar-produto
 
 const routes: Routes = [
   // Redireciona a rota base para a página inicial
-  {path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'home', component: WelcomeComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: WelcomeComponent },
 
   // Rotas de autenticação (usando o AuthLayoutComponent)
   { path: '', component: AuthLayoutComponent, children: [
-    { path: 'login', component: LoginComponent, canActivate: [publicGuard]},
-    { path: 'signup', component: SignupComponent, canActivate: [publicGuard]},
-    { path: 'admin/login', component: AdminLoginComponent, canActivate: [publicGuard]},
-    {path: 'admin/signup', component: AdminSignupComponent, canActivate:[adminGuard]},
+    { path: 'login', component: LoginComponent, canActivate: [publicGuard] },
+    { path: 'signup', component: SignupComponent, canActivate: [publicGuard] },
+    { path: 'admin/login', component: AdminLoginComponent, canActivate: [publicGuard] },
+    { path: 'admin/signup', component: AdminSignupComponent, canActivate:[adminGuard] },
   ]},
 
   //Rotas Protegidas de Cliente
