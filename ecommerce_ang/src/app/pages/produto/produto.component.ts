@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProdutosService } from '../../services/produto/produtos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { firstValueFrom } from 'rxjs';
 
 import { AllAuthService } from '../../services/auth/all-auth.service'; 
 import { DesejoService } from '../../services/desejo/desejo.service';
 import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
-import { firstValueFrom } from 'rxjs';
-
+import { CompraService } from '../../services/compra/compra.service';
 
 @Component({
   selector: 'app-produto',
@@ -28,7 +28,8 @@ export class ProdutoComponent implements OnInit{
     private snackBar: MatSnackBar,
     private produtoService: ProdutosService,
     private desejoService: DesejoService,
-    private allAuthService: AllAuthService
+    private allAuthService: AllAuthService,
+    private compraService: CompraService
   ) {}
 
   ngOnInit(): void {
@@ -76,12 +77,30 @@ export class ProdutoComponent implements OnInit{
     }
   }
 
-  /*comprarAgora() {
-    if(this.produto) {
-      this.router.navigate(['/finalizar'], {
-        state: { produtos: [this.produto] }
-      });
-    }
-  }*/
-}
+  async comprarAgora(produto: AdminProdutos): Promise<void> {
+    const userId = this.allAuthService.getUserIdFromToken();
 
+    if (!userId) {
+      this.snackBar.open('Você precisa estar logado para adicionar produtos à Lista de Desejo.', 'Fechar', { duration: 3000 });
+      this.router.navigate(['/login']); // Redireciona para o login
+      return;
+    }
+
+    if(produto && produto.Id_Produto) {
+      try {
+        const idProduto = produto.Id_Produto;
+        const quantidadeInicial = 1;
+        
+        const resultado = await firstValueFrom(this.compraService.addFinalizarCompra(idProduto, userId, quantidadeInicial));
+        this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso ao Carrinho';
+
+        this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
+        this.router.navigate(['/finalizar']);
+
+      } catch(error: any) {
+        this.mensagemErro = error?.error?.mensagem || 'Erro ao adicionar produto ao Carrinho';
+        this.snackBar.open(this.mensagemErro, 'Fechar', { duration: 3000 });
+      }
+    }
+  }
+}

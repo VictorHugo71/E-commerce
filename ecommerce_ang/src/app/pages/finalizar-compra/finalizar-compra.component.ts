@@ -10,4 +10,16 @@ export class FinalizarCompraComponent {
   produtos: AdminProdutos [] = [];
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
   valorTotal = 0;
+
+  diminuiQuantidade() {
+    
+  }
+
+  aumentaQuantidade() {
+
+  }
+
+  removerProduto() {
+
+  }
 }
