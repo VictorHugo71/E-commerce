@@ -8,8 +8,8 @@ import { AdminResponse } from '../../models/admin/admin-response';
   providedIn: 'root'
 })
 export class CompraService {
-  private apiUrl = 'http://localhost/neziara-sgbd/';
-  private apiAddFinalizar = `${this.apiUrl}`;
+  private apiUrl = 'http://localhost/neziara-sgbd/carrinho/';
+  private apiAddCarrinho = `${this.apiUrl}addCarrinho.php`;
   private apiGetFinalizar = `${this.apiUrl}`;
   private apiRemoveFinalizar = `${this.apiUrl}`;
 
@@ -24,7 +24,7 @@ export class CompraService {
       Quantidade: quantidade
     };
 
-    return this.http.post<AdminResponse>(this.apiAddFinalizar, dados);
+    return this.http.post<AdminResponse>(this.apiAddCarrinho, dados);
   }
 
   getFinalizarCompra() {

@@ -81,7 +81,7 @@ export class ProdutoComponent implements OnInit{
     const userId = this.allAuthService.getUserIdFromToken();
 
     if (!userId) {
-      this.snackBar.open('Você precisa estar logado para adicionar produtos à Lista de Desejo.', 'Fechar', { duration: 3000 });
+      this.snackBar.open('Você precisa estar logado para adicionar produtos ao Carrinho.', 'Fechar', { duration: 3000 });
       this.router.navigate(['/login']); // Redireciona para o login
       return;
     }
