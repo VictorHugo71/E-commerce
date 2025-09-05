@@ -10,14 +10,14 @@ import { AdminResponse } from '../../models/admin/admin-response';
 export class CompraService {
   private apiUrl = 'http://localhost/neziara-sgbd/carrinho/';
   private apiAddCarrinho = `${this.apiUrl}addCarrinho.php`;
-  private apiGetFinalizar = `${this.apiUrl}`;
-  private apiRemoveFinalizar = `${this.apiUrl}`;
+  private apiGetCarrinho = `${this.apiUrl}getCarrinho.php`;
+  private apiRemoveCarrinho = `${this.apiUrl}`;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  addFinalizarCompra(idProduto: number, idCliente: number, quantidade: number): Observable<AdminResponse> {
+  addCarrinho(idProduto: number, idCliente: number, quantidade: number): Observable<AdminResponse> {
     const dados = {
       Id_Produto: idProduto,
       Id_Cliente: idCliente,
@@ -27,15 +27,15 @@ export class CompraService {
     return this.http.post<AdminResponse>(this.apiAddCarrinho, dados);
   }
 
-  getFinalizarCompra() {
-
+  getCarrinho(Id_Cliente: number): Observable<AdminProdutos[]> {
+    return this.http.get<AdminProdutos[]>(`${this.apiGetCarrinho}?Id_Cliente=${Id_Cliente}`);
   }
 
-  addSelecionadosFinalizar() {
+  addSelecionadosCarrinho() {
 
   }
   
-  removeFinalizarCompra() {
+  removeCarrinho() {
 
   }
 

@@ -91,7 +91,7 @@ export class ProdutoComponent implements OnInit{
         const idProduto = produto.Id_Produto;
         const quantidadeInicial = 1;
         
-        const resultado = await firstValueFrom(this.compraService.addFinalizarCompra(idProduto, userId, quantidadeInicial));
+        const resultado = await firstValueFrom(this.compraService.addCarrinho(idProduto, userId, quantidadeInicial));
         this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso ao Carrinho';
 
         this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
