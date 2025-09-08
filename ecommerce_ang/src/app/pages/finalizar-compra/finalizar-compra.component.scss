@@ -1,4 +1,4 @@
-// Cores base da Neziara
+// 🎨 Cores base da Neziara
 $primary-color: #1A1F2B;
 $secondary-color: #2C3240;
 $neutral-color: #3D4454;
@@ -6,200 +6,250 @@ $accent-color: #D4A017;
 $text-light: #F2F2F2;
 $text-dark: #1A1F2B;
 
+// 🔙 Botão de voltar
 .voltar-home {
-    padding: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 
-    button {   
-        border-width: 1px;
-        border-style: solid;
-        background-color: transparent;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
+  button {
+    border-width: 1px;
+    border-style: solid;
+    background-color: transparent;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
 
-    &.bloco-escuro {
-        background-color: $secondary-color;
-
-        button {
-            border-color: $accent-color;
-            color: $text-light;
-
-            &:hover {
-                background-color: $accent-color;
-                color: $text-dark;
-            }
-        }
-    }   
-
-    &.bloco-claro {
-        background-color: #fafafa;
-
-        button {
-            border-color: $primary-color;
-            color: $text-dark;
-
-            &:hover {
-                background-color: $primary-color;
-                color: $text-light;
-            }
-        }
-    }
-}
-
-.carrinho-container {
-    padding: 30px;
-    background-color: lighten($primary-color, 15%);
-    color: $text-light;
-    min-height: 85.5vh;
-
-    h1 {
-        color: $accent-color;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        text-align: center;
-    }
-
-    .grid-produtos {
-        margin-bottom: 40px;
-
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px 15px;
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            justify-content: center;
-
-            .list-produto {
-                background-color: $secondary-color;
-                border-radius: 15px;
-                padding: 15px;
-                max-width: 80%;
-                flex-grow: 1;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                
-                img {
-                    width: 150px;
-                }
-
-                h2 {
-                    color: $accent-color;
-                    font-size: 30px;
-                }
-
-                p {
-                    color: $text-light;
-                    font-size: 20px;
-                }
-
-                input::-webkit-outer-spin-button,
-                input::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
-                }
-
-                .quantidade input[type="number"] {
-                    padding: 5px;
-                    width: 50px;
-                    color: $text-dark;
-                    font-weight: bold;
-                    height: 20px;
-                    text-align: right;
-                    margin: 5px;
-
-                    -moz-appearance: textfield; /* Para Firefox */
-                    -webkit-appearance: none;   /* Para Chrome, Safari, Edge */
-                }
-
-                button[disabled] mat-icon {
-                    color: lighten(#555, 20%);
-                    opacity: 0.5;
-                }
-
-                mat-icon {
-                    color: $text-light;
-                    transition: all 0.3s ease;
-                    background-color: lighten($secondary-color, 5%);
-                    border-radius: 50%;
-                    top: 6px;
-
-                    &:hover {
-                        color: $accent-color;
-                    }
-                }
-
-                button[mat-stroked-button] {
-                    color: #F97F7F;
-                    border-color: #F97F7F;
-                    transition: all 0.4s ease;
-                    padding: 10px;
-
-                    &:hover {
-                        color: $text-dark;
-                        background-color: #F97F7F;
-                    }
-                }
-            }
-        }
-    }
-
-    .resumo {
-        background-color: $secondary-color;
-        border-radius: 10px;
-        max-width: 500px;
-        margin: 40px auto;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        h2 {
-            color: $accent-color;
-            margin-bottom: 10px;
-            padding-bottom: 20px;
-        }
-
-        p {
-            padding: 10px;
-            margin: 10px;
-            font-size: 25px;
-        }
-
-        button[mat-raised-button] {
-            margin: 10px;
-            color: $text-dark;
-            border: 1px solid $text-dark;
-        }
-    }
-}
-
-.lista-vazia {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fafafa;
-    min-height: 80vh;
-    text-align: center;
-
-    h2 {
-        margin-bottom: 20px;
-        color: $accent-color;
-    }
+  &.bloco-escuro {
+    background-color: $secondary-color;
 
     button {
-        border: 1px solid $primary-color;
+      border-color: $accent-color;
+      color: $text-light;
+
+      &:hover {
+        background-color: $accent-color;
         color: $text-dark;
-        background-color: transparent;
+      }
+    }
+  }
+
+  &.bloco-claro {
+    background-color: #fafafa;
+
+    button {
+      border-color: $primary-color;
+      color: $text-dark;
+
+      &:hover {
+        background-color: $primary-color;
+        color: $text-light;
+      }
+    }
+  }
+}
+
+// 🛒 Container do carrinho
+.carrinho-container {
+  padding: 30px;
+  background-color: lighten($primary-color, 15%);
+  color: $text-light;
+  min-height: 85.5vh;
+
+  h1 {
+    color: $accent-color;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+
+  // 📦 Lista de produtos
+  .grid-produtos {
+    margin-bottom: 40px;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      justify-content: center;
+    }
+
+    .list-produto {
+      background-color: $secondary-color;
+      border-radius: 15px;
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      img {
+        width: 150px;
+      }
+
+      h2 {
+        color: $accent-color;
+        font-size: 30px;
+      }
+
+      p {
+        color: $text-light;
+        font-size: 20px;
+      }
+
+      // remove setinhas do input number
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield; // Firefox
+      }
+
+      .quantidade input[type="number"] {
+        padding: 5px;
+        width: 50px;
+        color: $text-dark;
         font-weight: bold;
+        height: 20px;
+        text-align: right;
+        margin: 5px;
+        border: 2px solid $accent-color;
+      }
+
+      button[disabled] mat-icon {
+        color: lighten(#555, 20%);
+        opacity: 0.5;
+      }
+
+      mat-icon {
+        color: $text-light;
+        background-color: lighten($secondary-color, 5%);
+        border-radius: 50%;
         transition: all 0.3s ease;
 
         &:hover {
-            background-color: $primary-color;
-            color: $text-light;
+          color: $accent-color;
         }
+      }
+
+      button[mat-stroked-button] {
+        color: #F97F7F;
+        border-color: #F97F7F;
+        transition: all 0.4s ease;
+        padding: 10px;
+
+        &:hover {
+          color: $text-dark;
+          background-color: #F97F7F;
+        }
+      }
     }
+  }
+
+  // 📊 Resumo da compra
+   // Resumo
+   .resumo {
+    background-color: $secondary-color;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+
+    h2 {
+        color: $accent-color;
+        margin-bottom: 15px;
+      }
+  
+      .total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        margin-bottom: 20px;
+  
+        .label-total {
+          font-weight: bold;
+        }
+      }
+  
+      button {
+        color: $text-dark;
+        font-weight: bold;
+      }
+    }
+  }
+
+// 📱 Mobile
+@media screen and (max-width: 999px) {
+  .grid-produtos {
+    ul {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .list-produto {
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 10px;
+
+      img {
+        width: 400px;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      .quantidade input[type="number"] {
+        width: 100px;
+      }
+
+      mat-icon {
+        background-color: lighten($secondary-color, 10%);
+      }
+
+      button[mat-stroked-button] {
+        margin: 10px 0;
+      }
+    }
+  }
+}
+
+// 🛍️ Carrinho vazio
+.lista-vazia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fafafa;
+  min-height: 80vh;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 20px;
+    color: $accent-color;
+  }
+
+  button {
+    border: 1px solid $primary-color;
+    color: $text-dark;
+    background-color: transparent;
+    font-weight: bold;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $text-light;
+    }
+  }
 }
