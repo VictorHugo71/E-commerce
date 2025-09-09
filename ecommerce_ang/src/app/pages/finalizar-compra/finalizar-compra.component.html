@@ -12,9 +12,11 @@
       <li class="list-produto" *ngFor="let produto of produtos">
         <img [src]="imagemBaseUrl + produto.Imagem_Url" [alt]="'Imagem do produto ' + produto.Nome_Produto" />
         
-        <h2>{{ produto.Nome_Produto }}</h2>
-        <p class="preco">{{ produto.Preco | currency:'BRL' }}</p>
-        
+        <div class="product-info">
+          <h2>{{ produto.Nome_Produto }}</h2>
+          <p class="preco">{{ produto.Preco | currency:'BRL' }}</p>
+        </div>
+
         <div class="quantidade">
           <button 
             mat-icon-button 

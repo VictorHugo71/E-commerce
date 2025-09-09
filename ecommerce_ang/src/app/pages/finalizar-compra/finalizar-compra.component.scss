@@ -1,4 +1,4 @@
-// 🎨 Cores base da Neziara
+// 🎨 Cores base
 $primary-color: #1A1F2B;
 $secondary-color: #2C3240;
 $neutral-color: #3D4454;
@@ -81,45 +81,67 @@ $text-dark: #1A1F2B;
       background-color: $secondary-color;
       border-radius: 15px;
       padding: 15px;
-      flex-grow: 1;
       display: flex;
+      flex-direction: column; // Mudar para column para empilhar os itens verticalmente
       align-items: center;
-      justify-content: space-between;
+      text-align: center;
+      width: 300px; // Largura base para cada card, ajustável conforme necessário
+      flex-grow: 1; // Permite que os itens cresçam para preencher o espaço
+      flex-shrink: 0; // Evita que os itens encolham além do necessário
 
       img {
-        width: 150px;
+        width: 100%; // Ocupa a largura do container pai
+        max-width: 200px; // Limita a largura máxima da imagem
+        height: auto;
+        margin-bottom: 15px;
       }
 
-      h2 {
-        color: $accent-color;
-        font-size: 30px;
+      // Novo container para agrupar título e preço
+      .product-info {
+        width: 100%; // Ocupa toda a largura disponível
+        margin-bottom: 15px;
+
+        h2 {
+          color: $accent-color;
+          font-size: 22px;
+          margin-bottom: 10px;
+          word-wrap: break-word; /* Quebra palavras longas */
+          overflow-wrap: break-word; /* Quebra palavras longas */
+          hyphens: auto; /* Tenta hifenizar palavras longas */
+        }
+
+        p.preco {
+          color: $text-light;
+          font-size: 18px;
+        }
       }
 
-      p {
-        color: $text-light;
-        font-size: 20px;
-      }
+      .quantidade {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
 
-      // remove setinhas do input number
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
+        input[type="number"] {
+          padding: 5px;
+          width: 60px;
+          color: $text-dark;
+          font-weight: bold;
+          height: 30px;
+          text-align: center;
+          margin: 0 5px;
+          border: 2px solid $accent-color;
+          border-radius: 6px;
+          background-color: #fff;
 
-      input[type="number"] {
-        -moz-appearance: textfield; // Firefox
-      }
-
-      .quantidade input[type="number"] {
-        padding: 5px;
-        width: 50px;
-        color: $text-dark;
-        font-weight: bold;
-        height: 20px;
-        text-align: right;
-        margin: 5px;
-        border: 2px solid $accent-color;
+          /* Remove setinhas padrão */
+          -moz-appearance: textfield;
+          -webkit-appearance: none;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
       }
 
       button[disabled] mat-icon {
@@ -132,6 +154,9 @@ $text-dark: #1A1F2B;
         background-color: lighten($secondary-color, 5%);
         border-radius: 50%;
         transition: all 0.3s ease;
+        display: flex; // Para centralizar o ícone caso precise
+        justify-content: center;
+        align-items: center;
 
         &:hover {
           color: $accent-color;
@@ -139,10 +164,11 @@ $text-dark: #1A1F2B;
       }
 
       button[mat-stroked-button] {
+        margin-top: 10px;
         color: #F97F7F;
         border-color: #F97F7F;
         transition: all 0.4s ease;
-        padding: 10px;
+        padding: 8px 12px;
 
         &:hover {
           color: $text-dark;
@@ -153,74 +179,141 @@ $text-dark: #1A1F2B;
   }
 
   // 📊 Resumo da compra
-   // Resumo
-   .resumo {
+  .resumo {
     background-color: $secondary-color;
     border-radius: 10px;
     max-width: 500px;
-    margin: 0 auto;
+    margin: 40px auto;
     padding: 20px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h2 {
-        color: $accent-color;
-        margin-bottom: 15px;
-      }
-  
-      .total {
-        display: flex;
-        justify-content: space-between;
-        font-size: 20px;
-        margin-bottom: 20px;
-  
-        .label-total {
-          font-weight: bold;
-        }
-      }
-  
-      button {
-        color: $text-dark;
+      color: $accent-color;
+      margin-bottom: 15px;
+      padding-bottom: 20px;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 20px;
+      margin-bottom: 20px;
+
+      .label-total {
         font-weight: bold;
       }
     }
+
+    button[mat-raised-button] {
+      margin: 10px;
+      color: $text-dark;
+      border: 1px solid $text-dark;
+    }
+  }
+}
+
+// 📱 Mobile / Layout para telas menores
+@media screen and (max-width: 999px) { // Ajustado para abranger telas menores que 1000px
+  .grid-produtos ul {
+    flex-direction: column; // Empilha os produtos verticalmente
+    align-items: center;
+    gap: 15px; // Espaçamento entre os produtos empilhados
   }
 
-// 📱 Mobile
-@media screen and (max-width: 999px) {
-  .grid-produtos {
-    ul {
-      flex-direction: column;
-      align-items: center;
+  .list-produto {
+    width: 90%; // Ocupa quase toda a largura
+    flex-direction: column; // Empilha os conteúdos verticalmente
+    align-items: center;
+    padding: 15px 10px;
+
+    img {
+      width: 100%; // Ocupa a largura do container pai
+      max-width: 400px; // Limita o tamanho da imagem em telas maiores
+      margin-bottom: 15px;
     }
 
-    .list-produto {
-      flex-direction: column;
-      align-items: center;
-      padding: 15px 10px;
-
-      img {
-        width: 400px;
-      }
+    .product-info {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 15px;
 
       h2 {
-        font-size: 30px;
+        font-size: 26px; // Aumenta um pouco o título em telas menores
       }
 
       p {
-        font-size: 20px;
+        font-size: 18px;
       }
+    }
 
-      .quantidade input[type="number"] {
-        width: 100px;
+    .quantidade {
+      input[type="number"] {
+        width: 80px; // Aumenta um pouco o input em telas menores
       }
+    }
 
-      mat-icon {
-        background-color: lighten($secondary-color, 10%);
-      }
+    button[mat-stroked-button] {
+      margin: 10px 0;
+    }
+  }
 
-      button[mat-stroked-button] {
-        margin: 10px 0;
-      }
+  .resumo {
+    max-width: none; // Permite que o resumo ocupe mais espaço em telas pequenas
+    width: 90%; // Garante que ocupe quase toda a largura
+  }
+}
+
+// 🚀 Desktop / Layout para telas maiores (>= 1000px)
+@media screen and (min-width: 1000px) {
+  .grid-produtos ul {
+    // No desktop, queremos que os itens se organizem em colunas.
+    // Cada item (list-produto) deve tentar ocupar 45% da largura disponível,
+    // permitindo 2 por linha com o gap.
+    flex-direction: row; // Volta a organizar na horizontal
+    justify-content: flex-start; // Alinha os itens à esquerda se não preencher a linha
+  }
+
+  .list-produto {
+    flex-direction: row; // Volta a organizar os elementos internos na horizontal
+    align-items: center;
+    justify-content: space-between;
+    width: calc(50% - 15px); // Ocupa metade do espaço, subtraindo o gap horizontal para caber dois lado a lado
+    max-width: calc(50% - 15px); // Garante que não ultrapasse essa medida
+    flex-grow: 0; // Evita que cresçam além da largura definida
+    flex-shrink: 0; // Evita que encolham
+
+    img {
+      width: 150px; // Volta à largura fixa da imagem
+      margin-right: 15px; // Espaço entre a imagem e o texto
+      margin-bottom: 0; // Remove a margem inferior do modo mobile
+    }
+
+    .product-info {
+      flex-grow: 1; // Permite que o container de texto cresça
+      flex-basis: 0; // Começa com tamanho base zero para `flex-grow` funcionar bem
+      margin: 0 15px; // Margem entre a imagem e o info, e info e quantidade
+      text-align: left; // Alinha o texto à esquerda no modo desktop
+    }
+
+    h2 {
+      font-size: 30px; // Volta ao tamanho original do título
+    }
+
+    p {
+      font-size: 20px; // Volta ao tamanho original do preço
+    }
+    
+    .quantidade {
+      margin: 0 10px; // Ajusta a margem para o layout horizontal
+      flex-shrink: 0; // Não encolhe
+    }
+
+    button[mat-stroked-button] {
+      margin-top: 0; // Remove a margem superior do modo mobile
+      margin-left: 10px; // Adiciona margem à esquerda para separação
     }
   }
 }
