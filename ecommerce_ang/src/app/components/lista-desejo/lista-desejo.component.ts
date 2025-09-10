@@ -4,8 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AllAuthService } from '../../services/auth/all-auth.service';
-import { DesejoService } from '../../services/desejo/desejo.service'; 
 import { AdminResponse } from '../../models/admin/admin-response';
+import { DesejoService } from '../../services/desejo/desejo.service'; 
+import { CompraService } from '../../services/compra/compra.service';
 
 @Component({
   selector: 'app-lista-desejo',
@@ -21,10 +22,11 @@ export class ListaDesejoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private desejoService: DesejoService,
     private router: Router,
     private snackBar: MatSnackBar,
     private allAuthService: AllAuthService,
+    private desejoService: DesejoService,
+    private compraService: CompraService,
   ) {}
 
   ngOnInit(): void {

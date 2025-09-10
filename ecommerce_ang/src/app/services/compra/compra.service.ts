@@ -11,7 +11,7 @@ export class CompraService {
   private apiUrl = 'http://localhost/neziara-sgbd/carrinho/';
   private apiAddCarrinho = `${this.apiUrl}addCarrinho.php`;
   private apiGetCarrinho = `${this.apiUrl}getCarrinho.php`;
-  private apiRemoveCarrinho = `${this.apiUrl}`;
+  private apiRemoveCarrinho = `${this.apiUrl}removeCarrinho.php`;
 
   constructor(
     private http: HttpClient
@@ -35,8 +35,8 @@ export class CompraService {
 
   }
   
-  removeCarrinho() {
-
+  removeCarrinho(Id_Produto: number, Id_Cliente: number): Observable<AdminResponse> {
+    return this.http.delete<AdminResponse>(`${this.apiRemoveCarrinho}?Id_Produto=${Id_Produto}&Id_Cliente=${Id_Cliente}`);
   }
 
 }
