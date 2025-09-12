@@ -49,19 +49,51 @@ export class FinalizarCompraComponent {
 
   aumentaQuantidade(Id_Produto: number | undefined): void {
 
-  }
+  } 
 
   verificaQuantidade(quantidade: number, produto: AdminProdutos) {
+    const userId = Number(this.allAuthService.getUserIdFromToken());
+
     if(quantidade <= 0) {
       const confirmou = window.confirm('Deseja remover este item do seu Carrinho?');
       if(confirmou) {
         this.removerProduto(produto.Id_Produto);
         return;
       } else {
-          quantidade = produto.Quantidade = 1;
-          return;
+        produto.Quantidade = 1;
+        console.log('Quantidade de produto: ', produto.Quantidade);
+
+        if(userId && produto.Id_Produto !== undefined) {
+          this.compraService.atualizaQuantidadeCarrinho(produto.Id_Produto, userId, produto.Quantidade).subscribe({
+            next: (data: AdminResponse) => {
+              this.mensagemSucesso = data.mensagem || 'Quantidade redefinida para 1';
+              this.snackBar.open(this.mensagemSucesso, 'Fechar', {duration: 3000});
+            },
+            error: (err: AdminResponse) => {
+              this.mensagemErro = err.mensagem || 'Erro ao redefinir quantidade';
+              this.snackBar.open(this.mensagemErro, 'Fechar', {duration: 3000});
+            }
+          });
+        }
+        return;
       }
-    } //fazer uma função para quando aumentar o valor diretamente no input
+
+    } else {
+      if(userId && produto.Id_Produto !== undefined) {
+        this.compraService.atualizaQuantidadeCarrinho(produto.Id_Produto, userId, produto.Quantidade).subscribe({
+          next: (data: AdminResponse) => {
+            this.mensagemSucesso = data.mensagem || 'Quantidade do produto atualizada';
+            this.snackBar.open(this.mensagemSucesso, 'Fechar', {duration: 3000});
+          },
+          error: (err: AdminResponse) => {
+            this.mensagemErro = err.mensagem || 'Erro ao alterar quantidade do produto';
+            this.snackBar.open(this.mensagemErro, 'Fechar', {duration: 3000});
+
+          }
+        });
+      }
+      return;
+    }
   }
 
   removerProduto(Id_Produto: number | undefined): void {

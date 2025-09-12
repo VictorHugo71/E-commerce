@@ -12,7 +12,7 @@ export class CompraService {
   private apiAddCarrinho = `${this.apiUrl}addCarrinho.php`;
   private apiGetCarrinho = `${this.apiUrl}getCarrinho.php`;
   private apiRemoveCarrinho = `${this.apiUrl}removeCarrinho.php`;
-
+  private apiAtualizaCarrinho = ``;
   constructor(
     private http: HttpClient
   ) { }
@@ -37,6 +37,15 @@ export class CompraService {
   
   removeCarrinho(Id_Produto: number, Id_Cliente: number): Observable<AdminResponse> {
     return this.http.delete<AdminResponse>(`${this.apiRemoveCarrinho}?Id_Produto=${Id_Produto}&Id_Cliente=${Id_Cliente}`);
+  }
+
+  atualizaQuantidadeCarrinho(Id_Produto: number | undefined, Id_Cliente: number, Quantidade: number | undefined): Observable<AdminResponse> {
+    const body = {
+      Id_Cliente: Id_Cliente,
+      Id_Produto: Id_Produto,
+      Quantidade: Quantidade
+    };
+    return this.http.put<AdminResponse>(this.apiAtualizaCarrinho, body);
   }
 
 }
