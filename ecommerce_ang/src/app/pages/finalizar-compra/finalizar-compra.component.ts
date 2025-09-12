@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
+import { AdminResponse } from '../../models/admin/admin-response';
 import { AllAuthService } from '../../services/auth/all-auth.service'; 
 import { CompraService } from '../../services/compra/compra.service';
-import { AdminResponse } from '../../models/admin/admin-response';
 
 @Component({
   selector: 'app-finalizar-compra',
@@ -43,12 +43,25 @@ export class FinalizarCompraComponent {
     }
   }
 
-  diminuiQuantidade() {
+  diminuiQuantidade(Id_Produto: number | undefined): void {
     
   }
 
-  aumentaQuantidade() {
+  aumentaQuantidade(Id_Produto: number | undefined): void {
 
+  }
+
+  verificaQuantidade(quantidade: number, produto: AdminProdutos) {
+    if(quantidade <= 0) {
+      const confirmou = window.confirm('Deseja remover este item do seu Carrinho?');
+      if(confirmou) {
+        this.removerProduto(produto.Id_Produto);
+        return;
+      } else {
+          quantidade = produto.Quantidade = 1;
+          return;
+      }
+    } //fazer uma função para quando aumentar o valor diretamente no input
   }
 
   removerProduto(Id_Produto: number | undefined): void {
