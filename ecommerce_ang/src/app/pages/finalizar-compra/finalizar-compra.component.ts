@@ -61,7 +61,6 @@ export class FinalizarCompraComponent {
         return;
       } else {
         produto.Quantidade = 1;
-        console.log('Quantidade de produto: ', produto.Quantidade);
 
         if(userId && produto.Id_Produto !== undefined) {
           this.compraService.atualizaQuantidadeCarrinho(produto.Id_Produto, userId, produto.Quantidade).subscribe({
@@ -87,8 +86,7 @@ export class FinalizarCompraComponent {
           },
           error: (err: AdminResponse) => {
             this.mensagemErro = err.mensagem || 'Erro ao alterar quantidade do produto';
-            this.snackBar.open(this.mensagemErro, 'Fechar', {duration: 3000});
-
+            this.snackBar.open(this.mensagemErro, 'Fechar', {duration: 3000});  
           }
         });
       }
