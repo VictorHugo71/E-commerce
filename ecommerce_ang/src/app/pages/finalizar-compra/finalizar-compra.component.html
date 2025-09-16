@@ -15,6 +15,7 @@
         <div class="product-info">
           <h2>{{ produto.Nome_Produto }}</h2>
           <p class="preco">{{ produto.Preco | currency:'BRL' }}</p>
+          <p>Estoque: {{ produto.Estoque }}</p>
         </div>
 
         <div class="quantidade">
@@ -22,7 +23,7 @@
             mat-icon-button 
             aria-label="Diminuir quantidade" 
             [disabled]="produto.Quantidade === 1" 
-            (click)="diminuiQuantidade(produto.Id_Produto)">
+            (click)="diminuiQuantidade(produto)">
             <mat-icon>remove</mat-icon>
           </button>
 
@@ -39,7 +40,7 @@
             mat-icon-button 
             aria-label="Aumentar quantidade" 
             [disabled]="produto.Quantidade === produto.Estoque" 
-            (click)="aumentaQuantidade(produto.Id_Produto)">
+            (click)="aumentaQuantidade(produto)">
             <mat-icon>add</mat-icon>
           </button>
         </div>

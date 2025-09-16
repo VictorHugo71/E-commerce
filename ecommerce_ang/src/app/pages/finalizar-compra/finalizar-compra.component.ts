@@ -43,54 +43,75 @@ export class FinalizarCompraComponent {
     }
   }
 
-  diminuiQuantidade(Id_Produto: number | undefined): void {
-    
+  diminuiQuantidade(produto: AdminProdutos): void {
+    const userId = Number(this.allAuthService.getUserIdFromToken());
+
+    if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
+      produto.Quantidade--;
+      this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
+    } else {
+      this.snackBar.open('Não foi possível atualizar a quantidade do produto. Tente novamente.', 'Fechar', {duration: 3000});
+    }
   }
 
-  aumentaQuantidade(Id_Produto: number | undefined): void {
+  aumentaQuantidade(produto: AdminProdutos): void {
+    const userId = Number(this.allAuthService.getUserIdFromToken());
 
+    if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
+      produto.Quantidade++;
+      this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
+    } else {
+      this.snackBar.open('Dados de usuário ou produto inválidos. Tente novamente.', 'Fechar', {duration: 3000});
+    }
   } 
 
   verificaQuantidade(quantidade: number, produto: AdminProdutos) {
     const userId = Number(this.allAuthService.getUserIdFromToken());
 
-    if(quantidade <= 0) {
-      const confirmou = window.confirm('Deseja remover este item do seu Carrinho?');
-      if(confirmou) {
-        this.removerProduto(produto.Id_Produto);
+    //Adicionar verificação de userId && produto.Id_Produto && produto.Quantidade uma unica vez ao invés ter que fazer toda vez essa verificação
+      if(quantidade <= 0) {
+        const confirmou = window.confirm('Deseja remover este item do seu Carrinho?');
+        if(confirmou) {
+          this.removerProduto(produto.Id_Produto);
+          return;
+        } else {
+          produto.Quantidade = 1;
+          this.atualizaCarrinhoBack(produto.Id_Produto!, userId, produto.Quantidade);
+          return;
+        }
+      } 
+      
+      if(produto.Estoque !== undefined && quantidade > produto.Estoque) {
+        produto.Quantidade = produto.Estoque;
+        this.snackBar.open(`Quantidade maior que a disponível em estoque (máx: ${produto.Estoque}).`, 'Fechar', { duration: 6000 });
+        
+        if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
+          this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
+        }
         return;
-      } else {
-        produto.Quantidade = 1;
 
-        if(userId && produto.Id_Produto !== undefined) {
-          this.compraService.atualizaQuantidadeCarrinho(produto.Id_Produto, userId, produto.Quantidade).subscribe({
-            next: (data: AdminResponse) => {
-              this.mensagemSucesso = data.mensagem || 'Quantidade redefinida para 1';
-              this.snackBar.open(this.mensagemSucesso, 'Fechar', {duration: 3000});
-            },
-            error: (err: AdminResponse) => {
-              this.mensagemErro = err.mensagem || 'Erro ao redefinir quantidade';
-              this.snackBar.open(this.mensagemErro, 'Fechar', {duration: 3000});
-            }
-          });
+      } else{
+        if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
+          this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
         }
         return;
       }
+  }
 
+  atualizaCarrinhoBack(idProduto: number, userId: number, quantidade: number) {
+    if(idProduto && userId && quantidade !== undefined) {
+      this.compraService.atualizaQuantidadeCarrinho(idProduto, userId, quantidade).subscribe({
+        next: (data: AdminResponse) => {
+          this.mensagemSucesso = data.mensagem || 'Quantidade atualizada';
+          this.snackBar.open(this.mensagemSucesso, 'Fechar', {duration: 3000});
+        },
+        error: (err: AdminResponse) => {
+          this.mensagemErro = err.mensagem || 'Erro ao alterar quantidade';
+          this.snackBar.open(this.mensagemErro, 'Fechar', {duration: 3000});
+        }
+      });
     } else {
-      if(userId && produto.Id_Produto !== undefined) {
-        this.compraService.atualizaQuantidadeCarrinho(produto.Id_Produto, userId, produto.Quantidade).subscribe({
-          next: (data: AdminResponse) => {
-            this.mensagemSucesso = data.mensagem || 'Quantidade do produto atualizada';
-            this.snackBar.open(this.mensagemSucesso, 'Fechar', {duration: 3000});
-          },
-          error: (err: AdminResponse) => {
-            this.mensagemErro = err.mensagem || 'Erro ao alterar quantidade do produto';
-            this.snackBar.open(this.mensagemErro, 'Fechar', {duration: 3000});  
-          }
-        });
-      }
-      return;
+      this.snackBar.open('Dados de usuário ou produto inválidos', 'Fechar', {duration: 3000});
     }
   }
 
