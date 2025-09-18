@@ -7,5 +7,6 @@ export interface AdminProdutos {
     Estoque: number,
     Status: boolean,
     Imagem_Url?: string,
-    Quantidade?: number
+    Quantidade?: number,
+    selecionado?: boolean
 }

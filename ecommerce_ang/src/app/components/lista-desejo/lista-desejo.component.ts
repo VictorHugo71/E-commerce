@@ -77,56 +77,59 @@ export class ListaDesejoComponent implements OnInit {
     }
   }
 
-  /*onSelecionadoComprar(produtos: any): void {
-    if (produtos.selecionado) {
-      this.produtosSelecionados.push(produtos);
-    } else {
-      this.produtosSelecionados = this.produtosSelecionados.filter(p => p.id !== produtos.id);
-    }
-  }
+  adicionarSelecionadosAoCarrinho() {
+    const userId = Number(this.allAuthService.getUserIdFromToken());
 
-  adicionarSelecionadosAoCarrinho(): void {
-    if (this.produtosSelecionados.length > 0) {
-      this.produtosSelecionados.forEach(produtos => {
-        // Substituir futuramente com CarrinhoService
-        console.log('Adicionado ao carrinho:', produtos.nome);
-      });
+    const produtosSelecionados = this.produtos.filter(produto => {
+      return produto.selecionado;
+    });
 
-      this.snackBar.open('Produtos adicionados ao carrinho!', 'Fechar', {
-        duration: 3000,
-        panelClass: ['sucesso-snackbar']
-      });
-
-      // Limpar seleção
-      this.produtos.forEach(p => p.selecionado = false);
-      this.produtosSelecionados = [];
-    }
-  }
-*/
-  async comprarAgora(produto: AdminProdutos): Promise<void> {
-      const userId = this.allAuthService.getUserIdFromToken();
-  
-      if (!userId) {
-        this.snackBar.open('Você precisa estar logado para adicionar produtos ao Carrinho.', 'Fechar', { duration: 3000 });
-        this.router.navigate(['/login']); // Redireciona para o login
-        return;
-      }
-  
-      if(produto && produto.Id_Produto) {
-        try {
-          const idProduto = produto.Id_Produto;
-          const quantidadeInicial = 1;
-          
-          const resultado = await firstValueFrom(this.compraService.addCarrinho(idProduto, userId, quantidadeInicial));
-          this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso ao Carrinho';
-  
-          this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
-          this.router.navigate(['/finalizar']);
-  
-        } catch(error: any) {
-          this.mensagemErro = error?.error?.mensagem || 'Erro ao adicionar produto ao Carrinho';
-          this.snackBar.open(this.mensagemErro, 'Fechar', { duration: 3000 });
+    if(userId !== undefined && produtosSelecionados.length > 0) {
+      this.compraService.addSelecionadosCarrinho(produtosSelecionados, userId).subscribe({
+        next: (data: AdminResponse) => {
+          this.snackBar.open(data.mensagem, 'Fechar', {duration: 3000});
+          this.produtos = this.produtos.filter(produto => !produto.selecionado);
+        },
+        error: (err: AdminResponse) => {
+          this.snackBar.open(err.mensagem, 'Fechar', {duration: 3000});
         }
+      });
+    } else {
+      this.snackBar.open('Dados inválidos', 'Fechar', {duration: 3000});
+    }
+  }
+
+  get selecionados() {
+    const produtosSelecionados = this.produtos.filter(produto => {
+      return produto.selecionado;
+    });
+    return produtosSelecionados;
+  }
+
+  async comprarAgora(produto: AdminProdutos): Promise<void> {
+    const userId = this.allAuthService.getUserIdFromToken();
+
+    if (!userId) {
+      this.snackBar.open('Você precisa estar logado para adicionar produtos ao Carrinho.', 'Fechar', { duration: 3000 });
+      this.router.navigate(['/login']); // Redireciona para o login
+      return;
+    }
+
+    if(produto && produto.Id_Produto) {
+      try {
+        const idProduto = produto.Id_Produto;
+        const quantidadeInicial = 1;
+        
+        const resultado = await firstValueFrom(this.compraService.addCarrinho(idProduto, userId, quantidadeInicial));
+        this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso ao Carrinho';
+
+        this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
+        this.router.navigate(['/finalizar']);
+
+      } catch(error: any) {
+        this.mensagemErro = error?.error?.mensagem || 'Erro ao adicionar produto ao Carrinho';
+        this.snackBar.open(this.mensagemErro, 'Fechar', { duration: 3000 });
       }
     }
+  }
 }

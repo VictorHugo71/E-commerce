@@ -11,15 +11,15 @@
   <div class="acoes-globais">
     <button mat-raised-button color="primary"
        
-      [disabled]="produtosSelecionados.length === 0" 
-      class="botao-carrinho"> <!--(click)="adicionarSelecionadosAoCarrinho()"-->
+      [disabled]="selecionados.length === 0" 
+      class="botao-carrinho" (click)="adicionarSelecionadosAoCarrinho()"> <!---->
       Comprar Selecionados
     </button>
   </div>
 
   <div class="grid-lista">
     <div class="card-produtos" *ngFor="let produto of produtos">
-      <mat-checkbox> <!--(change)="onSelecionadoComprar(produtos)" // [(ngModel)]="produtos.selecionado"-->
+      <mat-checkbox [(ngModel)]="produto.selecionado"> <!-- // -->
       </mat-checkbox>
 
       <img [src]="imagemBaseUrl + produto.Imagem_Url" alt="{{ produto.Nome_Produto }}" />

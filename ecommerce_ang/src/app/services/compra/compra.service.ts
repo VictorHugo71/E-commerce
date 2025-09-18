@@ -13,6 +13,7 @@ export class CompraService {
   private apiGetCarrinho = `${this.apiUrl}getCarrinho.php`;
   private apiRemoveCarrinho = `${this.apiUrl}removeCarrinho.php`;
   private apiAtualizaCarrinho = `${this.apiUrl}atualizaCarrinho.php`;
+  private apiAddSelecionadosCarrinho = `${this.apiUrl}`;
   constructor(
     private http: HttpClient
   ) { }
@@ -27,12 +28,22 @@ export class CompraService {
     return this.http.post<AdminResponse>(this.apiAddCarrinho, dados);
   }
 
-  getCarrinho(Id_Cliente: number): Observable<AdminProdutos[]> {
-    return this.http.get<AdminProdutos[]>(`${this.apiGetCarrinho}?Id_Cliente=${Id_Cliente}`);
+  addSelecionadosCarrinho(produtos: AdminProdutos[], idCliente: number): Observable<AdminResponse>{
+    const dados = {
+      Id_Cliente: idCliente,
+      produtoFormatado: produtos.map(produto => {
+        return {
+          Id_Produto: produto.Id_Produto,
+          Quantidade: produto.Quantidade || 1,
+        };
+      })
+    };
+
+    return this.http.post<AdminResponse>(this.apiAddSelecionadosCarrinho, dados);
   }
 
-  addSelecionadosCarrinho() {
-
+  getCarrinho(Id_Cliente: number): Observable<AdminProdutos[]> {
+    return this.http.get<AdminProdutos[]>(`${this.apiGetCarrinho}?Id_Cliente=${Id_Cliente}`);
   }
   
   removeCarrinho(Id_Produto: number, Id_Cliente: number): Observable<AdminResponse> {
