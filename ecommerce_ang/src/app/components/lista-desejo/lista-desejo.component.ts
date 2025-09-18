@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { firstValueFrom } from 'rxjs';
 
 import { AllAuthService } from '../../services/auth/all-auth.service';
 import { AdminResponse } from '../../models/admin/admin-response';
@@ -18,7 +19,8 @@ export class ListaDesejoComponent implements OnInit {
   produtos: AdminProdutos [] = [];
   produtosSelecionados: any[] = [];
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
-
+  private mensagemSucesso = '';
+  private mensagemErro = '';
 
   constructor(
     private route: ActivatedRoute, 
@@ -100,12 +102,31 @@ export class ListaDesejoComponent implements OnInit {
       this.produtosSelecionados = [];
     }
   }
-
-  comprarAgora(produtos: Produto): void {
-    // Substituir futuramente com CarrinhoService
-    console.log('Produto adicionado ao carrinho:', produtos);
-    this.snackBar.open('Produto adicionado ao carrinho', 'Fechar', {
-      duration: 3000
-    });
-  }*/
+*/
+  async comprarAgora(produto: AdminProdutos): Promise<void> {
+      const userId = this.allAuthService.getUserIdFromToken();
+  
+      if (!userId) {
+        this.snackBar.open('Você precisa estar logado para adicionar produtos ao Carrinho.', 'Fechar', { duration: 3000 });
+        this.router.navigate(['/login']); // Redireciona para o login
+        return;
+      }
+  
+      if(produto && produto.Id_Produto) {
+        try {
+          const idProduto = produto.Id_Produto;
+          const quantidadeInicial = 1;
+          
+          const resultado = await firstValueFrom(this.compraService.addCarrinho(idProduto, userId, quantidadeInicial));
+          this.mensagemSucesso = resultado?.mensagem || 'Produto adicionado com sucesso ao Carrinho';
+  
+          this.snackBar.open(this.mensagemSucesso, 'Fechar', { duration: 3000 });
+          this.router.navigate(['/finalizar']);
+  
+        } catch(error: any) {
+          this.mensagemErro = error?.error?.mensagem || 'Erro ao adicionar produto ao Carrinho';
+          this.snackBar.open(this.mensagemErro, 'Fechar', { duration: 3000 });
+        }
+      }
+    }
 }

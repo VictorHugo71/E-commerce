@@ -35,6 +35,7 @@ export class FinalizarCompraComponent {
       this.compraService.getCarrinho(userId).subscribe({
         next: (data: AdminProdutos[]) => {
           this.produtos = data;
+          this.calcularTotal();
         },
         error: (_error) => {
           this.snackBar.open('Nenhum produto encontrado no seu Carrinho.', 'Fechar', { duration: 3000 });
@@ -44,22 +45,18 @@ export class FinalizarCompraComponent {
   }
 
   diminuiQuantidade(produto: AdminProdutos): void {
-    const userId = Number(this.allAuthService.getUserIdFromToken());
-
-    if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
+    if(produto.Quantidade !== undefined) {
       produto.Quantidade--;
-      this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
+      this.verificaQuantidade(produto.Quantidade, produto);
     } else {
       this.snackBar.open('Não foi possível atualizar a quantidade do produto. Tente novamente.', 'Fechar', {duration: 3000});
     }
   }
 
   aumentaQuantidade(produto: AdminProdutos): void {
-    const userId = Number(this.allAuthService.getUserIdFromToken());
-
-    if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
+    if(produto.Quantidade !== undefined) {
       produto.Quantidade++;
-      this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
+      this.verificaQuantidade(produto.Quantidade, produto);
     } else {
       this.snackBar.open('Dados de usuário ou produto inválidos. Tente novamente.', 'Fechar', {duration: 3000});
     }
@@ -67,8 +64,8 @@ export class FinalizarCompraComponent {
 
   verificaQuantidade(quantidade: number, produto: AdminProdutos) {
     const userId = Number(this.allAuthService.getUserIdFromToken());
-
-    //Adicionar verificação de userId && produto.Id_Produto && produto.Quantidade uma unica vez ao invés ter que fazer toda vez essa verificação
+    
+    if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
       if(quantidade <= 0) {
         const confirmou = window.confirm('Deseja remover este item do seu Carrinho?');
         if(confirmou) {
@@ -79,23 +76,16 @@ export class FinalizarCompraComponent {
           this.atualizaCarrinhoBack(produto.Id_Produto!, userId, produto.Quantidade);
           return;
         }
-      } 
-      
-      if(produto.Estoque !== undefined && quantidade > produto.Estoque) {
+      } else if(produto.Estoque !== undefined && quantidade > produto.Estoque) {
         produto.Quantidade = produto.Estoque;
         this.snackBar.open(`Quantidade maior que a disponível em estoque (máx: ${produto.Estoque}).`, 'Fechar', { duration: 6000 });
         
-        if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
-          this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
-        }
-        return;
-
-      } else{
-        if(userId && produto.Id_Produto && produto.Quantidade !== undefined) {
-          this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
-        }
         return;
       }
+      this.atualizaCarrinhoBack(produto.Id_Produto, userId, produto.Quantidade);
+    } else {
+      this.snackBar.open(`Dados de Cliente ou Produto inválidos`, 'Fechar', { duration: 3000 });
+    }
   }
 
   atualizaCarrinhoBack(idProduto: number, userId: number, quantidade: number) {
@@ -104,6 +94,7 @@ export class FinalizarCompraComponent {
         next: (data: AdminResponse) => {
           this.mensagemSucesso = data.mensagem || 'Quantidade atualizada';
           this.snackBar.open(this.mensagemSucesso, 'Fechar', {duration: 3000});
+          this.calcularTotal();
         },
         error: (err: AdminResponse) => {
           this.mensagemErro = err.mensagem || 'Erro ao alterar quantidade';
@@ -130,6 +121,7 @@ export class FinalizarCompraComponent {
           if(index > -1) {
             this.produtos.splice(index, 1);
           }
+          this.calcularTotal();
         },
         error: (_error) => {
           this.snackBar.open('Não foi possível remover o item do Carrinho.', 'Fechar', { duration: 3000 });
@@ -139,5 +131,12 @@ export class FinalizarCompraComponent {
       this.snackBar.open('Você precisa estar logado para acessar o Carrinho.', 'Fechar', {duration: 3000});
       this.router.navigate(['/home']);
     }
+  }
+
+  calcularTotal() {
+    this.valorTotal = 0;
+    this.produtos.forEach(produto =>{
+      this.valorTotal += produto.Preco * produto.Quantidade!;
+    });
   }
 }
