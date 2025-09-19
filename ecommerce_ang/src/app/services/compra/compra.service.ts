@@ -13,7 +13,7 @@ export class CompraService {
   private apiGetCarrinho = `${this.apiUrl}getCarrinho.php`;
   private apiRemoveCarrinho = `${this.apiUrl}removeCarrinho.php`;
   private apiAtualizaCarrinho = `${this.apiUrl}atualizaCarrinho.php`;
-  private apiAddSelecionadosCarrinho = `${this.apiUrl}`;
+  private apiAddSelecionadosCarrinho = `${this.apiUrl}addSelecionadosCarrinho.php`;
   constructor(
     private http: HttpClient
   ) { }

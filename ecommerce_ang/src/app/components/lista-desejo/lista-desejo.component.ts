@@ -89,6 +89,8 @@ export class ListaDesejoComponent implements OnInit {
         next: (data: AdminResponse) => {
           this.snackBar.open(data.mensagem, 'Fechar', {duration: 3000});
           this.produtos = this.produtos.filter(produto => !produto.selecionado);
+
+          //adicionar o service de remover itens da lista de desejo
         },
         error: (err: AdminResponse) => {
           this.snackBar.open(err.mensagem, 'Fechar', {duration: 3000});
