@@ -12,6 +12,7 @@ export class DesejoService {
   private apiAddLista = `${this.apiUrl}addListaDesejo.php`;
   private apiRemoveLista = `${this.apiUrl}removeListaDesejo.php`;
   private apiGetLista = `${this.apiUrl}getListaDesejo.php`;
+  private apiRemoveSelecionadosLista = `${this.apiUrl}removeSelecionadosListaDesejo.php`;
 
   constructor(
     private http: HttpClient
@@ -32,5 +33,17 @@ export class DesejoService {
   
   removeListaDesejo(Id_Produto: number, Id_Cliente: number): Observable<AdminResponse> {
     return this.http.delete<AdminResponse>(`${this.apiRemoveLista}/${Id_Produto}/${Id_Cliente}`);
+  };
+
+  removeSelecionadosListaDesejo(produtos: AdminProdutos[], idCliente: number): Observable<AdminResponse> {
+    const dados = {
+      Id_Cliente: idCliente,
+      produtoFormatado: produtos.map(produto => {
+        return {
+          Id_Produto: produto.Id_Produto,
+        };
+      })
+    };
+    return this.http.post<AdminResponse>(this.apiRemoveSelecionadosLista, dados);
   };
 }

@@ -91,6 +91,14 @@ export class ListaDesejoComponent implements OnInit {
           this.produtos = this.produtos.filter(produto => !produto.selecionado);
 
           //adicionar o service de remover itens da lista de desejo
+          this.desejoService.removeSelecionadosListaDesejo(produtosSelecionados, userId).subscribe({
+            next: (dataRemocao: AdminResponse) => {
+              this.snackBar.open(dataRemocao.mensagem, 'Fechar', {duration: 3000});
+            },
+            error: (errRemocao: AdminResponse) => {
+              this.snackBar.open(errRemocao.mensagem, 'Fechar', {duration: 3000});
+            }
+          });
         },
         error: (err: AdminResponse) => {
           this.snackBar.open(err.mensagem, 'Fechar', {duration: 3000});
