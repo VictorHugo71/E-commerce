@@ -90,18 +90,21 @@ export class ListaDesejoComponent implements OnInit {
           this.snackBar.open(data.mensagem, 'Fechar', {duration: 3000});
           this.produtos = this.produtos.filter(produto => !produto.selecionado);
 
-          //adicionar o service de remover itens da lista de desejo
           this.desejoService.removeSelecionadosListaDesejo(produtosSelecionados, userId).subscribe({
             next: (dataRemocao: AdminResponse) => {
-              this.snackBar.open(dataRemocao.mensagem, 'Fechar', {duration: 3000});
+              setTimeout(() => { //atraso de 1,5s para aparecer esta mensagem após a primeira mensagem de sucesso
+                this.snackBar.open(dataRemocao.mensagem, 'Fechar', {duration: 3000});
+              }, 1500);
             },
-            error: (errRemocao: AdminResponse) => {
-              this.snackBar.open(errRemocao.mensagem, 'Fechar', {duration: 3000});
+            error: (errRemocao: any) => {
+              setTimeout(() =>{
+                this.snackBar.open(errRemocao.error.mensagem, 'Fechar', {duration: 3000});
+              }, 1500);
             }
           });
         },
-        error: (err: AdminResponse) => {
-          this.snackBar.open(err.mensagem, 'Fechar', {duration: 3000});
+        error: (err: any) => {
+          this.snackBar.open(err.error.mensagem, 'Fechar', {duration: 3000});
         }
       });
     } else {
@@ -142,4 +145,5 @@ export class ListaDesejoComponent implements OnInit {
       }
     }
   }
+  
 }
