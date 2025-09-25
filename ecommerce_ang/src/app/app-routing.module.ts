@@ -25,6 +25,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { AdminSignupComponent } from './components/admin/admin-signup/admin-signup.component';
 import { GerenciarProdutosComponent } from './components/admin/gerenciar-produtos/gerenciar-produtos.component';
 import { CadastrarProdutosComponent } from './components/admin/cadastrar-produtos/cadastrar-produtos.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
   {path: 'perfil', component: PerfilComponent, canActivate: [authGuard]},
   {path: 'listadesejo', component: ListaDesejoComponent, canActivate: [authGuard]},
   {path: 'finalizar', component: FinalizarCompraComponent, canActivate: [authGuard]},
+  {path: 'checkout', component: CheckoutComponent, canActivate:[authGuard]},
   
   // Rotas de produto (públicas)
   {path: 'produto/:id', component: ProdutoComponent}, //tem que fazer esta parte ainda, depois que fizer o back
