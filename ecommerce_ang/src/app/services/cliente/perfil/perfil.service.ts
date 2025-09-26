@@ -20,4 +20,8 @@ export class PerfilService {
   atualizarPerfil(usuario:any): Observable<any> {
     return this.http.post<any>(this.atualizarUrl, usuario);
   }
+
+  addNovoEndereco() {
+    
+  }
 }

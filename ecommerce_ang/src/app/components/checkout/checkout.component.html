@@ -1,31 +1,50 @@
 <main class="checkout-page">
     <mat-horizontal-stepper [linear]="true" #stepper>
-        <mat-step  label="Endereço"> <!--[stepControl]="formEndereco"-->
-            <div class="enderecos-wrapper">
+        <mat-step [stepControl]="formEndereco" label="Endereço"> <!---->
+            <div class="enderecos-wrapper" [formGroup]="formEndereco">
                 <h3>Endereços Cadastrados</h3>
-                <mat-card *ngFor="let endereco of enderecos" class="endereco-card">
+                <mat-card 
+                *ngFor="let endereco of enderecos" 
+                class="endereco-card"
+                [class.selecionado]="formEndereco.get('idEnderecoSelecionado')?.value === endereco.id_endereco"> 
                   <p>{{ endereco.rua }}, {{ endereco.logradouro }}, {{ endereco.numero }}</p>
                   <p>{{ endereco.bairro }} - {{ endereco.cidade }} ({{ endereco.estado }})</p>
                   <p>CEP: {{ endereco.cep }}</p>
           
-                  <button mat-stroked-button color="primary" *ngIf="!endereco.principal" > <!--(click)="definirComoPrincipal(endereco.id_endereco)"-->
-                      Definir como principal
-                  </button>
-          
-                  <span *ngIf="endereco.principal" class="tag-principal">Endereço Principal</span>
+                  <button 
+                    mat-stroked-button 
+                    color="primary" 
+                    (click)="selecionarEndereco(endereco.id_endereco)"
+                    *ngIf="formEndereco.get('idEnderecoSelecionado')?.value !== endereco.id_endereco"> 
+                    
+                        Selecionar
+                </button>
+
+                <div class="tags-status">
+                    <span *ngIf="endereco.principal" class="tag-padrao">Endereço Padrão</span>
+            
+                    <span *ngIf="formEndereco.get('idEnderecoSelecionado')?.value === endereco.id_endereco" class="tag-selecionado">
+                        Endereço Selecionado para Compra
+                    </span>
+                </div>
           
                   <div class="acoes">
-                    <button mat-button >Editar</button> <!--(click)="editarEndereco(endereco)"-->
+                    <button mat-button (click)="editarEndereco(endereco)">Editar</button> <!---->
                   </div>
                 </mat-card>
           
-                <button mat-raised-button color="accent" > <!--(click)="abrirDialogNovoEndereco()"-->
+                <button mat-raised-button color="accent" (click)="abrirDialogNovoEndereco()"> <!---->
                   Adicionar novo endereço
                 </button>
               </div>
 
               <div class="stepper-actions">
-                <button mat-raised-button color="primary" matStepperNext>
+                <button 
+                mat-raised-button 
+                color="primary" 
+                matStepperNext
+                [disabled]="formEndereco.invalid">
+
                     Confirmar Endereço e Continuar
                 </button>
             </div>

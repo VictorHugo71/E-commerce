@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { EnderecoDialogComponent } from '../endereco-dialog/endereco-dialog.component';
-import { DadosDialogComponent } from '../dados-dialog/dados-dialog.component';
-import { AvatarService } from '../../services/avatar.service';
 import { AvatarDialogComponent } from '../avatar-dialog/avatar-dialog.component';
+import { DadosDialogComponent } from '../dados-dialog/dados-dialog.component';
+
+import { AvatarService } from '../../services/avatar.service';
 import { PerfilService } from '../../services/cliente/perfil/perfil.service';
 import { AllAuthService } from '../../services/auth/all-auth.service'; 
 
