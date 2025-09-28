@@ -81,6 +81,8 @@ export class CheckoutComponent {
       if (result) {
         this.enderecos.push(result);
         this.usuario.endereco = [...this.enderecos];
+
+        this.salvarEnderecosCheckout();
       }
     });
   }
@@ -92,7 +94,7 @@ export class CheckoutComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result && result.id_endereco) {
         const index = this.enderecos.findIndex(e => e.id_endereco === result.id_endereco);
         if (index !== -1) {
           this.enderecos[index] = result;
@@ -100,6 +102,8 @@ export class CheckoutComponent {
           this.enderecos.push(result);
         }
         this.usuario.endereco = [...this.enderecos];
+
+        this.salvarEnderecosCheckout();
       }
     });
   }
@@ -110,7 +114,7 @@ export class CheckoutComponent {
     console.log('Endereço selecionado: ', enderecoId);
   }
 
-  salvarNovoEndereco():void {
+  salvarEnderecosCheckout(): void {
     const enderecosParaBackend = this.enderecos.map(e => ({
       id_endereco: e.id_endereco,
       rua: e.rua,
@@ -124,6 +128,24 @@ export class CheckoutComponent {
       logradouro: e.logradouro
     }));
 
-    this.perfilService.addNovoEndereco();
+    const usuarioParaBackend = {
+      ...this.usuario,
+      endereco: enderecosParaBackend
+    };
+
+    console.log('Enviando para atualizar: ', usuarioParaBackend);
+
+    // 3. Chama o serviço de atualização (mesmo endpoint do Perfil)
+    this.perfilService.atualizarPerfil(usuarioParaBackend).subscribe({
+        next: (res) => {
+            console.log('Endereços de Perfil atualizados com sucesso.', res);
+            
+            this.ngOnInit(); 
+        },
+        error: (err) => {
+            console.error('Erro ao atualizar endereços:', err);
+        }
+    });
   }
+
 }
