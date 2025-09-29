@@ -6,22 +6,35 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PerfilService {
-  private perfilUrl = 'http://localhost/neziara-sgbd/perfil/perfil.php';
-  private atualizarUrl = 'http://localhost/neziara-sgbd/perfil/atualiza_perfil.php';
+  private apiUrl = 'http://localhost/neziara-sgbd/perfil/';
+  private getPerfilUrl = `${this.apiUrl}getPerfil.php`;
+  private getEndereco = `${this.apiUrl}`;
+  private updateDadosPerfil = `${this.apiUrl}updateDadosPerfil.php`;
+  private gerenciaEndereco = `${this.apiUrl}`;
 
   constructor(
     private http: HttpClient,
   ) {}
-
+  
+  //obtem DADOS do perfil do usuario apenas
   obterPerfil(dados:{email:string}): Observable<any> {
-    return this.http.post<any>(this.perfilUrl, dados);
+    return this.http.post<any>(this.getPerfilUrl, dados);
   }
 
+  //Apenas da um get nos ENDEREÇOS do usuario
+  obterEndereco() {
+
+  }
+
+  //atualizar APEAS DADOS de usuario no perfil 
   atualizarPerfil(usuario:any): Observable<any> {
-    return this.http.post<any>(this.atualizarUrl, usuario);
+    return this.http.post<any>(this.updateDadosPerfil, usuario);
   }
 
-  addNovoEndereco() {
-    
+  //Lida com atualização/inserção/remoção dos dados de endereço
+  atualizaEndereco() {
+
   }
+
+
 }

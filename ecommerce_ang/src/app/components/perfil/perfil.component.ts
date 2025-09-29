@@ -10,13 +10,16 @@ import { AvatarService } from '../../services/avatar.service';
 import { PerfilService } from '../../services/cliente/perfil/perfil.service';
 import { AllAuthService } from '../../services/auth/all-auth.service'; 
 
+import { Endereco } from '../../models/endereco/endereco';
+import { Usuario } from '../../models/perfil/usuario';
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss']
 })
-export class PerfilComponent {
-  usuario = {
+export class PerfilComponent {//falta tipar o usuario
+  usuario = { //Não tranormar em um array, isto implica que varios usuarios estão logados, desta forma representa O usuário logado, um(1) único objeto
     id: "",
     nome : "",
     email : "",
@@ -26,7 +29,8 @@ export class PerfilComponent {
     endereco : [] as any [],
   };
 
-  enderecos : any[] = [];
+  //Cópia dos endeereços para ser usada na iteração do *ngFor do front-end
+  enderecos : any[] = []; //falta tipar o endereco
   
   constructor(
     private dialog: MatDialog,
