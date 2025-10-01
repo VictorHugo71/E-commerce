@@ -1,8 +1,8 @@
 import { Endereco } from "../endereco/endereco";
 
 export interface Usuario {
-    idUsuario: number;
-    nomeUsuario: string;
+    id: number;
+    nome: string;
     email: string;
     telefone: string,
     cpf: string,
