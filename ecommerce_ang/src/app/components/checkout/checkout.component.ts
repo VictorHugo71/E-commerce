@@ -53,7 +53,7 @@ export class CheckoutComponent {
       return;
     }
 
-    this.perfilService.obterPerfil({email: userData.email}).subscribe({
+    /*this.perfilService.obterPerfil({email: userData.email}).subscribe({
       next:(res) => {
         const user = res.usuario;
         this.usuario = {
@@ -69,7 +69,7 @@ export class CheckoutComponent {
       error:(err) => {
         console.error('Erro ao carregar perfil:', err)
       }
-    });
+    });*/
   }
 
   abrirDialogNovoEndereco(): void {
@@ -136,7 +136,7 @@ export class CheckoutComponent {
     console.log('Enviando para atualizar: ', usuarioParaBackend);
 
     // 3. Chama o serviço de atualização (mesmo endpoint do Perfil)
-    this.perfilService.atualizarPerfil(usuarioParaBackend).subscribe({
+    /*this.perfilService.atualizarPerfil(usuarioParaBackend).subscribe({
         next: (res) => {
             console.log('Endereços de Perfil atualizados com sucesso.', res);
             
@@ -145,7 +145,7 @@ export class CheckoutComponent {
         error: (err) => {
             console.error('Erro ao atualizar endereços:', err);
         }
-    });
+    });*/
   }
 
 }

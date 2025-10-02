@@ -60,7 +60,7 @@ export class PerfilComponent {
       next:(res) => {
         const user = res.usuario;
         this.usuario = {
-          id: user.id || user.id_cliente,
+          id: user.id,
           nome: user.nome || '',
           email: user.email ||'',
           telefone: user.telefone || '',
@@ -90,7 +90,6 @@ export class PerfilComponent {
     });
   }
   
-
   get nomeAvatar(): string {
     return this.avatarService.getNomeLegal(this.usuario.avatar);
   }
@@ -157,13 +156,13 @@ export class PerfilComponent {
     });
   }
 
-  removerEndereco(id: number): void {
+  removerEndereco(id: number | undefined): void {
     this.enderecos = this.enderecos.filter(e => e.idEndereco !== id);
     this.usuario.endereco = [...this.enderecos];
     this.salvarEndereco();
   }
 
-  definirComoPrincipal(id: number): void {
+  definirComoPrincipal(id: number | undefined): void {
     this.enderecos.forEach(e => e.principal = false);
     const escolhido = this.enderecos.find(e => e.idEndereco === id);
     if (escolhido) {
@@ -175,7 +174,7 @@ export class PerfilComponent {
 
   salvarDadosPessoais(): void {
     const dadosPessoaisBackend: UsuarioUpdateDTO = {
-      id: this.usuario.id,
+        id: this.usuario.id,
         nome: this.usuario.nome,
         email: this.usuario.email,
         telefone: this.usuario.telefone,
@@ -222,5 +221,9 @@ export class PerfilComponent {
         this.mensagemErro = err.mensagem || 'Falha ao atualizar dados de endereço';
       }
     });
+  }
+
+  logout(): void {
+    this.allAuthService.logout();
   }
 }  

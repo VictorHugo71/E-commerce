@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { AdminResponse } from '../../../models/admin/admin-response';
+import { PerfilResponse } from '../../../models/perfil/perfil-response';
 import { Usuario } from '../../../models/perfil/usuario';
 import { UsuarioUpdateDTO } from '../../../models/perfil/usuario-dto';
 import { Endereco } from '../../../models/endereco/endereco';
@@ -14,7 +15,7 @@ export class PerfilService {
   private apiUrl = 'http://localhost/neziara-sgbd/perfil/';
 
   private getPerfilUrl = `${this.apiUrl}getPerfil.php`;
-  private getEndereco = `${this.apiUrl}`;
+  private getEndereco = `${this.apiUrl}getEndereco.php`;
 
   private updateDadosPerfil = `${this.apiUrl}updateDadosPerfil.php`;
   private gerenciaEndereco = `${this.apiUrl}`;
@@ -24,8 +25,8 @@ export class PerfilService {
   ) {}
   
   //obtem DADOS do perfil do usuario apenas
-  obterPerfil(dados:{email:string}): Observable<Usuario> {
-    return this.http.post<Usuario>(this.getPerfilUrl, dados);
+  obterPerfil(dados:{email:string}): Observable<PerfilResponse> {
+    return this.http.post<PerfilResponse>(this.getPerfilUrl, dados);
   }
 
   //Obtem ENDEREÇOS do usuario

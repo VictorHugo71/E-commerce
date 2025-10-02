@@ -44,11 +44,11 @@
     <div class="enderecos-wrapper">
       <h3>Endereços Cadastrados</h3>
       <mat-card *ngFor="let endereco of enderecos" class="endereco-card">
-        <p>{{ endereco.rua }}, {{ endereco.logradouro }}, {{ endereco.numero }}</p>
+        <p>{{ endereco.logradouro }}, {{ endereco.numero }}</p>
         <p>{{ endereco.bairro }} - {{ endereco.cidade }} ({{ endereco.estado }})</p>
         <p>CEP: {{ endereco.cep }}</p>
 
-        <button mat-stroked-button color="primary" *ngIf="!endereco.principal" (click)="definirComoPrincipal(endereco.id_endereco)">
+        <button mat-stroked-button color="primary" *ngIf="!endereco.principal" (click)="definirComoPrincipal(endereco.idEndereco)">
             Definir como principal
         </button>
 
@@ -56,7 +56,7 @@
 
         <div class="acoes">
           <button mat-button (click)="editarEndereco(endereco)">Editar</button>
-          <button mat-button color="warn" (click)="removerEndereco(endereco.id_endereco)">Remover</button>
+          <button mat-button color="warn" (click)="removerEndereco(endereco.idEndereco)">Remover</button>
         </div>
       </mat-card>
 
