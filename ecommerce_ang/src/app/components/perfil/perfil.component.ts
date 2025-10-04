@@ -163,11 +163,11 @@ export class PerfilComponent {
   }
 
   definirComoPrincipal(id: number | undefined): void {
-    this.enderecos.forEach(e => e.principal = false);
-    const escolhido = this.enderecos.find(e => e.idEndereco === id);
+    this.enderecos.forEach(e => e.principal = false); //pega o array enderecos completo e define a propriedade 'principal' como false
+    const escolhido = this.enderecos.find(e => e.idEndereco === id); //busca no array enderecos, o elemento que tem o mesmo id que o enviado para a função
     if (escolhido) {
-      escolhido.principal = true;
-      this.usuario.endereco = [...this.enderecos];
+      escolhido.principal = true; //define a propriedade 'principal' do endereco encontrado como 'true'
+      this.usuario.endereco = [...this.enderecos]; //atualiza a copia do array enderecos que esta no objeto usuario principal
       this.salvarEndereco();
     }
   }
@@ -193,7 +193,7 @@ export class PerfilComponent {
     });
   }
 
-  salvarEndereco(): void {
+  salvarEndereco(): void { //Envia um arrays com TODOS os endereços do cliente
     const enderecosBackend = this.enderecos.map(e => ({
       Id_Endereco: e.idEndereco,
       Estado: e.estado,

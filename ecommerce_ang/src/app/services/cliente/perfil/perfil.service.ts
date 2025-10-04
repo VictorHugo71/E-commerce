@@ -17,8 +17,8 @@ export class PerfilService {
   private getPerfilUrl = `${this.apiUrl}getPerfil.php`;
   private getEndereco = `${this.apiUrl}getEndereco.php`;
 
-  private updateDadosPerfil = `${this.apiUrl}updateDadosPerfil.php`;
-  private gerenciaEndereco = `${this.apiUrl}`;
+  private updateDadosPerfil = `${this.apiUrl}updateDadoPerfil.php`;
+  private gerenciaEndereco = `${this.apiUrl}gerenciarEndereco.php`;
 
   constructor(
     private http: HttpClient,
