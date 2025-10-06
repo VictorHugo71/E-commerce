@@ -3,23 +3,18 @@
 <mat-dialog-content>
   <form>
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Rua</mat-label>
-      <input matInput [(ngModel)]="endereco.rua" name="rua" required>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Logradouro</mat-label>
       <input matInput [(ngModel)]="endereco.logradouro" name="logradouro" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Número</mat-label>
-      <input matInput [(ngModel)]="endereco.numero" name="numero" required>
+      <mat-label>Complemento</mat-label>
+      <input matInput [(ngModel)]="endereco.complemento" name="complemento">
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Complemento</mat-label>
-      <input matInput [(ngModel)]="endereco.complemento" name="complemento">
+      <mat-label>Número</mat-label>
+      <input matInput [(ngModel)]="endereco.numero" name="numero" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -41,7 +36,6 @@
       </mat-select>
     </mat-form-field>
     
-
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>CEP</mat-label>
       <input matInput [(ngModel)]="endereco.cep" name="cep" required>

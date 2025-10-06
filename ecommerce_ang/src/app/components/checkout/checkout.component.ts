@@ -2,10 +2,14 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 import { EnderecoDialogComponent } from '../endereco-dialog/endereco-dialog.component';
 
 import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
+import { Endereco } from '../../models/endereco/endereco';
+import { AdminResponse } from '../../models/admin/admin-response';
 
 import { AllAuthService } from '../../services/auth/all-auth.service';
 import { PerfilService } from '../../services/cliente/perfil/perfil.service';
@@ -21,14 +25,14 @@ export class CheckoutComponent {
   valorTotal = 0;
 
   usuario = {
-    id: "",
-    nome : "",
+    id: 0,
     email : "",
-    telefone : "",
-    cpf : "",
     endereco : [] as any [],
   };
-  enderecos: any[] =[];
+  enderecos: Endereco[] =[];
+
+  mensagemSucesso = '';
+  mensagemErro = '';
 
   formEndereco: FormGroup;
 
@@ -37,6 +41,7 @@ export class CheckoutComponent {
     private perfilService: PerfilService,
     private allAuthService:  AllAuthService,
     private router: Router,
+    private snackBar: MatSnackBar,
     private formBuilder: FormBuilder
   ) {
     this.formEndereco = this.formBuilder.group({
@@ -53,25 +58,40 @@ export class CheckoutComponent {
       return;
     }
 
-    /*this.perfilService.obterPerfil({email: userData.email}).subscribe({
+    this.perfilService.obterPerfil({email: userData.email}).subscribe({
       next:(res) => {
         const user = res.usuario;
         this.usuario = {
-          id: user.id || user.id_cliente,
-          nome: user.nome || '',
-          email: user.email ||'',
-          telefone: user.telefone || '',
-          cpf: user.cpf || '',
-          endereco: res.enderecos || []
+          id: user.id,
+          email : "",
+          endereco: []
         };
-        this.enderecos = [...this.usuario.endereco];
+        this.obterEnderecos();
       },
       error:(err) => {
         console.error('Erro ao carregar perfil:', err)
       }
-    });*/
+    });
   }
 
+  obterEnderecos(): void {
+    if(!this.usuario.id) return;
+
+    this.perfilService.obterEnderecos({id: this.usuario.id}).subscribe({
+      next: (res: any) => {
+        this.usuario.endereco = res.enderecos || [];
+        this.enderecos = [...this.usuario.endereco];
+      },
+      error: (err: any) => {
+        this.snackBar.open('Erro ao carregar dados de Endereço.', 'Fechar', {duration: 3000});
+      }
+    });
+  }
+
+
+  //=======================================//
+  //    ÁREA DO DIALOG DE ENDEREÇO         //
+  //=======================================//
   abrirDialogNovoEndereco(): void {
     const dialogRef = this.dialog.open(EnderecoDialogComponent, {
       width: '450px'
@@ -87,65 +107,64 @@ export class CheckoutComponent {
     });
   }
 
-  editarEndereco(endereco: any): void {
+  editarEndereco(endereco: Endereco): void {
     const dialogRef = this.dialog.open(EnderecoDialogComponent, {
       width: '450px',
       data: { endereco: { ...endereco } }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result.id_endereco) {
-        const index = this.enderecos.findIndex(e => e.id_endereco === result.id_endereco);
+    dialogRef.afterClosed().subscribe((result: Endereco) => {
+      if (result && result.idEndereco) {
+        const index = this.enderecos.findIndex(e => e.idEndereco === result.idEndereco);
         if (index !== -1) {
           this.enderecos[index] = result;
         } else {
           this.enderecos.push(result);
         }
         this.usuario.endereco = [...this.enderecos];
-
         this.salvarEnderecosCheckout();
       }
     });
   }
+  //=======================================//
+  //   FIM DA ÁREA DO DIALOG DE ENDEREÇO   //
+  //=======================================//
 
-  selecionarEndereco(enderecoId: number) {
+
+  selecionarEndereco(enderecoId: number | undefined) {
     this.formEndereco.get('idEnderecoSelecionado')?.setValue(enderecoId);
 
     console.log('Endereço selecionado: ', enderecoId);
   }
 
-  salvarEnderecosCheckout(): void {
-    const enderecosParaBackend = this.enderecos.map(e => ({
-      id_endereco: e.id_endereco,
-      rua: e.rua,
-      numero: e.numero,
-      cidade: e.cidade,
-      estado: e.estado,
-      cep: e.cep,
-      complemento: e.complemento,
-      bairro: e.bairro,
-      principal: e.principal ? 1 : 0,
-      logradouro: e.logradouro
+  salvarEnderecosCheckout(): void { //Envia um arrays com TODOS os endereços do cliente
+    const enderecosBackend = this.enderecos.map(e => ({
+      Id_Endereco: e.idEndereco,
+      Estado: e.estado,
+      Cidade: e.cidade,
+      Bairro: e.bairro,
+      Logradouro: e.logradouro,
+      Complemento: e.complemento,
+      Numero: e.numero,
+      Cep: e.cep,
+      Principal: e.principal ? 1 : 0,
     }));
 
-    const usuarioParaBackend = {
-      ...this.usuario,
-      endereco: enderecosParaBackend
+    const payloadEnderecos = {
+      Cliente_Id: this.usuario.id,
+      endereco: enderecosBackend
     };
 
-    console.log('Enviando para atualizar: ', usuarioParaBackend);
-
-    // 3. Chama o serviço de atualização (mesmo endpoint do Perfil)
-    /*this.perfilService.atualizarPerfil(usuarioParaBackend).subscribe({
-        next: (res) => {
-            console.log('Endereços de Perfil atualizados com sucesso.', res);
-            
-            this.ngOnInit(); 
-        },
-        error: (err) => {
-            console.error('Erro ao atualizar endereços:', err);
-        }
-    });*/
+    this.perfilService.gerenciarEnderecos(payloadEnderecos).subscribe({
+      next: (res: AdminResponse) => {
+        this.mensagemSucesso = res.mensagem || 'Dados de endereço atualizados com suceesso';
+        this.snackBar.open(this.mensagemSucesso, 'Fechar', {duration: 3000});
+        this.ngOnInit();
+      },
+      error: (err: AdminResponse) => {
+        this.mensagemErro = err.mensagem || 'Falha ao atualizar dados de endereço';
+      }
+    });
   }
 
 }

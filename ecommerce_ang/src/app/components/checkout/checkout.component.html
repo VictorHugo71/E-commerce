@@ -6,16 +6,16 @@
                 <mat-card 
                 *ngFor="let endereco of enderecos" 
                 class="endereco-card"
-                [class.selecionado]="formEndereco.get('idEnderecoSelecionado')?.value === endereco.id_endereco"> 
-                  <p>{{ endereco.rua }}, {{ endereco.logradouro }}, {{ endereco.numero }}</p>
+                [class.selecionado]="formEndereco.get('idEnderecoSelecionado')?.value === endereco.idEndereco"> 
+                  <p>{{ endereco.logradouro }}, {{ endereco.complemento }}, {{ endereco.numero }}</p>
                   <p>{{ endereco.bairro }} - {{ endereco.cidade }} ({{ endereco.estado }})</p>
                   <p>CEP: {{ endereco.cep }}</p>
           
                   <button 
                     mat-stroked-button 
                     color="primary" 
-                    (click)="selecionarEndereco(endereco.id_endereco)"
-                    *ngIf="formEndereco.get('idEnderecoSelecionado')?.value !== endereco.id_endereco"> 
+                    (click)="selecionarEndereco(endereco.idEndereco)"
+                    *ngIf="formEndereco.get('idEnderecoSelecionado')?.value !== endereco.idEndereco"> 
                     
                         Selecionar
                 </button>
@@ -23,7 +23,7 @@
                 <div class="tags-status">
                     <span *ngIf="endereco.principal" class="tag-padrao">Endereço Padrão</span>
             
-                    <span *ngIf="formEndereco.get('idEnderecoSelecionado')?.value === endereco.id_endereco" class="tag-selecionado">
+                    <span *ngIf="formEndereco.get('idEnderecoSelecionado')?.value === endereco.idEndereco" class="tag-selecionado">
                         Endereço Selecionado para Compra
                     </span>
                 </div>
