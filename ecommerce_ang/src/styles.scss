@@ -1,29 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  margin: 0; /* Remove a margem padrão do navegador */
+  padding: 0; /* Remove o padding padrão */
+  /* Garante que o fundo do corpo seja a cor primária */
+  background-color: #1A1F2B; 
+}
+
+/* Opcional: Se estiver usando o elemento principal do Angular (app-root) */
+app-root {
+  height: 100%;
+  display: block; /* Garante que o app-root se comporta como um bloco de altura total */
+}
+
 
 // Botão desabilitado (inativo)
 button.submit-button:disabled {
-    background-color: #ccc !important;
-    color: #666 !important;
-    cursor: not-allowed;
-    opacity: 0.6;
-    box-shadow: none;
-  }
-  
-  // Botão ativo (validação passou)
-  button.submit-button {
-    background-color: #D4A017 !important;
-    color: #fff !important;
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+// Botão ativo (validação passou)
+button.submit-button {
+  background-color: #D4A017 !important;
+  color: #fff !important;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 10px 25px;
+  transition: all 0.3s ease;
+}
+
+// Hover quando estiver ativo
+button.submit-button:hover:not(:disabled) {
+  background-color: #c29412 !important;
+}
+
+/* Substitua 'mat-horizontal-stepper' pelo nome da classe CSS 
+   que o Angular Material usa para o stepper (o seletor :host é removido em styles.scss)
+*/
+.mat-stepper-horizontal {
+    background-color: transparent !important; /* Remove o fundo branco padrão do Material */
+}
+
+/* Estilo para a Linha (horizontal line) entre os passos */
+.mat-stepper-horizontal-line {
+    border-top-color: #3D4454 !important; /* Neutral Color */
+}
+
+/* Cor do Ícone e Fundo do Passo SELECIONADO/ATIVO */
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: #D4A017 !important; /* ACCENT COLOR: Amarelo Dourado */
+    color: #1A1F2B !important;           /* TEXT DARK: Número do passo em cor escura */
+}
+
+/* Cor do Ícone e Fundo do Passo VISITADO/CONCLUÍDO (mas não ativo) */
+.mat-step-header .mat-step-icon-state-done {
+    background-color: #3D4454 !important; /* NEUTRAL COLOR: Passo concluído mais discreto */
+    color: #F2F2F2 !important;           /* TEXT LIGHT */
+}
+
+/* Cor do Rótulo (Label) do Passo Ativo e Inativo */
+.mat-step-header .mat-step-label {
+    color: #F2F2F2 !important; /* Rótulo Inativo em Light */
+}
+
+.mat-step-header .mat-step-label.mat-step-label-active {
+    color: #D4A017 !important; /* Rótulo Ativo em ACCENT COLOR */
     font-weight: bold;
-    border-radius: 20px;
-    padding: 10px 25px;
-    transition: all 0.3s ease;
-  }
-  
-  // Hover quando estiver ativo
-  button.submit-button:hover:not(:disabled) {
-    background-color: #c29412 !important;
-  }
+}
   

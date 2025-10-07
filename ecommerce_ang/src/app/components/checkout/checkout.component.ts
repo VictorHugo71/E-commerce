@@ -79,8 +79,8 @@ export class CheckoutComponent {
 
     this.perfilService.obterEnderecos({id: this.usuario.id}).subscribe({
       next: (res: any) => {
-        this.usuario.endereco = res.enderecos || [];
-        this.enderecos = [...this.usuario.endereco];
+        this.enderecos = res.enderecos || [];
+        this.selecionarEnderecoPrincipal();
       },
       error: (err: any) => {
         this.snackBar.open('Erro ao carregar dados de Endereço.', 'Fechar', {duration: 3000});
@@ -88,6 +88,15 @@ export class CheckoutComponent {
     });
   }
 
+  selecionarEnderecoPrincipal(): void {
+    const principal = this.enderecos.find(e => e.principal === true);
+
+    if(principal) {
+      this.selecionarEndereco(principal.idEndereco);
+    } else if (this.enderecos.length > 0) {
+      this.selecionarEndereco(this.enderecos[0].idEndereco);
+    }
+  }
 
   //=======================================//
   //    ÁREA DO DIALOG DE ENDEREÇO         //
@@ -118,11 +127,9 @@ export class CheckoutComponent {
         const index = this.enderecos.findIndex(e => e.idEndereco === result.idEndereco);
         if (index !== -1) {
           this.enderecos[index] = result;
-        } else {
-          this.enderecos.push(result);
+          this.usuario.endereco = [...this.enderecos];
+          this.salvarEnderecosCheckout();
         }
-        this.usuario.endereco = [...this.enderecos];
-        this.salvarEnderecosCheckout();
       }
     });
   }
