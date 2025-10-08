@@ -21,10 +21,12 @@
                     </button>
 
                     <div class="tags-status">
-                        <span *ngIf="endereco.principal" class="tag-padrao">Endereço Padrão do Perfil</span>
+                        <span *ngIf="endereco.principal" class="tag-padrao">
+                            Endereço Padrão
+                        </span>
                 
                         <span *ngIf="formEndereco.get('idEnderecoSelecionado')?.value === endereco.idEndereco" class="tag-selecionado">
-                            Endereço Selecionado para Compra
+                            Selecionado para a Compra
                         </span>
                     </div>
           
@@ -47,16 +49,16 @@
             </div>
         </mat-step>
 
-        <mat-step  label="Revisão e Frete"> <!--[stepControl]="formComunicacao"-->
+        <mat-step  label="Pagamento"> <!--[stepControl]="formComunicacao"-->
 
 
             <div class="stepper-actions">
                 <button mat-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="primary" matStepperNext>Continuar para Pagamento</button>
+                <button mat-raised-button color="primary" matStepperNext>Continuar para Revisão</button>
             </div>
         </mat-step>
 
-        <mat-step label="Pagamento">
+        <mat-step label="Revisão e Frete">
 
 
             <div class="stepper-actions">

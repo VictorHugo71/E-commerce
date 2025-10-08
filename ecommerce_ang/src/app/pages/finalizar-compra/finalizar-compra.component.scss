@@ -318,15 +318,16 @@ $text-dark: #1A1F2B;
   }
 }
 
-// 🛍️ Carrinho vazio
+//Carrinho vazio
 .lista-vazia {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #fafafa;
-  min-height: 80vh;
+  min-height: 100vh;
   text-align: center;
+  background-color: #f2f2f2;
 
   h2 {
     margin-bottom: 20px;
