@@ -1,6 +1,6 @@
 <main class="checkout-page">
     <mat-horizontal-stepper [linear]="true" #stepper>
-        <mat-step [stepControl]="formEndereco" label="Endereço para Entrega"> <!---->
+        <mat-step [stepControl]="formEndereco" label="Endereço para Entrega">
             <div class="enderecos-wrapper" [formGroup]="formEndereco">
                 <h3>Endereços Cadastrados</h3>
                 <mat-card 
@@ -49,21 +49,66 @@
             </div>
         </mat-step>
 
-        <mat-step  label="Pagamento"> <!--[stepControl]="formComunicacao"-->
-
-
-            <div class="stepper-actions">
-                <button mat-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="primary" matStepperNext>Continuar para Revisão</button>
-            </div>
-        </mat-step>
-
         <mat-step label="Revisão e Frete">
 
 
             <div class="stepper-actions">
                 <button mat-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="accent" >Finalizar Compra</button> <!--(click)="finalizarCompra()"-->
+                <button mat-raised-button color="accent" >Continuar para Pagamento</button> 
+            </div>
+        </mat-step>
+
+        <mat-step [stepControl]="formPagamento" label="Pagamento">
+            <div class="pagamento-wrapper">
+                <h3>Selecione o Método de Pagamento</h3>
+                
+                <mat-card class="metodo-card" 
+                [class.selecionado]="metodoSelecionado === 'CARTAO_CREDITO'"
+                (click)="selecionarMetodo('CARTAO_CREDITO')">
+
+                    <h4>Cartão de Crédito</h4>
+                    <p>Pague em até 12x</p>
+                    <div class="card-icons">
+                        <mat-icon>credit_card</mat-icon>
+                    </div>
+                </mat-card>
+
+                <mat-card class="metodo-card" 
+                [class.selecionado]="metodoSelecionado === 'PIX'"
+                (click)="selecionarMetodo('PIX')">
+
+                    <h4>PIX</h4>
+                    <p>Confirmação imediata</p>
+                    <div class="card-icons">
+                        <mat-icon>
+                            qr_code_2
+                        </mat-icon>
+                    </div>
+                </mat-card>
+
+                <mat-card class="metodo-card" 
+                [class.selecionado]="metodoSelecionado === 'BOLETO'"
+                (click)="selecionarMetodo('BOLETO')">
+
+                <h4>Boleto</h4>
+                <p>Confirmação em até 3 dias</p>
+                <div class="card-icons">
+                    <mat-icon >
+                        receipt
+                    </mat-icon>
+                </div>
+                </mat-card>
+
+                <div class="form-cartao-container" *ngIf="metodoSelecionado === 'CARTAO_CREDITO'">
+                    <p class="aviso-cartao">Detalhes do cartão serão inseridos em uma próxima etapa.</p>
+                </div>
+            </div>
+
+            <div class="stepper-actions">
+                <button mat-button matStepperPrevious>Voltar</button>
+                <button mat-raised-button color="primary" (click)="finalizarCompra()"
+                matStepperNext [disabled]="formPagamento.invalid">
+                    Finalizar Compra</button>
             </div>
         </mat-step>
     </mat-horizontal-stepper>

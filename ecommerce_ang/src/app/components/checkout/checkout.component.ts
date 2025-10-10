@@ -1,3 +1,5 @@
+export type MetodoPagamento = 'CARTAO_CREDITO' | 'PIX' | 'BOLETO';
+
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -19,6 +21,7 @@ import { PerfilService } from '../../services/cliente/perfil/perfil.service';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
 })
+
 export class CheckoutComponent {
   produtos: AdminProdutos[] = [];
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
@@ -35,6 +38,9 @@ export class CheckoutComponent {
   mensagemErro = '';
 
   formEndereco: FormGroup;
+  formPagamento: FormGroup;
+  
+  metodoSelecionado: MetodoPagamento | null = null;
 
   constructor(
     private dialog: MatDialog,
@@ -46,6 +52,10 @@ export class CheckoutComponent {
   ) {
     this.formEndereco = this.formBuilder.group({
       idEnderecoSelecionado: [null as number | null, Validators.required]
+    });
+
+    this.formPagamento = this.formBuilder.group({
+      metodoPagamento: [null as MetodoPagamento | null, Validators.required]
     });
   }
 
@@ -74,6 +84,9 @@ export class CheckoutComponent {
     });
   }
 
+//==================//
+//  TS de Endereço  //
+//==================//
   obterEnderecos(): void {
     if(!this.usuario.id) return;
 
@@ -174,4 +187,41 @@ export class CheckoutComponent {
     });
   }
 
+//=========================//
+//  FIM do TS de Endereço  //
+//=========================//
+
+
+//===================//
+//   TS de Revisão   //
+//===================//
+
+
+//===========================//
+//   FIM do TS de Revisão    //
+//===========================//
+
+
+//===================//
+//  TS de Pagamento  //
+//===================//
+  selecionarMetodo(metodo: MetodoPagamento): void {
+    this.metodoSelecionado = metodo;
+
+    //Atualiza o valor de formulário para torná-lo VÁLIDO
+    this.formPagamento.get('metodoPagamento')?.setValue(metodo);
+
+    console.log('Método de pagamento selecionado: ', metodo);
+
+    //lógica condicional
+  }
+
+  finalizarCompra() {
+
+  }
+
+
+//===========================//
+//  FIM do TS de Pagameento  //
+//===========================//
 }
