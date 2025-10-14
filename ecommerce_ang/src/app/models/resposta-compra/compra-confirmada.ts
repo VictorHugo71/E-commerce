@@ -1,4 +1,5 @@
-export interface DadosConfimacaoCompra {
+//Dados de resposta da compra
+export interface DadosConfimacaoCompra { 
     //Dados Transação
     idTransacao: string;
     status: 'aprovado' | 'pendente' | 'rejtada';
