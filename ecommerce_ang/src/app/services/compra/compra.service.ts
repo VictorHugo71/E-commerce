@@ -14,6 +14,7 @@ export class CompraService {
   private apiRemoveCarrinho = `${this.apiUrl}removeCarrinho.php`;
   private apiAtualizaCarrinho = `${this.apiUrl}atualizaCarrinho.php`;
   private apiAddSelecionadosCarrinho = `${this.apiUrl}addSelecionadosCarrinho.php`;
+  
   constructor(
     private http: HttpClient
   ) { }

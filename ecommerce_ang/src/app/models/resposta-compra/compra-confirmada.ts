@@ -7,7 +7,7 @@ export interface DadosConfimacaoCompra {
     dataHora: string;
 
     //Dados Pagamento
-    metodoPagamento: 'pix' | 'cartão' | 'boleto';
+    metodoPagamento: 'pix' | 'cartão_credito ' | 'boleto';
     valorTotal: number;
     parcelas?: number;
 
