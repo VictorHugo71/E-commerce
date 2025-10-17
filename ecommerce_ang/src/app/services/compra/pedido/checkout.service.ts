@@ -9,10 +9,12 @@ import { PayloadMP } from '../../../models/payloadMP/payload-mp';
 })
 export class CheckoutService {
   private apiUrl = 'http://localhost/neziara-sgbd/carrinho/';
-  private apiAddPedido = `${this.apiUrl}`;
+  private apiStartCheckout = `${this.apiUrl}`;
   constructor(
     private http: HttpClient
   ) { }
 
- 
+  iniciaCheckout() {
+
+  }
 }

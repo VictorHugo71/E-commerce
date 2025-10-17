@@ -1,5 +1,5 @@
 export interface ItemCarrinhoMP {
-    idProduto: number
-    quantidade: number,
-    precoUnitario: number,
+    Id_Produto?: number
+    Quantidade?: number,
+    Preco_Unitario: number,
 }

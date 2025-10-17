@@ -18,5 +18,5 @@ export interface PayloadMP {
     itens: ItemCarrinhoMP[],
 
     //Dados do envio
-    enderecoEnvio: Endereco[],
+    enderecoEnvio: Endereco,
 }

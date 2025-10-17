@@ -18,6 +18,8 @@ import { ItemCarrinhoMP } from '../../models/carrinho/item-carrinhoMP';
 import { AllAuthService } from '../../services/auth/all-auth.service';
 import { PerfilService } from '../../services/cliente/perfil/perfil.service';
 import { CheckoutService } from '../../services/compra/pedido/checkout.service';
+import { CompraService } from '../../services/compra/compra.service';
+import { Produto } from '../../models/produto';
 
 @Component({
   selector: 'app-checkout',
@@ -54,7 +56,8 @@ export class CheckoutComponent {
     private router: Router,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
-    private checkout: CheckoutService
+    private compraService: CompraService,
+    private checkoutService: CheckoutService
   ) {
     this.formEndereco = this.formBuilder.group({
       idEnderecoSelecionado: [null as number | null, Validators.required]
@@ -79,17 +82,47 @@ export class CheckoutComponent {
         const user = res.usuario;
         this.usuario = {
           id: user.id,
-          email: "",
-          telefone: "",
+          email: user.email,
+          telefone: user.telefone,
           endereco: []
         };
         this.obterEnderecos();
+        this.obterCarrinho();
       },
       error:(err) => {
         console.error('Erro ao carregar perfil:', err)
       }
     });
   }
+
+//==================//
+//  TS de Carrinho  //
+//==================//
+  obterCarrinho():void {
+    if(!this.usuario.id) return;
+
+    this.compraService.getCarrinho(this.usuario.id).subscribe({
+      next: (res: AdminProdutos[]) => {
+        this.produtos = res;
+        this.calcularTotal();
+      },
+      error: (_error) => {
+        this.snackBar.open('Nenhum produto encontrado no seu Carrinho.', 'Fechar', { duration: 3000 });
+      }
+    });
+  }
+
+  calcularTotal() {
+    this.valorTotal = 0;
+    this.produtos.forEach(produto =>{
+      this.valorTotal += produto.Preco * produto.Quantidade!;
+    });
+  }
+//======================//
+//  TS fim de Carrinho  //
+//======================//
+
+
 
 //==================//
 //  TS de Endereço  //
@@ -162,7 +195,6 @@ export class CheckoutComponent {
     this.formEndereco.get('idEnderecoSelecionado')?.setValue(enderecoId);
 
     console.log('Endereço selecionado: ', enderecoId);
-    return;
   }
 
   salvarEnderecosCheckout(): void { //Envia um arrays com TODOS os endereços do cliente
@@ -228,18 +260,24 @@ export class CheckoutComponent {
   }
 
   montarPayload(): PayloadMP{
-    const enderecoMP = this.enderecos.map(e => ({
-      idEndereco: e.idEndereco,
-      idCliente: e.idCliente,
-      estado: e.estado,
-      cidade: e.cidade,
-      bairro: e.bairro,
-      logradouro: e.logradouro,
-      complemento: e.complemento,
-      numero: e.numero,
-      cep: e.cep,
-      principal: e.principal ? true : false,
-    }));
+    const idSelecionado = this.formEndereco.get('idEnderecoSelecionado')?.value;
+    const enderecoSelecionado = this.enderecos.find(e => e.idEndereco === idSelecionado);
+
+    if(!enderecoSelecionado) {
+      throw new Error("Endereço de envio não selecionado.");
+    }
+    
+    const enderecoMP = {
+        idEndereco: enderecoSelecionado.idEndereco,
+        idCliente: enderecoSelecionado.idCliente,
+        estado: enderecoSelecionado.estado,
+        cidade: enderecoSelecionado.cidade,
+        bairro: enderecoSelecionado.bairro,
+        logradouro: enderecoSelecionado.logradouro,
+        complemento: enderecoSelecionado.complemento,
+        numero: enderecoSelecionado.numero,
+        cep: enderecoSelecionado.cep,
+      }
 
     const usuarioMP = {
       idCliente: this.usuario.id,
@@ -252,10 +290,10 @@ export class CheckoutComponent {
       valorTotal: this.valorTotal,
     }
       
-    const itensMP = this.itens.map(i => ({
-      idProduto: i.idProduto,
-      quantidade: i.quantidade,
-      precoUnitario: i.precoUnitario,
+    const itensMP: ItemCarrinhoMP[] = this.produtos.filter(p => p.Quantidade && p.Quantidade > 0).map(p => ({
+      Id_Produto: p.Id_Produto,
+      Quantidade: p.Quantidade,
+      Preco_Unitario: p.Preco,
     }));
 
     const payloadFinal: PayloadMP = {
@@ -271,7 +309,7 @@ export class CheckoutComponent {
   iniciarPagamento():void {
     const payload = this.montarPayload();
 
-    
+    console.log('Payload: ',  payload);
   }
 
 
