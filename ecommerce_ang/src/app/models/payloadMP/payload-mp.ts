@@ -3,12 +3,17 @@ import { ItemCarrinhoMP } from "../carrinho/item-carrinhoMP"
 import { Endereco } from "../endereco/endereco"
 
 export interface PayloadMP {
-    //ID recebido do banco de dados
-    idPedidoInterno: number,
+    //ID do pedido recebido do banco de dados
+    idPedidoInterno?: number,
 
     //Dados do comprador
-    emailCliente: string,
     idCliente: number,
+    emailCliente: string,
+    telefoneCliente: string,
+
+    //dados de pagamento
+    metodoPagamento: 'pix' | 'cartao_credito' | 'boleto' | null;
+    valorTotal: number;
 
     itens: ItemCarrinhoMP[],
 

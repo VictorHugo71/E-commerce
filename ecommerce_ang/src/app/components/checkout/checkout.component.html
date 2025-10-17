@@ -63,8 +63,8 @@
                 <h3>Selecione o Método de Pagamento</h3>
                 
                 <mat-card class="metodo-card" 
-                [class.selecionado]="metodoSelecionado === 'CARTAO_CREDITO'"
-                (click)="selecionarMetodo('CARTAO_CREDITO')">
+                [class.selecionado]="metodoSelecionado === 'cartao_credito'"
+                (click)="selecionarMetodo('cartao_credito')">
 
                     <h4>Cartão de Crédito</h4>
                     <p>Pague em até 12x</p>
@@ -74,8 +74,8 @@
                 </mat-card>
 
                 <mat-card class="metodo-card" 
-                [class.selecionado]="metodoSelecionado === 'PIX'"
-                (click)="selecionarMetodo('PIX')">
+                [class.selecionado]="metodoSelecionado === 'pix'"
+                (click)="selecionarMetodo('pix')">
 
                     <h4>PIX</h4>
                     <p>Confirmação imediata</p>
@@ -87,8 +87,8 @@
                 </mat-card>
 
                 <mat-card class="metodo-card" 
-                [class.selecionado]="metodoSelecionado === 'BOLETO'"
-                (click)="selecionarMetodo('BOLETO')">
+                [class.selecionado]="metodoSelecionado === 'boleto'"
+                (click)="selecionarMetodo('boleto')">
 
                 <h4>Boleto</h4>
                 <p>Confirmação em até 3 dias</p>
@@ -99,14 +99,14 @@
                 </div>
                 </mat-card>
 
-                <div class="form-cartao-container" *ngIf="metodoSelecionado === 'CARTAO_CREDITO'">
+                <div class="form-cartao-container" *ngIf="metodoSelecionado === 'cartao_credito'">
                     <p class="aviso-cartao">Detalhes do cartão serão inseridos em uma próxima etapa.</p>
                 </div>
             </div>
 
             <div class="stepper-actions">
                 <button mat-button matStepperPrevious>Voltar</button>
-                <button mat-raised-button color="primary" (click)="finalizarCompra()"
+                <button mat-raised-button color="primary" (click)="iniciarPagamento()"
                 matStepperNext [disabled]="formPagamento.invalid">
                     Finalizar Compra</button>
             </div>

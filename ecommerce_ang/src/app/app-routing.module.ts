@@ -18,7 +18,7 @@ import { InputComponent} from './components/input/input.component';
 //Rota Privada de Clientee
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ListaDesejoComponent } from './components/lista-desejo/lista-desejo.component';
-import { FinalizarCompraComponent } from './pages/finalizar-compra/finalizar-compra.component';
+import { CarrinhoComponent } from './pages/carrinho/carrinho.component';
 
 //Rota Privada de Admin
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
@@ -44,7 +44,7 @@ const routes: Routes = [
   //Rotas Protegidas de Cliente
   {path: 'perfil', component: PerfilComponent, canActivate: [authGuard]},
   {path: 'listadesejo', component: ListaDesejoComponent, canActivate: [authGuard]},
-  {path: 'finalizar', component: FinalizarCompraComponent, canActivate: [authGuard]},
+  {path: 'finalizar', component: CarrinhoComponent, canActivate: [authGuard]},
   {path: 'checkout', component: CheckoutComponent, canActivate:[authGuard]},
   
   // Rotas de produto (públicas)

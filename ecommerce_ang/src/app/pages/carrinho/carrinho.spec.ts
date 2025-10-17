@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FinalizarCompraComponent } from './finalizar-compra.component';
+import { FinalizarCompraComponent } from './carrinho.component';
 
 describe('FinalizarCompraComponent', () => {
   let component: FinalizarCompraComponent;

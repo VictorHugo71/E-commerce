@@ -9,11 +9,11 @@ import { AllAuthService } from '../../services/auth/all-auth.service';
 import { CompraService } from '../../services/compra/compra.service';
 
 @Component({
-  selector: 'app-finalizar-compra',
-  templateUrl: './finalizar-compra.component.html',
-  styleUrl: './finalizar-compra.component.scss'
+  selector: 'app-carrinho',
+  templateUrl: './carrinho.component.html',
+  styleUrl: './carrinho.component.scss'
 })
-export class FinalizarCompraComponent {
+export class CarrinhoComponent {
   produtos: AdminProdutos [] = [];
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
   valorTotal = 0;

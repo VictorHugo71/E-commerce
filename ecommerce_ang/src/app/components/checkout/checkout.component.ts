@@ -1,4 +1,4 @@
-export type MetodoPagamento = 'CARTAO_CREDITO' | 'PIX' | 'BOLETO';
+export type MetodoPagamento = 'pix' | 'cartao_credito' | 'boleto';
 
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -6,15 +6,18 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
 import { EnderecoDialogComponent } from '../endereco-dialog/endereco-dialog.component';
 
 import { AdminProdutos } from '../../models/admin/produtos/admin-produtos';
-import { Endereco } from '../../models/endereco/endereco';
 import { AdminResponse } from '../../models/admin/admin-response';
+
+import { Endereco } from '../../models/endereco/endereco';
+import { PayloadMP } from '../../models/payloadMP/payload-mp';
+import { ItemCarrinhoMP } from '../../models/carrinho/item-carrinhoMP';
 
 import { AllAuthService } from '../../services/auth/all-auth.service';
 import { PerfilService } from '../../services/cliente/perfil/perfil.service';
+import { CheckoutService } from '../../services/compra/pedido/checkout.service';
 
 @Component({
   selector: 'app-checkout',
@@ -24,12 +27,14 @@ import { PerfilService } from '../../services/cliente/perfil/perfil.service';
 
 export class CheckoutComponent {
   produtos: AdminProdutos[] = [];
+  itens: ItemCarrinhoMP[] = [];
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
   valorTotal = 0;
 
   usuario = {
     id: 0,
     email : "",
+    telefone: "",
     endereco : [] as any [],
   };
   enderecos: Endereco[] =[];
@@ -48,7 +53,8 @@ export class CheckoutComponent {
     private allAuthService:  AllAuthService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private checkout: CheckoutService
   ) {
     this.formEndereco = this.formBuilder.group({
       idEnderecoSelecionado: [null as number | null, Validators.required]
@@ -73,7 +79,8 @@ export class CheckoutComponent {
         const user = res.usuario;
         this.usuario = {
           id: user.id,
-          email : "",
+          email: "",
+          telefone: "",
           endereco: []
         };
         this.obterEnderecos();
@@ -155,6 +162,7 @@ export class CheckoutComponent {
     this.formEndereco.get('idEnderecoSelecionado')?.setValue(enderecoId);
 
     console.log('Endereço selecionado: ', enderecoId);
+    return;
   }
 
   salvarEnderecosCheckout(): void { //Envia um arrays com TODOS os endereços do cliente
@@ -207,7 +215,7 @@ export class CheckoutComponent {
 //===================//
 //  TS de Pagamento  //
 //===================//
-  selecionarMetodo(metodo: MetodoPagamento): void {
+  selecionarMetodo(metodo: MetodoPagamento): string {
     this.metodoSelecionado = metodo;
 
     //Atualiza o valor de formulário para torná-lo VÁLIDO
@@ -216,10 +224,54 @@ export class CheckoutComponent {
     console.log('Método de pagamento selecionado: ', metodo);
 
     //lógica condicional
+    return this.metodoSelecionado;
   }
 
-  finalizarCompra() {
+  montarPayload(): PayloadMP{
+    const enderecoMP = this.enderecos.map(e => ({
+      idEndereco: e.idEndereco,
+      idCliente: e.idCliente,
+      estado: e.estado,
+      cidade: e.cidade,
+      bairro: e.bairro,
+      logradouro: e.logradouro,
+      complemento: e.complemento,
+      numero: e.numero,
+      cep: e.cep,
+      principal: e.principal ? true : false,
+    }));
 
+    const usuarioMP = {
+      idCliente: this.usuario.id,
+      emailCliente: this.usuario.email,
+      telefoneCliente: this.usuario.telefone
+    };
+
+    const pagamentoMP = {
+      metodoPagamento: this.metodoSelecionado,
+      valorTotal: this.valorTotal,
+    }
+      
+    const itensMP = this.itens.map(i => ({
+      idProduto: i.idProduto,
+      quantidade: i.quantidade,
+      precoUnitario: i.precoUnitario,
+    }));
+
+    const payloadFinal: PayloadMP = {
+      ...usuarioMP,
+      ...pagamentoMP,
+      enderecoEnvio: enderecoMP,
+      itens: itensMP,
+    }
+
+    return payloadFinal;
+  }
+
+  iniciarPagamento():void {
+    const payload = this.montarPayload();
+
+    
   }
 
 

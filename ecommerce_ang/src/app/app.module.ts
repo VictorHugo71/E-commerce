@@ -32,7 +32,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { AvatarDialogComponent } from './components/avatar-dialog/avatar-dialog.component';
 import { DadosDialogComponent } from './components/dados-dialog/dados-dialog.component';
 import { EnderecoDialogComponent } from './components/endereco-dialog/endereco-dialog.component';
-import { FinalizarCompraComponent } from './pages/finalizar-compra/finalizar-compra.component';
+import { CarrinhoComponent } from './pages/carrinho/carrinho.component';
 import { ListaDesejoComponent } from './components/lista-desejo/lista-desejo.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
@@ -62,7 +62,7 @@ export function tokenGetter() {
     AvatarDialogComponent,
     DadosDialogComponent,
     EnderecoDialogComponent,
-    FinalizarCompraComponent,
+    CarrinhoComponent,
     ListaDesejoComponent,
     ProdutoComponent,
     AdminLoginComponent,
