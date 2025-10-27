@@ -95,38 +95,9 @@ export class CheckoutComponent {
     });
   }
 
-//==================//
-//  TS de Carrinho  //
-//==================//
-  obterCarrinho():void {
-    if(!this.usuario.id) return;
-
-    this.compraService.getCarrinho(this.usuario.id).subscribe({
-      next: (res: AdminProdutos[]) => {
-        this.produtos = res;
-        this.calcularTotal();
-      },
-      error: (_error) => {
-        this.snackBar.open('Nenhum produto encontrado no seu Carrinho.', 'Fechar', { duration: 3000 });
-      }
-    });
-  }
-
-  calcularTotal() {
-    this.valorTotal = 0;
-    this.produtos.forEach(produto =>{
-      this.valorTotal += produto.Preco * produto.Quantidade!;
-    });
-  }
-//======================//
-//  TS fim de Carrinho  //
-//======================//
-
-
-
-//==================//
-//  TS de Endereço  //
-//==================//
+  //==================//
+  //  TS de Endereço  //
+  //==================//
   obterEnderecos(): void {
     if(!this.usuario.id) return;
 
@@ -227,26 +198,44 @@ export class CheckoutComponent {
     });
   }
 
-//=========================//
-//  FIM do TS de Endereço  //
-//=========================//
+  //=========================//
+  //  FIM do TS de Endereço  //
+  //=========================//
 
 
 
-//===================//
-//   TS de Revisão   //
-//===================//
+  //===================//
+  //   TS de Revisão   //
+  //===================//
+  obterCarrinho():void {
+    if(!this.usuario.id) return;
+
+    this.compraService.getCarrinho(this.usuario.id).subscribe({
+      next: (res: AdminProdutos[]) => {
+        this.produtos = res;
+        this.calcularTotal();
+      },
+      error: (_error) => {
+        this.snackBar.open('Nenhum produto encontrado no seu Carrinho.', 'Fechar', { duration: 3000 });
+      }
+    });
+  }
+
+  calcularTotal() {
+    this.valorTotal = 0;
+    this.produtos.forEach(produto =>{
+      this.valorTotal += produto.Preco * produto.Quantidade!;
+    });
+  }
+  //===========================//
+  //   FIM do TS de Revisão    //
+  //===========================//
 
 
-//===========================//
-//   FIM do TS de Revisão    //
-//===========================//
 
-
-
-//===================//
-//  TS de Pagamento  //
-//===================//
+  //===================//
+  //  TS de Pagamento  //
+  //===================//
   selecionarMetodo(metodo: MetodoPagamento): string {
     this.metodoSelecionado = metodo;
 
@@ -312,8 +301,7 @@ export class CheckoutComponent {
     console.log('Payload: ',  payload);
   }
 
-
-//===========================//
-//  FIM do TS de Pagameento  //
-//===========================//
+  //===========================//
+  //  FIM do TS de Pagameento  //
+  //===========================//
 }
