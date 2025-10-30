@@ -6,12 +6,18 @@ $accent-color: #D4A017;       // Amarelo dourado
 $success-color: #4CAF50;      // Seleção, Sucesso, Tag de Selecionado.
 $border-focus: #D4A017;
 
+$text-subtle: #757575;     // Cor para detalhes (preços, quantidade)
 $text-light: #F2F2F2;
 $text-dark: #1A1F2B;
 
 .checkout-page {
     min-height: 100vh;
     background-color: $primary-color; 
+}
+
+button.return {
+    color: $accent-color;
+    border:  1px solid $accent-color;
 }
 
 //===========================================//
@@ -196,8 +202,122 @@ $text-dark: #1A1F2B;
     }
 }
 //===================================//
-//  FIM da Área de Estilo do Endeço  //
+// FIM da Área de Estilo do Endereço //
 //===================================//
+
+
+//===========================================//
+//       ESTILOS DA ÁREA DE REVISÃO          //
+//===========================================//
+
+.revisao-wrapper {
+    background-color: $neutral-color; 
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.revisao-wrapper h3 {
+    margin-top: 0;
+    color: $text-light; 
+    border-bottom: 2px solid #e0e0e0; // Linha de separação mais suave
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* ------------------ Estilo de Cada Card de Produto ------------------ */
+
+mat-card {
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); // Sombra leve do Material
+}
+
+.item-pedido {
+    padding: 10px 0; // Padding vertical
+    display: flex;
+    align-items: center;
+    position: relative; // Para posicionar o botão de exclusão
+    
+    img {
+        width: 80px;
+        min-width: 80px; // Garante que a imagem não encolha
+        height: 80px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-right: 15px;
+        border: 1px solid #ddd; // Borda sutil na imagem
+    }
+}
+
+.detalhes-item {
+    flex-grow: 1; // Permite que os detalhes ocupem o espaço restante
+    display: flex;
+    flex-direction: column;
+    
+    h4 {
+        margin: 0 0 5px 0;
+        font-size: 1.1em;
+        color: $text-light;
+    }
+    
+    p {
+        margin: 2px 0;
+        font-size: 0.9em;
+        color: $text-subtle
+    }
+    
+    /* Botão de Excluir */
+    button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: $text-subtle;
+        transition: color 0.2s;
+        
+        &:hover {
+            color: $accent-color; // Destaca ao passar o mouse
+        }
+        
+        mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+        }
+    }
+}
+
+/* ------------------ Estilo do Resumo do Pedido ------------------ */
+
+.resumo-subtotal {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px dashed #ccc; // Linha tracejada para separar do subtotal
+    text-align: right; // Alinha o total à direita
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* ------------------ Estilo dos Botões do Stepper ------------------ */
+
+.stepper-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end; // Alinha botões à direita
+    gap: 10px; // Espaço entre os botões
+    
+    button {
+        min-width: 150px; // Garante que os botões tenham um tamanho decente
+    }
+}
+
+//===========================================//
+//       FIM ESTILOS DA ÁREA DE REVISÃO      //
+//===========================================//
+
 
 //===========================================//
 //       ESTILOS DA ÁREA DE PAGAMENTO        //
