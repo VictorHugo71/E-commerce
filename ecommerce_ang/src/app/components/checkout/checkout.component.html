@@ -52,8 +52,7 @@
         <mat-step label="Revisão do pedido">
             <div class="revisao-wrapper" > <!--[formGroup]="formRevisao"-->
                 <h3>Produtos do Pedido</h3>
-                <mat-card
-                *ngFor="let produto of produtos">
+                <mat-card *ngFor="let produto of produtos">
                     <div class="item-pedido">
                         <img [src]="this.imagemBaseUrl + produto.Imagem_Url" alt="{{ produto.Nome_Produto }}">
                         <div class="detalhes-item">
@@ -68,7 +67,22 @@
                 </mat-card>
                 
                 <p class="resumo-subtotal">Subtotal: {{ this.valorTotal| currency:'BRL' }}</p>
+                
+                <h3>Dados de cliente e Contato</h3>
+                <mat-card>
+                    <div class="dados-cliente">
+                        <p>Nome: {{usuario.nome}}</p>
+                        <p>Email: {{usuario.email}}</p>
+                        <p>Telefone: {{usuario.telefone}}</p>
+                    </div>
+
+                </mat-card>
+                <button (click)="abrirDialogAlterarDados()">
+                    alterar dados
+                </button>
             </div>
+
+            <!--Adiconar uma área de dados do cliente e dados da entrega-->
 
             <div class="stepper-actions">
                 <button mat-button matStepperPrevious class="return">Voltar</button>

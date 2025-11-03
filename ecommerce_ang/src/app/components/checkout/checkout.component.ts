@@ -35,6 +35,7 @@ export class CheckoutComponent {
 
   usuario = {
     id: 0,
+    nome: "",
     email : "",
     telefone: "",
     endereco : [] as any [],
@@ -82,6 +83,7 @@ export class CheckoutComponent {
         const user = res.usuario;
         this.usuario = {
           id: user.id,
+          nome: user.nome,
           email: user.email,
           telefone: user.telefone,
           endereco: []
@@ -221,6 +223,10 @@ export class CheckoutComponent {
     });
   }
 
+  abrirDialogAlterarDados() {
+    
+  }
+
   calcularTotal() {
     this.valorTotal = 0;
     this.produtos.forEach(produto =>{
@@ -270,6 +276,7 @@ export class CheckoutComponent {
 
     const usuarioMP = {
       idCliente: this.usuario.id,
+      nomeCliente: this.usuario.nome,
       emailCliente: this.usuario.email,
       telefoneCliente: this.usuario.telefone
     };
