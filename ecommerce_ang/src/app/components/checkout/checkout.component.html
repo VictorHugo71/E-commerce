@@ -50,7 +50,7 @@
         </mat-step>
 
         <mat-step label="Revisão do pedido">
-            <div class="revisao-wrapper" > <!--[formGroup]="formRevisao"-->
+            <div class="revisao-wrapper" > <!--[formGroup]="formRevisao" arrumar esta parte-->
                 <h3>Produtos do Pedido</h3>
                 <mat-card *ngFor="let produto of produtos">
                     <div class="item-pedido">
@@ -60,7 +60,7 @@
                             <p>Quantidade: {{ produto.Quantidade }}</p>
                             <p>Preço Unitário: {{ produto.Preco | currency:'BRL' }}</p>
                             <button>
-                                <mat-icon>close</mat-icon>
+                                <mat-icon>close</mat-icon><!--Chamar/criar função para remover os itens do carrinho-->
                             </button>
                         </div>
                     </div>
@@ -71,18 +71,16 @@
                 <h3>Dados de cliente e Contato</h3>
                 <mat-card>
                     <div class="dados-cliente">
-                        <p>Nome: {{usuario.nome}}</p>
-                        <p>Email: {{usuario.email}}</p>
-                        <p>Telefone: {{usuario.telefone}}</p>
+                        <p>Nome: {{usuario.nome}}</p> <!--Mudar para um input -->
+                        <p>Email: {{usuario.email}}</p> <!--Mudar para um input -->
+                        <p>Telefone: {{usuario.telefone}}</p> <!--Mudar para um input -->
                     </div>
 
                 </mat-card>
-                <button (click)="abrirDialogAlterarDados()">
+                <button (click)="abrirDialogAlterarDados()"> <!--Fazer a função para enviar os novos dados que estão nos inputs-->
                     alterar dados
                 </button>
             </div>
-
-            <!--Adiconar uma área de dados do cliente e dados da entrega-->
 
             <div class="stepper-actions">
                 <button mat-button matStepperPrevious class="return">Voltar</button>
