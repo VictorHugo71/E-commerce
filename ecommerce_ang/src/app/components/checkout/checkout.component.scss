@@ -333,11 +333,17 @@ mat-card {
     font-size: 0.9em;
     font-weight: 500;
     cursor: pointer;
-    transition: 0.5s;
+    transition: all 0.5s ease;
     
     &:hover {
         background-color: #fff; // Efeito hover sutil
         color: darken($primary-color, 10%);
+    }
+
+    &:disabled {
+        background-color: $neutral-color !important; 
+        color: $text-light !important; 
+        cursor: not-allowed;
     }
 }
 

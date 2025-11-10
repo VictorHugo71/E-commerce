@@ -1,10 +1,11 @@
 export type MetodoPagamento = 'pix' | 'cartao_credito' | 'boleto';
 
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatStepper } from '@angular/material/stepper';
 
 import { EnderecoDialogComponent } from '../endereco-dialog/endereco-dialog.component';
 
@@ -27,7 +28,8 @@ import { Produto } from '../../models/produto';
   styleUrl: './checkout.component.scss'
 })
 
-export class CheckoutComponent {
+export class CheckoutComponent implements OnInit {
+  
   produtos: AdminProdutos[] = [];
   itens: ItemCarrinhoMP[] = [];
   public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
@@ -47,6 +49,9 @@ export class CheckoutComponent {
 
   formEndereco: FormGroup;
   formPagamento: FormGroup;
+  formRevisao: FormGroup;
+
+  @ViewChild(MatStepper) stepper!: MatStepper;
   
   metodoSelecionado: MetodoPagamento | null = null;
 
@@ -66,6 +71,11 @@ export class CheckoutComponent {
 
     this.formPagamento = this.formBuilder.group({
       metodoPagamento: [null as MetodoPagamento | null, Validators.required]
+    });
+
+    this.formRevisao = this.formBuilder.group({
+      email: [this.usuario.email, [Validators.required, Validators.email]],
+      telefone: [this.usuario.telefone, [Validators.required, Validators.pattern(/^\d{10,11}$/)]]
     });
   }
 
@@ -88,6 +98,11 @@ export class CheckoutComponent {
           telefone: user.telefone,
           endereco: []
         };
+        
+        this.formRevisao.patchValue({
+          email: user.email,
+          telefone: user.telefone
+        });
         this.obterEnderecos();
         this.obterCarrinho();
       },
@@ -95,6 +110,8 @@ export class CheckoutComponent {
         console.error('Erro ao carregar perfil:', err)
       }
     });
+    
+
   }
 
   //==================//
@@ -223,8 +240,47 @@ export class CheckoutComponent {
     });
   }
 
-  abrirDialogAlterarDados() {
+  salvarDadosEditados(): void {
+    if (this.formRevisao.valid && this.formRevisao.dirty) {
+      const novosDados = this.formRevisao.value;
+
+      // 1. Atualiza o objeto local (para o payload final)
+      this.usuario.email = novosDados.email;
+      this.usuario.telefone = novosDados.telefone;
+
+      // 2. Chama o serviço para persistir a mudança no BD do usuário (OPCIONAL/RECOMENDADO)
+      // Se você não salvar no BD agora, lembre-se de que os dados novos SÓ ESTARÃO no payload do pedido.
+      
+      // 3. Reseta o estado do formulário para PRISTINE
+      this.formRevisao.markAsPristine(); 
+      
+      // Exibir feedback ao usuário (e.g., this.snackBar.open('Dados atualizados!'))
+      this.snackBar.open('Dados atualizados e salvos com sucesso.', 'Fechar', { duration: 3000 });
+    }
+  }
+
+  continuarParaPagamento(): void {
+    // Primeiro, verifica a validação do formulário de revisão
+    if (this.formRevisao.invalid) {
+      this.formRevisao.markAllAsTouched(); // Exibe as mensagens de erro
+      this.snackBar.open('Dados de comunicação inválidos. Não é possível avançar.', 'Fechar', { duration: 3000 });
+      return;
+    }
+
+    // Se o formulário estiver dirty (editado) mas o usuário não clicou em "Salvar Alterações",
+    // salvamos automaticamente aqui antes de prosseguir.
+    if (this.formRevisao.dirty) {
+        this.salvarDadosEditados();
+    }
     
+    // Se tudo estiver OK (válido, e salvo se necessário), avance o stepper
+    // E CHAME A ORQUESTRAÇÃO DE PAGAMENTO
+    
+    // Se este é o último passo, chame a função principal:
+    // this.realizarCheckout(); 
+    
+    // Se houver um passo de "Confirmação" ou "Pagamento" depois deste:
+     this.stepper.next();
   }
 
   calcularTotal() {
