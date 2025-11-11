@@ -59,7 +59,7 @@
                             <h4>{{ produto.Nome_Produto }}</h4>
                             <p>Quantidade: {{ produto.Quantidade }}</p>
                             <p>Preço Unitário: {{ produto.Preco | currency:'BRL' }}</p>
-                            <button>
+                            <button (click)="removerProduto(produto.Id_Produto)" mat-icon-button color="warn">
                                 <mat-icon>close</mat-icon><!--Chamar/criar função para remover os itens do carrinho-->
                             </button>
                         </div>

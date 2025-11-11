@@ -42,6 +42,7 @@ export class CheckoutComponent implements OnInit {
     telefone: "",
     endereco : [] as any [],
   };
+
   enderecos: Endereco[] =[];
 
   mensagemSucesso = '';
@@ -240,47 +241,33 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  salvarDadosEditados(): void {
-    if (this.formRevisao.valid && this.formRevisao.dirty) {
-      const novosDados = this.formRevisao.value;
-
-      // 1. Atualiza o objeto local (para o payload final)
-      this.usuario.email = novosDados.email;
-      this.usuario.telefone = novosDados.telefone;
-
-      // 2. Chama o serviço para persistir a mudança no BD do usuário (OPCIONAL/RECOMENDADO)
-      // Se você não salvar no BD agora, lembre-se de que os dados novos SÓ ESTARÃO no payload do pedido.
-      
-      // 3. Reseta o estado do formulário para PRISTINE
-      this.formRevisao.markAsPristine(); 
-      
-      // Exibir feedback ao usuário (e.g., this.snackBar.open('Dados atualizados!'))
-      this.snackBar.open('Dados atualizados e salvos com sucesso.', 'Fechar', { duration: 3000 });
+  removerProduto(Id_Produto: number | undefined): void {
+    if(!Id_Produto) {
+      this.snackBar.open('ID do produto não encontrado.', 'Fechar', { duration: 3000 });
+      return; // Para a execução da função aqui
     }
-  }
-
-  continuarParaPagamento(): void {
-    // Primeiro, verifica a validação do formulário de revisão
-    if (this.formRevisao.invalid) {
-      this.formRevisao.markAllAsTouched(); // Exibe as mensagens de erro
-      this.snackBar.open('Dados de comunicação inválidos. Não é possível avançar.', 'Fechar', { duration: 3000 });
+    const userId = this.allAuthService.getUserIdFromToken();
+    
+    if(!userId) {
+      this.snackBar.open('Você precisa estar logado para acessar o Carrinho.', 'Fechar', {duration: 3000});
+      this.router.navigate(['/home']);
       return;
+      
+    } else {
+      this.compraService.removeCarrinho(Id_Produto, userId).subscribe({
+        next: (data: AdminResponse) => {
+          this.snackBar.open(data.mensagem, 'Fechar', { duration: 3000 });
+          const index = this.produtos.findIndex(p => p.Id_Produto === Id_Produto);
+          if(index > -1) {
+            this.produtos.splice(index, 1);
+          }
+          this.calcularTotal();
+        },
+        error: (_error) => {
+          this.snackBar.open('Não foi possível remover o item do Carrinho.', 'Fechar', { duration: 3000 });
+        }
+      });
     }
-
-    // Se o formulário estiver dirty (editado) mas o usuário não clicou em "Salvar Alterações",
-    // salvamos automaticamente aqui antes de prosseguir.
-    if (this.formRevisao.dirty) {
-        this.salvarDadosEditados();
-    }
-    
-    // Se tudo estiver OK (válido, e salvo se necessário), avance o stepper
-    // E CHAME A ORQUESTRAÇÃO DE PAGAMENTO
-    
-    // Se este é o último passo, chame a função principal:
-    // this.realizarCheckout(); 
-    
-    // Se houver um passo de "Confirmação" ou "Pagamento" depois deste:
-     this.stepper.next();
   }
 
   calcularTotal() {
@@ -288,7 +275,50 @@ export class CheckoutComponent implements OnInit {
     this.produtos.forEach(produto =>{
       this.valorTotal += produto.Preco * produto.Quantidade!;
     });
+
+    if(this.valorTotal == 0) {
+      this.router.navigate(['/home']);
+      this.snackBar.open('Seu carrinho está vazio. Adicione produtos para continuar. Redirecionando.', 'Fechar', { duration: 3000 });
+    }
   }
+
+  salvarDadosEditados(): void {
+    if (this.formRevisao.valid && this.formRevisao.dirty) {
+      const novosDados = this.formRevisao.value;
+
+      //Atualiza o objeto local (para o payload final)
+      this.usuario.email = novosDados.email;
+      this.usuario.telefone = novosDados.telefone;
+
+      //Chama o serviço para salvar a mudança no BD?
+      //Se não salvar no BD aqui, os dados novos SÓ ESTARÃO no payload do pedido.
+      
+      //Reseta o estado do formulário para PRISTINE(intocado)
+      this.formRevisao.markAsPristine(); 
+      
+      this.snackBar.open('Dados atualizados e salvos com sucesso.', 'Fechar', { duration: 3000 });
+    }
+  }
+  
+
+  continuarParaPagamento(): void {
+    // Primeiro, verifica a validação do formulário de revisão
+    if (this.formRevisao.invalid) {
+      this.formRevisao.markAllAsTouched(); 
+      // Exibe as mensagens de erro
+      this.snackBar.open('Dados inválidos. Não é possível avançar.', 'Fechar', { duration: 3000 });
+      return;
+    }
+
+    // Se o formulário estiver dirty (editado) mas o usuário não salvou as alterações, é salvo automaticamente aqui
+    if (this.formRevisao.dirty) {
+        this.salvarDadosEditados();
+    }
+    
+    // Se tudo estiver OK (válido, e salvo), avance o stepper para o pagamento
+     this.stepper.next();
+  }
+
   //===========================//
   //   FIM do TS de Revisão    //
   //===========================//
@@ -306,7 +336,8 @@ export class CheckoutComponent implements OnInit {
 
     console.log('Método de pagamento selecionado: ', metodo);
 
-    //lógica condicional
+    //lógica condicional para digitar/realizar o pagamento??
+
     return this.metodoSelecionado;
   }
 
@@ -362,6 +393,8 @@ export class CheckoutComponent implements OnInit {
     const payload = this.montarPayload();
 
     console.log('Payload: ',  payload);
+
+    //montar função de iniciar pagamento via service
   }
 
   //===========================//

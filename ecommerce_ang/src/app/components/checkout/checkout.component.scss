@@ -359,8 +359,9 @@ mat-card {
     }
 
     .return { 
-        color: $primary-color;
-        border-color: $primary-color;
+        color: $text-light;
+        border: 2px solid $accent-color;
+        background-color: $neutral-color;
     }
 }
 
