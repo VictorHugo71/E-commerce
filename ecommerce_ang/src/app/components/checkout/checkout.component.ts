@@ -32,8 +32,9 @@ export class CheckoutComponent implements OnInit {
   
   produtos: AdminProdutos[] = [];
   itens: ItemCarrinhoMP[] = [];
-  public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
+  idPedidoInterno: number | undefined;
   valorTotal = 0;
+  public imagemBaseUrl = 'http://localhost/neziara-sgbd/admin/uploads/';
 
   usuario = {
     id: 0,
@@ -389,14 +390,31 @@ export class CheckoutComponent implements OnInit {
     return payloadFinal;
   }
 
+  chamarApiMercadoPago(): void {}
+
   iniciarPagamento():void {
-    const payload = this.montarPayload();
+    const payloadFinal = this.montarPayload();
 
-    console.log('Payload: ',  payload);
+    console.log('Payload final para o pagamento:', payloadFinal);
 
-    //montar função de iniciar pagamento via service
+    try {
+      this.checkoutService.iniciaCheckout(payloadFinal).subscribe({
+        next: (res: PayloadMP) => {
+          console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', res);
+          this.snackBar.open('Pagamento iniciado com sucesso. Redirecionando...', 'Fechar', { duration: 3000 });
+
+          this.idPedidoInterno = res.idPedidoInterno;
+          //Aqui você pode redirecionar para a página de pagamento ou processar a resposta conforme necessário
+        },
+        error: (error: any) => {
+          this.snackBar.open('Erro ao iniciar o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
+        }
+      });
+    } catch (error) {
+      this.snackBar.open(error instanceof Error ? error.message :'Erro ao montar os dados para o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
+      return;
+    }
   }
-
   //===========================//
   //  FIM do TS de Pagameento  //
   //===========================//

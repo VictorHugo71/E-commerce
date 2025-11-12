@@ -8,13 +8,13 @@ import { PayloadMP } from '../../../models/payloadMP/payload-mp';
   providedIn: 'root'
 })
 export class CheckoutService {
-  private apiUrl = 'http://localhost/neziara-sgbd/carrinho/';
-  private apiStartCheckout = `${this.apiUrl}`;
+  private apiUrl = 'http://localhost/neziara-sgbd/checkout/';
+  private apiStartCheckout = `${this.apiUrl}salvarPedido.php`;
   constructor(
     private http: HttpClient
   ) { }
 
-  iniciaCheckout() {
-
+  iniciaCheckout(payload: PayloadMP): Observable<PayloadMP> {
+    return this.http.post<PayloadMP>(this.apiStartCheckout, payload);
   }
 }
