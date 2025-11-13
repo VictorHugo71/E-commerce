@@ -395,22 +395,28 @@ export class CheckoutComponent implements OnInit {
   iniciarPagamento():void {
     const payloadFinal = this.montarPayload();
 
-    console.log('Payload final para o pagamento:', payloadFinal);
-
     try {
       this.checkoutService.iniciaCheckout(payloadFinal).subscribe({
         next: (res: PayloadMP) => {
           console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', res);
           this.snackBar.open('Pagamento iniciado com sucesso. Redirecionando...', 'Fechar', { duration: 3000 });
 
+          //Salvar o ID do pedido interno retornado pelo backend
           this.idPedidoInterno = res.idPedidoInterno;
+
           //Aqui você pode redirecionar para a página de pagamento ou processar a resposta conforme necessário
+          this.stepper.next();
+
+          //Chamar a API do Mercado Pago para criar a preferência de pagament
+          //this.chamarApiMercadoPago();
         },
         error: (error: any) => {
+          console.error('Erro ao salvar o pedido no BD:', error);
           this.snackBar.open('Erro ao iniciar o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
         }
       });
     } catch (error) {
+      console.error(error);
       this.snackBar.open(error instanceof Error ? error.message :'Erro ao montar os dados para o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
       return;
     }
