@@ -396,23 +396,28 @@ export class CheckoutComponent implements OnInit {
     const payloadFinal = this.montarPayload();
 
     try {
-      this.checkoutService.iniciaCheckout(payloadFinal).subscribe({
-        next: (res: PayloadMP) => {
-          console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', res);
+      this.checkoutService.realizarCheckout(payloadFinal).subscribe({
+        next: (resMP: any) => {
+          // Exemplo: O PHP que fala com o MP deve retornar: { init_point: 'link_do_mp', idPedido: 123 }
+          const linkPagamento = resMP.init_point;
+
+          console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', resMP);
           this.snackBar.open('Pagamento iniciado com sucesso. Redirecionando...', 'Fechar', { duration: 3000 });
 
-          //Salvar o ID do pedido interno retornado pelo backend
-          this.idPedidoInterno = res.idPedidoInterno;
+          if(linkPagamento) {
+            this.snackBar.open('Pedido salvo e link de pagamento gerado. Redirecionando...', 'Fechar', { duration: 4000 });
 
-          //Aqui você pode redirecionar para a página de pagamento ou processar a resposta conforme necessário
-          this.stepper.next();
-
-          //Chamar a API do Mercado Pago para criar a preferência de pagament
-          //this.chamarApiMercadoPago();
+            window.location.href = linkPagamento;
+          } else {
+            // Se o MP não retornar o link, mas o PHP deu 200 OK
+            throw new Error('Link de pagamento não recebido. Verifique o PHP.');
+          }
         },
         error: (error: any) => {
-          console.error('Erro ao salvar o pedido no BD:', error);
-          this.snackBar.open('Erro ao iniciar o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
+          console.error('Falha na Orquestração do Checkout/MP:', error);
+                // Exiba a mensagem de erro do servidor, se houver
+                const msg = error.error?.mensagem || 'Erro ao processar o pagamento. Tente novamente.';
+                this.snackBar.open(msg, 'Fechar', { duration: 5000 });
         }
       });
     } catch (error) {

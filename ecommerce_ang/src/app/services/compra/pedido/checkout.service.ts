@@ -11,7 +11,7 @@ import { PayloadMP } from '../../../models/payloadMP/payload-mp';
 export class CheckoutService {
   private apiUrl = 'http://localhost/neziara-sgbd/checkout/';
   private apiStartCheckout = `${this.apiUrl}salvarPedido.php`;
-  private apiCreatePreference = `${this.apiUrl}`;
+  private apiCreatePreference = `${this.apiUrl}criarPreferenciaMP.php`;
   private apiPerformCheckout = `${this.apiUrl}`;
 
   constructor(
@@ -22,7 +22,7 @@ export class CheckoutService {
     return this.http.post<PayloadMP>(this.apiStartCheckout, payload);
   }
 
-  criarPreferenciaMP(idPedido: number): Observable<any> {
+  chamarApiMercadoPago(idPedido: number): Observable<any> {
     return this.http.post<any>(this.apiCreatePreference, { idPedido: idPedido });
   }
 
@@ -38,7 +38,7 @@ export class CheckoutService {
           }
           
           // Troca o observable: Agora chama o PHP que fala com o Mercado Pago
-          return this.criarPreferenciaMP(idPedidoSalvo);
+          return this.chamarApiMercadoPago(idPedidoSalvo);
       })
       // O resultado final (init_point, link, etc.) é retornado ao componente que chamou
   );
