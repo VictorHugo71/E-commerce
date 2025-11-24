@@ -42,6 +42,7 @@ import { GerenciarProdutosComponent } from './components/admin/gerenciar-produto
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { CategoriaDialogComponent } from './components/admin/categoria-dialog/categoria-dialog.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { StatusCheckoutComponent } from './components/status-checkout/status-checkout.component';
 
 export function tokenGetter() {
   if (isPlatformBrowser(PLATFORM_ID)) {
@@ -72,6 +73,7 @@ export function tokenGetter() {
     DashboardComponent,
     CategoriaDialogComponent,
     CheckoutComponent,
+    StatusCheckoutComponent,
   ],
   imports: [
     BrowserModule,

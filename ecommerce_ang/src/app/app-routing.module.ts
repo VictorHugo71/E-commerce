@@ -27,6 +27,8 @@ import { GerenciarProdutosComponent } from './components/admin/gerenciar-produto
 import { CadastrarProdutosComponent } from './components/admin/cadastrar-produtos/cadastrar-produtos.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 
+//Rota de Checkout e Status MP
+import { StatusCheckoutComponent } from './components/status-checkout/status-checkout.component';
 
 const routes: Routes = [
   // Redireciona a rota base para a página inicial
@@ -41,14 +43,18 @@ const routes: Routes = [
     { path: 'admin/signup', component: AdminSignupComponent, canActivate:[adminGuard] },
   ]},
 
-  //Rotas Protegidas de Cliente
+  //Rotas Protegidas de Cliente e checkout
   {path: 'perfil', component: PerfilComponent, canActivate: [authGuard]},
   {path: 'listadesejo', component: ListaDesejoComponent, canActivate: [authGuard]},
   {path: 'finalizar', component: CarrinhoComponent, canActivate: [authGuard]},
   {path: 'checkout', component: CheckoutComponent, canActivate:[authGuard]},
+  {path: 'checkout/sucesso', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  {path: 'checkout/falha', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  {path: 'checkout/pendente', component: StatusCheckoutComponent, canActivate:[authGuard]},
   
   // Rotas de produto (públicas)
   {path: 'produto/:id', component: ProdutoComponent}, //tem que fazer esta parte ainda, depois que fizer o back
+  
   
   // Rotas de administrador, protegidas pelo adminGuard
   // Todas as rotas dentro deste bloco só poderão ser acessadas se o adminGuard permitir

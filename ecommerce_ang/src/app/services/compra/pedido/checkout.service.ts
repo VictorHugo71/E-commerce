@@ -10,7 +10,7 @@ import { PayloadMP } from '../../../models/payloadMP/payload-mp';
 })
 export class CheckoutService {
   private apiUrl = 'http://localhost/neziara-sgbd/checkout/';
-  private apiStartCheckout = `${this.apiUrl}salvarPedido.php`;
+  private apiSavePedido = `${this.apiUrl}salvarPedido.php`;
   private apiCreatePreference = `${this.apiUrl}criarPreferenciaMP.php`;
   private apiPerformCheckout = `${this.apiUrl}`;
 
@@ -18,8 +18,8 @@ export class CheckoutService {
     private http: HttpClient
   ) { }
 
-  iniciaCheckout(payload: PayloadMP): Observable<PayloadMP> {
-    return this.http.post<PayloadMP>(this.apiStartCheckout, payload);
+  salvarPedido(payload: PayloadMP): Observable<PayloadMP> {
+    return this.http.post<PayloadMP>(this.apiSavePedido, payload);
   }
 
   chamarApiMercadoPago(idPedido: number): Observable<any> {
@@ -28,7 +28,7 @@ export class CheckoutService {
 
   realizarCheckout(payload: PayloadMP): Observable<PayloadMP> {
     // Chama o salvarPedido.php
-    return this.iniciaCheckout(payload).pipe(
+    return this.salvarPedido(payload).pipe(
       switchMap(response => {
           const idPedidoSalvo = response.idPedidoInterno; // Pega o ID da primeira resposta
           

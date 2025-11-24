@@ -1,0 +1,72 @@
+.status-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; // Garante que fique centralizado na tela
+    padding: 20px;
+}
+
+.status-card {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    .header {
+        padding: 30px 20px;
+        color: white;
+        
+        // Cores Condicionais (Importante)
+        &.approved {
+            background-color: #4CAF50; /* Verde */
+        }
+        &.pending {
+            background-color: #FFC107; /* Amarelo/Laranja */
+        }
+        &.rejected, &.cancelled {
+            background-color: #F44336; /* Vermelho */
+        }
+
+        mat-icon {
+            font-size: 72px;
+            height: 72px;
+            width: 72px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 500;
+        }
+    }
+
+    .mensagem {
+        font-size: 1.2em;
+        margin: 20px 0;
+        font-weight: 400;
+    }
+
+    .info-pedido {
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 15px;
+        p {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #757575;
+        }
+        .pedido-id {
+            font-weight: bold;
+            font-size: 1.1em;
+            display: block;
+        }
+    }
+
+    mat-card-actions {
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+}
