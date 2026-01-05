@@ -1,0 +1,28 @@
+<mat-dialog-content>
+    <form>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Numero do Cartão</mat-label>
+        <input matInput  name="numeroCartao" required> <!--[(ngModel)]="" arruma isto depois-->
+      </mat-form-field> 
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>CVV</mat-label>
+        <input matInput  name="cvv" required=""> <!--[(ngModel)]="" arruma isto depois-->
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Data de Validade</mat-label>
+        <input matInput  name="dataValidade" required> <!--[(ngModel)]="" arruma isto depois-->
+      </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Nome no Cartão</mat-label>
+            <input matInput  name="nomeNoCartao" required> <!--[(ngModel)]="" arruma isto depois-->
+        </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+  </mat-dialog-actions>

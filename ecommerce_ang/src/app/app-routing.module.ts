@@ -53,7 +53,7 @@ const routes: Routes = [
   {path: 'checkout/pendente', component: StatusCheckoutComponent, canActivate:[authGuard]},
   
   // Rotas de produto (públicas)
-  {path: 'produto/:id', component: ProdutoComponent}, //tem que fazer esta parte ainda, depois que fizer o back
+  {path: 'produto/:id', component: ProdutoComponent}, 
   
   
   // Rotas de administrador, protegidas pelo adminGuard

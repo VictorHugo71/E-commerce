@@ -12,7 +12,7 @@ export class CheckoutService {
   private apiUrl = 'http://localhost/neziara-sgbd/checkout/';
   private apiSavePedido = `${this.apiUrl}salvarPedido.php`;
   private apiCreatePreference = `${this.apiUrl}criarPreferenciaMP.php`;
-  private apiPerformCheckout = `${this.apiUrl}`;
+  private apiTestCheckout = `${this.apiUrl}simularPagamento.php`;
 
   constructor(
     private http: HttpClient
@@ -24,6 +24,14 @@ export class CheckoutService {
 
   chamarApiMercadoPago(idPedido: number): Observable<any> {
     return this.http.post<any>(this.apiCreatePreference, { idPedido: idPedido });
+  }
+
+  chamarApiTesteCheckout(idPedido: number, cartao: string): Observable<any> {
+    const dadosCheckoutTeste = {
+      idPedido: idPedido,
+      numero_cartao: cartao
+    }
+    return this.http.post<any>(this.apiTestCheckout, dadosCheckoutTeste);
   }
 
   realizarCheckout(payload: PayloadMP): Observable<PayloadMP> {
@@ -41,6 +49,23 @@ export class CheckoutService {
           return this.chamarApiMercadoPago(idPedidoSalvo);
       })
       // O resultado final (init_point, link, etc.) é retornado ao componente que chamou
-  );
+    );
+  }
+          //Verifica o payload, se precisar cria um outro específico para teste
+  realizarCheckoutTeste(payload: PayloadMP, numeroCartao: string): Observable<PayloadMP> {
+    // Chama o salvarPedido.php
+    return this.salvarPedido(payload).pipe(
+      switchMap(response => {
+          const idPedidoSalvo = response.idPedidoInterno; // Pega o ID da primeira resposta
+          
+          if (!idPedidoSalvo) {
+              // Se o PHP não retornar o ID, lança um erro para parar a sequência
+              throw new Error('ID do pedido não retornado pelo servidor.');
+          }
+          
+          // Troca o observable: Agora chama o PHP de teste de checkout
+          return this.chamarApiTesteCheckout(idPedidoSalvo, numeroCartao);
+      })
+    );
   }
 }

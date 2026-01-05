@@ -43,6 +43,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { CategoriaDialogComponent } from './components/admin/categoria-dialog/categoria-dialog.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { StatusCheckoutComponent } from './components/status-checkout/status-checkout.component';
+import { CartaoDialogComponent } from './components/cartao-dialog/cartao-dialog.component';
 
 export function tokenGetter() {
   if (isPlatformBrowser(PLATFORM_ID)) {
@@ -74,6 +75,7 @@ export function tokenGetter() {
     CategoriaDialogComponent,
     CheckoutComponent,
     StatusCheckoutComponent,
+    CartaoDialogComponent,
   ],
   imports: [
     BrowserModule,

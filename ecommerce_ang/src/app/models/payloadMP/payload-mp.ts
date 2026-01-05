@@ -13,6 +13,7 @@ export interface PayloadMP {
 
     //dados de pagamento
     metodoPagamento: 'pix' | 'cartao_credito' | 'boleto' | null;
+    numeroCartao?: string; //opcional, só para cartão de crédito
     valorTotal: number;
 
     itens: ItemCarrinhoMP[],

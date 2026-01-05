@@ -21,6 +21,7 @@ import { PerfilService } from '../../services/cliente/perfil/perfil.service';
 import { CheckoutService } from '../../services/compra/pedido/checkout.service';
 import { CompraService } from '../../services/compra/compra.service';
 import { Produto } from '../../models/produto';
+import { CartaoDialogComponent } from '../cartao-dialog/cartao-dialog.component';
 
 @Component({
   selector: 'app-checkout',
@@ -390,9 +391,7 @@ export class CheckoutComponent implements OnInit {
     return payloadFinal;
   }
 
-  chamarApiMercadoPago(): void {}
-
-  iniciarPagamento():void {
+  /*iniciarPagamento():void {
     const payloadFinal = this.montarPayload();
 
     try {
@@ -418,6 +417,59 @@ export class CheckoutComponent implements OnInit {
                 // Exiba a mensagem de erro do servidor, se houver
                 const msg = error.error?.mensagem || 'Erro ao processar o pagamento. Tente novamente.';
                 this.snackBar.open(msg, 'Fechar', { duration: 5000 });
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      this.snackBar.open(error instanceof Error ? error.message :'Erro ao montar os dados para o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
+      return;
+    }
+  }*/
+
+  //=======================================//
+  //      ÁREA DO DIALOG DE CARTÃO         //
+  //=======================================//
+  enviarCartao(): void {
+    const cartaoBackend = undefined //altera depois para salvar o cartao certinho
+  }
+
+  abrirDialogCartao(): void {
+    const dialogRef = this.dialog.open(CartaoDialogComponent, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.enderecos.push(result);
+        this.usuario.endereco = [...this.enderecos];
+
+        this.enviarCartao();
+      } //corrija depois de arrumar o dialogComponent
+    });
+  }
+  //=======================================//
+  //   FIM ÁREA DO DIALOG DE CARTÃO      //
+  //=======================================//
+
+  iniciarPagamentoTeste():void {
+    const payloadFinal = this.montarPayload();
+    const numeroCartao = '4509953566233704'; //Faça com que seja o numero vindo do dialog
+
+    try {
+      this.checkoutService.realizarCheckoutTeste(payloadFinal, numeroCartao).subscribe({
+        next: (resTest: any) => {
+          const status = resTest
+
+          console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', resTest);
+          this.snackBar.open(resTest.mensagem || 'Pagamento iniciado com sucesso. Redirecionando...', 'Fechar', { duration: 3000 });
+
+          
+        },
+        error: (error: any) => {
+          console.error('Falha na Orquestração do Checkout/MP:', error);
+          // Exiba a mensagem de erro do servidor, se houver
+          const msg = error.error?.mensagem || 'Erro ao processar o pagamento. Tente novamente.';
+          this.snackBar.open(msg, 'Fechar', { duration: 5000 });
         }
       });
     } catch (error) {

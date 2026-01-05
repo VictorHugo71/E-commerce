@@ -102,7 +102,7 @@
                 
                 <mat-card class="metodo-card" 
                 [class.selecionado]="metodoSelecionado === 'cartao_credito'"
-                (click)="selecionarMetodo('cartao_credito')">
+                (click)="selecionarMetodo('cartao_credito')" (click)="abrirDialogCartao()">
 
                     <h4>Cartão de Crédito</h4>
                     <p>Pague em até 12x</p>
@@ -144,7 +144,7 @@
 
             <div class="stepper-actions">
                 <button mat-button matStepperPrevious class="return">Voltar</button>
-                <button mat-raised-button color="primary" (click)="iniciarPagamento()"
+                <button mat-raised-button color="primary" (click)="iniciarPagamentoTeste()"
                 matStepperNext [disabled]="formPagamento.invalid">
                     Finalizar Compra
                 </button>
