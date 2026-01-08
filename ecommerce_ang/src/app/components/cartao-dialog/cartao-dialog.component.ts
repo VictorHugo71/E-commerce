@@ -12,7 +12,11 @@ export class CartaoDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {} //corrige depois para funcionar
 
-  cartao: any;
+  cartao = {
+    numeroCartao: '',
+    cvv: '',
+    dataValidade: '',
+  };
 
   salvar(): void {
     this.dialogRef.close(this.cartao);

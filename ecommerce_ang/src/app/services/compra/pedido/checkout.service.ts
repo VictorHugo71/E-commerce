@@ -52,7 +52,7 @@ export class CheckoutService {
     );
   }
           //Verifica o payload, se precisar cria um outro específico para teste
-  realizarCheckoutTeste(payload: PayloadMP, numeroCartao: string): Observable<PayloadMP> {
+  realizarCheckoutTeste(payload: PayloadMP, cartao: any): Observable<PayloadMP> {
     // Chama o salvarPedido.php
     return this.salvarPedido(payload).pipe(
       switchMap(response => {
@@ -64,7 +64,7 @@ export class CheckoutService {
           }
           
           // Troca o observable: Agora chama o PHP de teste de checkout
-          return this.chamarApiTesteCheckout(idPedidoSalvo, numeroCartao);
+          return this.chamarApiTesteCheckout(idPedidoSalvo, cartao);
       })
     );
   }

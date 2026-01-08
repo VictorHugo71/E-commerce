@@ -22,6 +22,7 @@ import { CheckoutService } from '../../services/compra/pedido/checkout.service';
 import { CompraService } from '../../services/compra/compra.service';
 import { Produto } from '../../models/produto';
 import { CartaoDialogComponent } from '../cartao-dialog/cartao-dialog.component';
+import { app } from '../../../../server';
 
 @Component({
   selector: 'app-checkout',
@@ -46,6 +47,11 @@ export class CheckoutComponent implements OnInit {
   };
 
   enderecos: Endereco[] =[];
+  cartao = {
+    numeroCartao: '',
+    cvv: '',
+    dataValidade: '',
+  };
 
   mensagemSucesso = '';
   mensagemErro = '';
@@ -352,16 +358,16 @@ export class CheckoutComponent implements OnInit {
     }
     
     const enderecoMP = {
-        idEndereco: enderecoSelecionado.idEndereco,
-        idCliente: enderecoSelecionado.idCliente,
-        estado: enderecoSelecionado.estado,
-        cidade: enderecoSelecionado.cidade,
-        bairro: enderecoSelecionado.bairro,
-        logradouro: enderecoSelecionado.logradouro,
-        complemento: enderecoSelecionado.complemento,
-        numero: enderecoSelecionado.numero,
-        cep: enderecoSelecionado.cep,
-      }
+      idEndereco: enderecoSelecionado.idEndereco,
+      idCliente: enderecoSelecionado.idCliente,
+      estado: enderecoSelecionado.estado,
+      cidade: enderecoSelecionado.cidade,
+      bairro: enderecoSelecionado.bairro,
+      logradouro: enderecoSelecionado.logradouro,
+      complemento: enderecoSelecionado.complemento,
+      numero: enderecoSelecionado.numero,
+      cep: enderecoSelecionado.cep,
+    }
 
     const usuarioMP = {
       idCliente: this.usuario.id,
@@ -429,41 +435,68 @@ export class CheckoutComponent implements OnInit {
   //=======================================//
   //      ÁREA DO DIALOG DE CARTÃO         //
   //=======================================//
-  enviarCartao(): void {
-    const cartaoBackend = undefined //altera depois para salvar o cartao certinho
-  }
-
+  
   abrirDialogCartao(): void {
     const dialogRef = this.dialog.open(CartaoDialogComponent, {
       width: '450px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('O diálogo de cartão foi fechado. Resultado:', result);
       if (result) {
-        this.enderecos.push(result);
-        this.usuario.endereco = [...this.enderecos];
-
-        this.enviarCartao();
+        this.cartao.cvv = result.cvv;
+        this.cartao.numeroCartao = result.numeroCartao;
+        this.cartao.dataValidade = result.dataValidade;
+        this.iniciarPagamentoTeste();
       } //corrija depois de arrumar o dialogComponent
     });
   }
+  
+  enviarCartao(dadosCartao: any): any[] {
+    const cartaoBackend = [];
+    cartaoBackend.push(dadosCartao);
+    
+    return cartaoBackend;
+  }
   //=======================================//
-  //   FIM ÁREA DO DIALOG DE CARTÃO      //
+  //   FIM ÁREA DO DIALOG DE CARTÃO        //
   //=======================================//
+
+  limparDadosCartao(): void {
+    this.cartao = {
+      numeroCartao: '',
+      cvv: '',
+      dataValidade: '',
+    };
+  }
 
   iniciarPagamentoTeste():void {
     const payloadFinal = this.montarPayload();
-    const numeroCartao = '4509953566233704'; //Faça com que seja o numero vindo do dialog
+    const cartaoProcessado = this.enviarCartao(this.cartao); //Faça com que seja o numero vindo do dialog
+    const dadosCartao = cartaoProcessado[0];
+    const numeroCartaoService = dadosCartao.numeroCartao;
+    const cvvService = dadosCartao.cvv;
+    const dataService = dadosCartao.dataValidade;
+
+    const cartaoBackend = {
+      numeroCartao: numeroCartaoService,
+      cvv: cvvService,
+      dataValidade: dataService,
+    };
 
     try {
-      this.checkoutService.realizarCheckoutTeste(payloadFinal, numeroCartao).subscribe({
+      this.checkoutService.realizarCheckoutTeste(payloadFinal, cartaoBackend).subscribe({
         next: (resTest: any) => {
-          const status = resTest
-
-          console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', resTest);
-          this.snackBar.open(resTest.mensagem || 'Pagamento iniciado com sucesso. Redirecionando...', 'Fechar', { duration: 3000 });
-
-          
+          const status = resTest.statusPagamento;
+          const idPedido = resTest.idPedidoInterno;
+          if(status) {
+            console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', resTest);
+            this.snackBar.open(resTest.mensagem || 'Pagamento finalizado com sucesso. Redirecionando...', 'Fechar', { duration: 3000 });
+            setTimeout(() => {
+              this.router.navigate([`checkout/${status}`, idPedido]); 
+            }, 2000);
+          }
+          this.limparDadosCartao();
         },
         error: (error: any) => {
           console.error('Falha na Orquestração do Checkout/MP:', error);
@@ -472,13 +505,16 @@ export class CheckoutComponent implements OnInit {
           this.snackBar.open(msg, 'Fechar', { duration: 5000 });
         }
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       this.snackBar.open(error instanceof Error ? error.message :'Erro ao montar os dados para o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
-      return;
+      
     }
+      this.limparDadosCartao();
+      return;
   }
   //===========================//
   //  FIM do TS de Pagameento  //
   //===========================//
 }
+    

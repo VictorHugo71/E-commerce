@@ -57,7 +57,7 @@ export class EnderecoDialogComponent {
           cep: '',
           principal: false
         };
-  }
+    }
 
   salvar(): void {
     this.dialogRef.close(this.endereco);

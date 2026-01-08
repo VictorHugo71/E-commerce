@@ -48,9 +48,9 @@ const routes: Routes = [
   {path: 'listadesejo', component: ListaDesejoComponent, canActivate: [authGuard]},
   {path: 'finalizar', component: CarrinhoComponent, canActivate: [authGuard]},
   {path: 'checkout', component: CheckoutComponent, canActivate:[authGuard]},
-  {path: 'checkout/sucesso', component: StatusCheckoutComponent, canActivate:[authGuard]},
-  {path: 'checkout/falha', component: StatusCheckoutComponent, canActivate:[authGuard]},
-  {path: 'checkout/pendente', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  {path: 'checkout/sucesso/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  {path: 'checkout/falha/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  {path: 'checkout/pendente/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
   
   // Rotas de produto (públicas)
   {path: 'produto/:id', component: ProdutoComponent}, 
