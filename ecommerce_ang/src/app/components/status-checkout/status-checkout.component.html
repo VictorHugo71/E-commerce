@@ -1,22 +1,22 @@
 <div class="status-container">
     <mat-card class="status-card">
-      <div class="header" [ngClass]="statusPagamento">
-        <mat-icon *ngIf="statusPagamento === 'approved'">check_circle</mat-icon>
-        <mat-icon *ngIf="statusPagamento === 'pending'">access_time</mat-icon>
-        <mat-icon *ngIf="statusPagamento === 'rejected' || statusPagamento === 'cancelled'">cancel</mat-icon>
+      <div class="header" [ngClass]="status">
+        <mat-icon *ngIf="status === 'aprovado'">check_circle</mat-icon>
+        <mat-icon *ngIf="status === 'pending'">access_time</mat-icon>
+        <mat-icon *ngIf="status === 'rejected' || status === 'cancelled'">cancel</mat-icon>
         
-        <h1>{{ statusPagamento | uppercase }}</h1>
+        <h1>{{ status | uppercase }}</h1>
       </div>
   
       <mat-card-content>
-        <p class="mensagem">{{ mensagemUsuario }}</p>
+        <p class="mensagem"></p>
         
-        <div *ngIf="idPedido" class="info-pedido">
+        <div *ngIf="id" class="info-pedido">
           <p>Referência do Pedido:</p>
-          <span class="pedido-id">{{ idPedido }}</span>
+          <span class="pedido-id">{{ id }}</span>
         </div>
         
-        <p *ngIf="statusPagamento === 'pending'">Você receberá um email assim que o pagamento for confirmado.</p>
+        <p *ngIf="status === 'pending'">Você receberá um email assim que o pagamento for confirmado.</p>
       </mat-card-content>
   
       <mat-card-actions>

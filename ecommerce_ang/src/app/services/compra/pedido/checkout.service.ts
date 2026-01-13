@@ -26,15 +26,20 @@ export class CheckoutService {
     return this.http.post<any>(this.apiCreatePreference, { idPedido: idPedido });
   }
 
-  chamarApiTesteCheckout(idPedido: number, cartao: string): Observable<any> {
+  chamarApiTesteCheckout(idPedido: number, cartao: any, email: string): Observable<any> {
     const dadosCheckoutTeste = {
       idPedido: idPedido,
-      numero_cartao: cartao
+      cartao: { 
+        numeroCartao: cartao.numeroCartao,
+        cvv: cartao.cvv,
+        dataValidade: cartao.dataValidade
+      },
+      email: email
     }
     return this.http.post<any>(this.apiTestCheckout, dadosCheckoutTeste);
   }
 
-  realizarCheckout(payload: PayloadMP): Observable<PayloadMP> {
+  realizarCheckout(payload: PayloadMP): Observable<PayloadMP> { 
     // Chama o salvarPedido.php
     return this.salvarPedido(payload).pipe(
       switchMap(response => {
@@ -64,7 +69,7 @@ export class CheckoutService {
           }
           
           // Troca o observable: Agora chama o PHP de teste de checkout
-          return this.chamarApiTesteCheckout(idPedidoSalvo, cartao);
+          return this.chamarApiTesteCheckout(idPedidoSalvo, cartao, payload.emailCliente);
       })
     );
   }

@@ -119,8 +119,6 @@ export class CheckoutComponent implements OnInit {
         console.error('Erro ao carregar perfil:', err)
       }
     });
-    
-
   }
 
   //==================//
@@ -442,7 +440,6 @@ export class CheckoutComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('O diálogo de cartão foi fechado. Resultado:', result);
       if (result) {
         this.cartao.cvv = result.cvv;
         this.cartao.numeroCartao = result.numeroCartao;
@@ -474,47 +471,55 @@ export class CheckoutComponent implements OnInit {
     const payloadFinal = this.montarPayload();
     const cartaoProcessado = this.enviarCartao(this.cartao); //Faça com que seja o numero vindo do dialog
     const dadosCartao = cartaoProcessado[0];
-    const numeroCartaoService = dadosCartao.numeroCartao;
-    const cvvService = dadosCartao.cvv;
-    const dataService = dadosCartao.dataValidade;
 
     const cartaoBackend = {
-      numeroCartao: numeroCartaoService,
-      cvv: cvvService,
-      dataValidade: dataService,
+      numeroCartao: dadosCartao.numeroCartao,
+      cvv: dadosCartao.cvv,
+      dataValidade: dadosCartao.dataValidade,
     };
 
     try {
       this.checkoutService.realizarCheckoutTeste(payloadFinal, cartaoBackend).subscribe({
         next: (resTest: any) => {
-          const status = resTest.statusPagamento;
-          const idPedido = resTest.idPedidoInterno;
+          const status = resTest.status;
+          const idPedido = resTest.idPedido;
+          console.log('status: ', status, 'id do pedido: ', idPedido);
+          
           if(status) {
-            console.log('Pediddo salvo no BD com sucesso. Resposta do servidor:', resTest);
-            this.snackBar.open(resTest.mensagem || 'Pagamento finalizado com sucesso. Redirecionando...', 'Fechar', { duration: 3000 });
+            this.snackBar.open(resTest.mensagem || 'Processando....', 'Fechar', { duration: 3000 });
+            
             setTimeout(() => {
-              this.router.navigate([`checkout/${status}`, idPedido]); 
+              this.router.navigate([`checkout/`, status, idPedido]); 
             }, 2000);
           }
+
           this.limparDadosCartao();
+          cartaoBackend.numeroCartao = '';
+          cartaoBackend.cvv = '';
+          cartaoBackend.dataValidade = '';
+          cartaoProcessado.length = 0;
+          console.log('numero cartao', cartaoBackend.numeroCartao, 'cvv', cartaoBackend.cvv, 'data validade', cartaoBackend.dataValidade, 'dados do cartão: ', dadosCartao[0], 'dados primordiais: ', cartaoProcessado);
         },
         error: (error: any) => {
-          console.error('Falha na Orquestração do Checkout/MP:', error);
           // Exiba a mensagem de erro do servidor, se houver
-          const msg = error.error?.mensagem || 'Erro ao processar o pagamento. Tente novamente.';
+          const msg = error.error?.mensagem || 'Erro ao processar o pagamento.';
           this.snackBar.open(msg, 'Fechar', { duration: 5000 });
+
+          this.limparDadosCartao();
+          cartaoBackend.numeroCartao = '';
+          cartaoBackend.cvv = '';
+          cartaoBackend.dataValidade = '';
+          cartaoProcessado.length = 0;
+          console.log('numero cartao', cartaoBackend.numeroCartao, 'cvv', cartaoBackend.cvv, 'data validade', cartaoBackend.dataValidade, 'dados do cartão: ', dadosCartao[0], 'dados primordiais: ', cartaoProcessado);
         }
       });
     } catch (error: any) {
       console.error(error);
       this.snackBar.open(error instanceof Error ? error.message :'Erro ao montar os dados para o pagamento. Tente novamente.', 'Fechar', { duration: 3000 });
-      
     }
-      this.limparDadosCartao();
       return;
   }
   //===========================//
   //  FIM do TS de Pagameento  //
   //===========================//
 }
-    

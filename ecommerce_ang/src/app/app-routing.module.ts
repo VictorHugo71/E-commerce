@@ -48,9 +48,10 @@ const routes: Routes = [
   {path: 'listadesejo', component: ListaDesejoComponent, canActivate: [authGuard]},
   {path: 'finalizar', component: CarrinhoComponent, canActivate: [authGuard]},
   {path: 'checkout', component: CheckoutComponent, canActivate:[authGuard]},
-  {path: 'checkout/sucesso/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
-  {path: 'checkout/falha/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
-  {path: 'checkout/pendente/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  {path: 'checkout/:status/:id', component: StatusCheckoutComponent },//canActivate:[authGuard]
+  //{path: 'checkout/cancelado/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  //{path: 'checkout/pendente/:id', component: StatusCheckoutComponent, canActivate:[authGuard]},
+  //Se precisar ativa as rotas acima
   
   // Rotas de produto (públicas)
   {path: 'produto/:id', component: ProdutoComponent}, 
@@ -76,7 +77,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {bindToComponentInputs: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
