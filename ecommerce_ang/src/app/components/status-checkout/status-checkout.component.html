@@ -1,27 +1,30 @@
-<div class="status-container">
+<main class="status-container">
     <mat-card class="status-card">
-      <div class="header" [ngClass]="status">
+      <header [ngClass]="status">
         <mat-icon *ngIf="status === 'aprovado'">check_circle</mat-icon>
-        <mat-icon *ngIf="status === 'pending'">access_time</mat-icon>
-        <mat-icon *ngIf="status === 'rejected' || status === 'cancelled'">cancel</mat-icon>
+        <mat-icon *ngIf="status === 'pendente'">access_time</mat-icon>
+        <mat-icon *ngIf="status === 'cancelado'">cancel</mat-icon>
         
         <h1>{{ status | uppercase }}</h1>
-      </div>
+      </header>
   
       <mat-card-content>
-        <p class="mensagem"></p>
         
         <div *ngIf="id" class="info-pedido">
-          <p>Referência do Pedido:</p>
+          <p>ID do Pedido:</p>
           <span class="pedido-id">{{ id }}</span>
         </div>
         
-        <p *ngIf="status === 'pending'">Você receberá um email assim que o pagamento for confirmado.</p>
+        <p class="mensagem" *ngIf="status === 'aprovado'">Parabéns, sua compra foi aprovada. Enviaremos um e-mail de confirmação para você.</p>
+
+        <p class="mensagem" *ngIf="status === 'cancelado'">Sua compra foi recusada ou cancelada. Consulte seu limite de crédito/cartão ou entre em contato com sua instituição financeira.</p>
+
+        <p class="mensagem" *ngIf="status === 'pendente'">Você receberá um email assim que o pagamento for confirmado.</p>
       </mat-card-content>
   
       <mat-card-actions>
-        <button mat-raised-button color="primary" routerLink="/pedidos">Ver Meus Pedidos</button>
+        <button mat-raised-button color="primary" routerLink="/Pedidos">Ver Meus Pedidos</button>
         <button mat-button routerLink="/">Voltar para a Loja</button>
       </mat-card-actions>
     </mat-card>
-  </div>
+  </main>

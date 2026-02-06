@@ -8,7 +8,7 @@ export class AdminAuthService { //Método para saber se o admin está logado e a
   private readonly TOKEN_KEY = 'admin_auth_token';
 
   constructor(
-    private router: Router
+    private router: Router                    
   ) { }
 
   setToken(token: string): void {

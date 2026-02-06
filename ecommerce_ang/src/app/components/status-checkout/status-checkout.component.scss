@@ -11,20 +11,22 @@
     width: 100%;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 
-    .header {
+    header {
         padding: 30px 20px;
         color: white;
+        border-radius: 5px;
         
         // Cores Condicionais (Importante)
-        &.approved {
-            background-color: #4CAF50; /* Verde */
+        &.aprovado {
+            background-color: #369e39; /* Verde */
         }
-        &.pending {
-            background-color: #FFC107; /* Amarelo/Laranja */
+        &.pendente {
+            background-color: #d49f00; /* Amarelo/Laranja */
         }
-        &.rejected, &.cancelled {
-            background-color: #F44336; /* Vermelho */
+        &.cancelado {
+            background-color: #c7261a; /* Vermelho */
         }
 
         mat-icon {
