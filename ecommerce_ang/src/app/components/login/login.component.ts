@@ -34,9 +34,10 @@ export class LoginComponent implements OnInit {
     const dados = {
       email: this.usuario.email,
       senha: this.usuario.senha,
-    }
+    } 
 
     try {
+      console.log('email: ', this.usuario.email, 'senha: ', this.usuario.senha);
       const res: any = await firstValueFrom(this.loginService.login(dados));
 
       this.mensagemSucesso = res.mensagem;
@@ -48,11 +49,8 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home']);
 
     } catch(err: any) {
-      if(err.status === 401) {
-        this.mensagemErro = 'E-mail ou senha incorretos';
-      } else {
         this.mensagemErro = err.error?.mensagem || 'Erro ao realizar login. Tente novamente';
-      }
+        console.log(this.mensagemErro);
     }
   }
 }

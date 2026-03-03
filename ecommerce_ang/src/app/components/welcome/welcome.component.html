@@ -43,35 +43,35 @@
 </nav>
   
   
-  <!-- MAIN -->
-  <main class="content-layout">
-  
-    <!-- ASIDE -->
-    <aside class="aside-menu">
-      <h3>Filtros ou Menus Interativos</h3>
-      <p>Ex: por categoria, faixa de preço, avaliação...</p>
-    </aside>
-  
-    <!-- CATEGORIAS OU PRODUTOS -->
-    <section class="product-display">
-      <h2>Categorias em destaque</h2>
-      <!-- Aqui você pode exibir categorias ou produtos -->
-      <div class="grid">
-        <div class="product-card" *ngFor="let produto of produtos">
-          <img [src]="imagemBaseUrl + produto.Imagem_Url" alt="produto.Nome_Produto" />
-          <h3>{{ produto.Nome_Produto }}</h3>
-          <h3 class="preco">{{ produto.Preco | currency:'BRL':'symbol':'1.2-2' }}</h3>
-          <button mat-raised-button color="accent" [routerLink]="['/produto', produto.Id_Produto]">
-            Ver mais
-          </button>          
-        </div>
+<!-- MAIN -->
+<main class="content-layout">
+
+  <!-- ASIDE -->
+  <aside class="aside-menu">
+    <h3>Filtros ou Menus Interativos</h3>
+    <p>Ex: por categoria, faixa de preço, avaliação...</p>
+  </aside>
+
+  <!-- CATEGORIAS OU PRODUTOS -->
+  <section class="product-display">
+    <h2>Categorias em destaque</h2>
+    <!-- Aqui você pode exibir categorias ou produtos -->
+    <div class="grid">
+      <div class="product-card" *ngFor="let produto of produtos">
+        <img [src]="imagemBaseUrl + produto.Imagem_Url" alt="produto.Nome_Produto" />
+        <h3>{{ produto.Nome_Produto }}</h3>
+        <h3 class="preco">{{ produto.Preco | currency:'BRL':'symbol':'1.2-2' }}</h3>
+        <button mat-raised-button color="accent" [routerLink]="['/produto', produto.Id_Produto]">
+          Ver mais
+        </button>          
       </div>
-    </section>
-  
-  </main>
-  
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>&copy; 2025 Neziara. Todos os direitos reservados.</p>
-  </footer>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2025 Neziara. Todos os direitos reservados.</p>
+</footer>
   

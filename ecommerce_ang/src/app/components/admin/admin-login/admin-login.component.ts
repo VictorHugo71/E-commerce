@@ -40,18 +40,16 @@ export class AdminLoginComponent implements OnInit{
     try {
       const res: any = await firstValueFrom(this.loginAdminService.login(dados));
 
+
       this.allAuthService.setToken(res.token); 
 
       this.mensagemSucesso = res.mensagem;
 
+
       this.router.navigate(['/admin/dashboard']);
 
     } catch(err: any) {
-      if(err.status === 401) {
-        this.mensagemErro = 'E-mail ou senha incorretos';
-      } else {
         this.mensagemErro = err.error?.mensagem || 'Erro ao realizar login. Tente novamente';
       }
-    }
   }
 }

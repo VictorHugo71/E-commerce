@@ -15,7 +15,7 @@ export class AllAuthService {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
-  getToken(): string | null {
+  getToken(): string | null { 
     const token = localStorage.getItem(this.TOKEN_KEY);
     return token;
   }
@@ -64,7 +64,7 @@ export class AllAuthService {
     try {
       const decodedToken = this.jwtHelper.decodeToken(token);
       
-      // CORREÇÃO: Acessar a propriedade 'papel' dentro do objeto 'data'
+      //Acessar  a propriedade 'papel' dentro do objeto 'data'
       const role = decodedToken.data.papel;
       
       if (role) {
