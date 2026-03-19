@@ -3,7 +3,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -44,6 +44,7 @@ import { CategoriaDialogComponent } from './components/admin/categoria-dialog/ca
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { StatusCheckoutComponent } from './components/status-checkout/status-checkout.component';
 import { CartaoDialogComponent } from './components/cartao-dialog/cartao-dialog.component';
+import { InterceptorInterceptor } from './services/auth/interceptor/interceptor.interceptor';
 
 export function tokenGetter() {
   if (isPlatformBrowser(PLATFORM_ID)) {
@@ -112,7 +113,8 @@ export function tokenGetter() {
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

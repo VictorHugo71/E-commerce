@@ -40,7 +40,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [publicGuard] },
     { path: 'signup', component: SignupComponent, canActivate: [publicGuard] },
     { path: 'admin/login', component: AdminLoginComponent, canActivate: [publicGuard] },
-    { path: 'admin/signup', component: AdminSignupComponent, canActivate:[adminGuard] },
+    { path: 'admin/signup', component: AdminSignupComponent, canActivate: [adminGuard] },
   ]},
 
   //Rotas Protegidas de Cliente e checkout
