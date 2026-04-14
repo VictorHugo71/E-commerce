@@ -44,10 +44,11 @@ export class AdminSignupComponent {
       const res: any = await firstValueFrom(this.signupAdminService.cadastrarAdmin(dados));
       this.mensagemSucesso = res.mensagem || 'Cadastro realizado com sucesso!';
     } catch (err: any) {
+      console.log(err);
       if (err.status === 409) {
-        this.mensagemErro = 'Este e-mail já está cadastrado.';
+        this.mensagemErro = err.error?.mensagem || 'Este e-mail já está cadastrado.';
       } else {
-        this.mensagemErro = 'Erro ao cadastrar. Tente novamente.';
+        this.mensagemErro = err.error?.mensagem || 'Erro ao cadastrar. Tente novamente.';
       }
     }
   }
